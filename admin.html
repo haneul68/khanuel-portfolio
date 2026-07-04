@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KHANEUL Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="admin-body">
+  <main class="admin-layout">
+    <aside class="admin-side">
+      <a class="brand admin-brand" href="index.html">
+        <span class="brand-mark">GP</span>
+        <span><b>KHANEUL</b><small>ADMIN</small></span>
+      </a>
+      <button class="side-btn active" data-tab="dashboard">대시보드</button>
+      <button class="side-btn" data-tab="profile">프로필</button>
+      <button class="side-btn" data-tab="projects">프로젝트</button>
+      <button class="side-btn" data-tab="skills">기술 스택</button>
+      <button class="side-btn" data-tab="design">디자인</button>
+      <button class="side-btn" data-tab="contact">연락처</button>
+      <button class="side-btn" id="logoutBtn">로그아웃</button>
+      <div class="admin-character" id="adminMiniChar"></div>
+      <span class="online-dot">접속 중</span>
+    </aside>
+
+    <section class="admin-main">
+      <div class="admin-login" id="loginBox">
+        <div class="login-card">
+          <span class="login-mark">ADMIN</span>
+          <h1>관리자 로그인</h1>
+          <p>포트폴리오 내용을 수정하려면 관리자 비밀번호가 필요합니다.</p>
+          <label>비밀번호
+            <input id="adminPassword" type="password" placeholder="비밀번호 입력" autocomplete="current-password">
+          </label>
+          <button class="btn primary" id="loginBtn" type="button">로그인</button>
+          <small>관리자만 편집 화면에 접근할 수 있습니다.</small>
+        </div>
+      </div>
+
+      <div class="admin-panel hidden" id="adminPanel">
+        <header class="admin-head">
+          <div>
+            <h1 id="adminTitle">대시보드</h1>
+            <p id="adminSubtitle">포트폴리오를 관리하고 수정합니다.</p>
+          </div>
+          <div class="admin-actions">
+            <a class="btn subtle" href="index.html" target="_blank" rel="noreferrer">사이트 보기</a>
+            <button class="btn primary" id="saveAll" type="button">저장하기</button>
+          </div>
+        </header>
+
+        <section class="tab active" id="tab-dashboard">
+          <div class="welcome-card">
+            <h2>안녕하세요, 김하늘님!</h2>
+            <p>프로젝트, 이미지, 영상, 소개 문구와 사이트 디자인을 이곳에서 한 번에 관리할 수 있습니다.</p>
+          </div>
+          <div class="dash-cards">
+            <div><b id="dashProject">0</b><span>프로젝트</span></div>
+            <div><b id="dashSkill">0</b><span>기술 스택</span></div>
+            <div><b id="dashMedia">0</b><span>미디어 섹션</span></div>
+            <div><b id="dashTheme">Purple</b><span>현재 테마</span></div>
+          </div>
+          <div class="admin-block">
+            <div class="block-head">
+              <h3>최근 프로젝트</h3>
+              <button class="btn small" data-open-tab="projects" type="button">프로젝트 추가</button>
+            </div>
+            <div id="recentProjects" class="recent-list"></div>
+          </div>
+        </section>
+
+        <section class="tab" id="tab-profile">
+          <div class="editor-card">
+            <div class="editor-title">
+              <h2>메인 화면 텍스트</h2>
+              <p>첫 화면에 보이는 이름, 직무, 소개 문구를 수정합니다.</p>
+            </div>
+            <div class="form-grid">
+              <label>브랜드명<input id="fBrand"></label>
+              <label>인사말<input id="fHello"></label>
+              <label>이름<input id="fName"></label>
+              <label>직무<input id="fRole"></label>
+              <label>프로필 위치<input id="fProfileLocation" placeholder="Asia/Seoul"></label>
+              <label>언어 태그, 쉼표로 구분<input id="fProfileLanguages" placeholder="한국어, 영어"></label>
+              <label class="wide">프로필 사진 URL 또는 업로드 결과<input id="fProfileAvatar"></label>
+              <div class="wide" id="profileAvatarUpload"></div>
+              <label class="wide">소개 문구<textarea id="fDesc"></textarea></label>
+              <label class="wide">키워드 칩, 쉼표로 구분<input id="fChips"></label>
+            </div>
+          </div>
+
+          <div class="editor-card">
+            <div class="editor-title">
+              <h2>대표 오브젝트와 About</h2>
+              <p>캐릭터, 고양이, 발판을 합친 대표 이미지를 넣고 자기소개 영역을 수정합니다.</p>
+            </div>
+            <div class="form-grid">
+              <label class="wide">대표 오브젝트 이미지 URL 또는 업로드 결과<input id="fChar"></label>
+              <div class="wide" id="characterUpload"></div>
+              <label>About 제목<input id="fAboutTitle"></label>
+              <label class="wide">About 내용<textarea id="fAboutText"></textarea></label>
+              <label class="wide">상세 소개 제목<input id="fAboutDetailTitle"></label>
+              <label class="wide">상세 소개 내용<textarea id="fAboutDetailText"></textarea></label>
+              <label class="wide">플레이 철학, 줄마다 제목|설명 형식<textarea id="fPlayPhilosophy" placeholder="손맛|입력, 이동, 스킬이 누르는 순간 바로 반응하는 감각&#10;함께하는 재미|같이 성장하고 경쟁하는 느낌이 드는 구조"></textarea></label>
+              <label class="wide">강점 목록, 쉼표로 구분<input id="fAboutStrengths" placeholder="게임 시스템 설계, Unity 구현, 디버깅"></label>
+              <label class="wide">학력 / 교육, 줄마다 입력<textarea id="fEducation"></textarea></label>
+              <label class="wide">수상 경력, 줄마다 입력<textarea id="fAwards"></textarea></label>
+              <label class="wide">자격증, 한 줄마다 자격명 | 기관 | 날짜 | 설명 형식<textarea id="fCertificates" placeholder="Certified User Programmer | Certiport | 2025.01.27 | Unity 기본 기능과 C# 스크립팅 활용 역량을 검증한 자격입니다."></textarea></label>
+              <label class="wide">관심 분야, 쉼표로 구분<input id="fInterests" placeholder="게임플레이 프로그래밍, 전투 시스템, UI/UX"></label>
+              <label class="wide">활동 / 경험, 줄마다 입력<textarea id="fActivities"></textarea></label>
+              <label class="wide">현재 공부 중, 쉼표로 구분<input id="fLearning" placeholder="Photon, Addressables, 최적화"></label>
+              <label class="wide">작업 방식, 줄마다 입력<textarea id="fWorkStyle"></textarea></label>
+              <label class="wide">현재 목표<textarea id="fAboutGoal"></textarea></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab" id="tab-projects">
+          <div class="tab-toolbar">
+            <div>
+              <h2>프로젝트 관리</h2>
+              <p>카드에 보일 정보와 상세 페이지 섹션을 추가합니다.</p>
+            </div>
+            <button class="btn primary" id="addProject" type="button">프로젝트 추가</button>
+          </div>
+          <div class="editor-card featured-admin-card">
+            <div class="editor-title">
+              <h2>대표 게임 선택</h2>
+              <p>방문자 화면에서 가장 크게 보여줄 프로젝트를 고릅니다.</p>
+            </div>
+            <label>대표 게임
+              <select id="fFeaturedProject"></select>
+            </label>
+          </div>
+          <div id="projectEditor"></div>
+        </section>
+
+        <section class="tab" id="tab-skills">
+          <div class="tab-toolbar">
+            <div>
+              <h2>기술 스택 관리</h2>
+              <p>사용 가능한 엔진, 언어, 도구를 카드로 보여줍니다.</p>
+            </div>
+            <button class="btn primary" id="addSkill" type="button">기술 추가</button>
+          </div>
+          <div id="skillEditor"></div>
+        </section>
+
+        <section class="tab" id="tab-design">
+          <div class="editor-card">
+            <div class="editor-title">
+              <h2>웹사이트 디자인</h2>
+              <p>관리자가 직접 색상, 배경 분위기, 카드 스타일을 조정합니다.</p>
+            </div>
+            <div class="form-grid">
+              <label>포인트 색상<input type="color" id="fTheme"></label>
+              <label>보조 색상<input type="color" id="fAccent"></label>
+              <label>배경 스타일
+                <select id="fBackground">
+                  <option value="night">픽셀 나이트</option>
+                  <option value="studio">다크 스튜디오</option>
+                  <option value="neon">네온 아레나</option>
+                </select>
+              </label>
+              <label>카드 모서리
+                <select id="fRadius">
+                  <option value="8">깔끔한 각진 카드</option>
+                  <option value="14">부드러운 카드</option>
+                  <option value="20">둥근 카드</option>
+                </select>
+              </label>
+              <label>기본 사운드
+                <select id="fSoundDefaultOn">
+                  <option value="true">처음부터 켜짐</option>
+                  <option value="false">처음에는 꺼짐</option>
+                </select>
+              </label>
+              <label class="wide">배경음 URL 또는 업로드 결과<input id="fBgmUrl" placeholder="MP3, OGG, WAV URL 또는 업로드 결과"></label>
+              <div class="wide" id="bgmUpload"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab" id="tab-contact">
+          <div class="editor-card">
+            <div class="editor-title">
+              <h2>연락처</h2>
+              <p>상단 사이드 링크와 Contact 영역에 반영됩니다.</p>
+            </div>
+            <div class="form-grid">
+              <label>GitHub 링크<input id="fGithub"></label>
+              <label>Email<input id="fEmail"></label>
+              <label>Steam 또는 기타 링크<input id="fSteam"></label>
+            </div>
+          </div>
+
+          <div class="editor-card">
+            <div class="editor-title">
+              <h2>비밀번호 변경</h2>
+              <p>이 브라우저에 저장되는 관리자 비밀번호를 변경합니다.</p>
+            </div>
+            <div class="form-grid">
+              <label>새 비밀번호<input id="newPassword" type="password" placeholder="새 비밀번호"></label>
+              <button class="btn" id="changePassword" type="button">비밀번호 변경</button>
+              <button class="btn danger" id="resetBtn" type="button">전체 초기화</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KHANEUL | Game Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="social-rail" aria-label="외부 링크">
+    <a id="githubLink" href="#" title="GitHub">GH</a>
+    <a id="mailLink" href="#contact" title="Email">@</a>
+    <a id="steamLink" href="#" title="Steam">ST</a>
+  </aside>
+
+  <main class="site-shell">
+    <nav class="topbar">
+      <a class="brand" href="#home"><span class="brand-mark">GP</span><b id="brandText">KHANEUL</b></a>
+      <div class="nav-links">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="top-actions">
+        <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false" title="Sound">♪</button>
+        <a class="admin-mini" href="admin.html">Admin</a>
+      </div>
+    </nav>
+
+    <section id="home" class="hero section">
+      <div class="star-layer"></div>
+      <div class="firefly-layer" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="hero-magic" aria-hidden="true"></div>
+      <div class="hero-copy reveal">
+        <span class="hello" id="helloText">안녕하세요!</span>
+        <h1 id="heroName">KIM <span>HANEUL</span></h1>
+        <h2 id="heroRole"><span>Unity</span> Client Developer</h2>
+        <p id="heroDesc">게임을 사랑하고, 플레이어에게 즐거움을 주는 경험을 만들기 위해 고민하는 개발자입니다.</p>
+        <div class="chip-row" id="heroChips"></div>
+        <div class="profile-card" id="profileCard"></div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#projects">프로젝트 보기</a>
+          <a class="btn" href="#contact">Contact Me</a>
+        </div>
+        <div class="hero-link-dock" aria-label="대표 링크">
+          <a id="heroGithub" href="#" target="_blank" rel="noreferrer"><span>GH</span>GitHub</a>
+          <a id="heroMail" href="#contact"><span>@</span>Email</a>
+          <a id="heroSteam" href="#" target="_blank" rel="noreferrer"><span>▶</span>Link</a>
+        </div>
+      </div>
+
+      <div class="hero-art reveal delay">
+        <div class="hero-glow"></div>
+        <div class="moon"></div>
+        <div class="cloud cloud-one"></div>
+        <div class="cloud cloud-two"></div>
+        <div class="cloud cloud-three"></div>
+        <div class="city"></div>
+        <div class="mountains"></div>
+        <div class="platform"></div>
+        <img id="characterImg" class="character" src="assets/character.png" alt="픽셀 캐릭터" />
+      </div>
+    </section>
+
+    <div class="block-board">
+      <section id="featured" class="section featured-section block-card block-wide reveal">
+        <div class="section-head">
+          <div>
+            <span class="block-kicker">FEATURED GAME</span>
+            <h3>대표 게임</h3>
+            <p>가장 먼저 보여주고 싶은 핵심 프로젝트입니다.</p>
+          </div>
+        </div>
+        <div id="featuredGame"></div>
+      </section>
+
+      <section id="projects" class="section project-section block-card block-wide reveal">
+        <div class="section-head">
+          <div>
+            <span class="block-kicker">STAGE SELECT</span>
+            <h3>PROJECTS</h3>
+            <p>게임 개발 프로젝트와 구현 기록</p>
+          </div>
+          <button class="ghost" id="showAllProjects">전체 프로젝트 보기</button>
+        </div>
+        <div class="project-filter" id="projectFilter" aria-label="프로젝트 필터"></div>
+        <div class="project-grid" id="projectGrid"></div>
+      </section>
+
+      <section id="about" class="section about-section block-card reveal">
+        <div class="about-copy">
+          <span class="block-kicker">PLAYER INFO</span>
+          <h3>ABOUT ME</h3>
+          <h4 id="aboutTitle">플레이 감각을 코드로 구현하는 개발자</h4>
+          <p id="aboutText"></p>
+          <button class="btn about-more-btn" id="openAboutDetail" type="button">상세 프로필 보기</button>
+          <div class="play-note-grid" id="playNoteGrid"></div>
+          <div class="stats" id="statsBox"></div>
+        </div>
+        <div class="about-side-panel">
+          <div class="license-summary">
+            <span class="block-kicker">CERTIFICATE LOG</span>
+            <h4>자격증 / 교육 기록</h4>
+            <div id="certificateSummary"></div>
+            <button class="btn subtle about-more-btn" id="openAboutDetailSide" type="button">전체 기록 보기</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="section block-card reveal">
+        <div class="section-head">
+          <div>
+            <span class="block-kicker">LOADOUT</span>
+            <h3>SKILLS</h3>
+            <p>주요 기술 스택과 개발 도구</p>
+          </div>
+        </div>
+        <div class="skills-grid" id="skillsGrid"></div>
+        <div class="skill-loadout-panel" aria-label="개발 역량 요약">
+          <div class="loadout-status">
+            <span>MAIN ROLE</span>
+            <strong>Unity Client</strong>
+            <p>전투, UI, 데이터 흐름을 플레이 감각에 맞춰 구현합니다.</p>
+          </div>
+          <div class="loadout-status">
+            <span>PIPELINE</span>
+            <strong>Prototype → Test → Polish</strong>
+            <p>빠르게 만들고 직접 플레이하며 피드백을 코드에 반영합니다.</p>
+          </div>
+          <div class="loadout-tags">
+            <span>Combat</span>
+            <span>UI Flow</span>
+            <span>Firebase</span>
+            <span>Addressables</span>
+            <span>Git</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow" class="section workflow-section block-card reveal">
+        <span class="block-kicker">DEV ROUTINE</span>
+        <h3>WORKFLOW</h3>
+        <p>기획부터 구현, 테스트까지 반복 가능한 방식으로 작업합니다.</p>
+        <div class="workflow-grid" id="workflowGrid"></div>
+      </section>
+
+      <section id="contact" class="section contact-section block-card block-wide reveal">
+        <span class="block-kicker">QUEST BOARD</span>
+        <h3>CONTACT</h3>
+        <p>협업 제안, 프로젝트 문의, 코드 리뷰 요청을 편하게 보내주세요.</p>
+        <div class="contact-cards" id="contactCards"></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="modal" id="projectModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <article class="project-detail">
+      <button class="icon-close" type="button" data-close-modal aria-label="닫기">×</button>
+      <aside class="detail-menu" id="detailMenu"></aside>
+      <div class="detail-content" id="detailContent"></div>
+    </article>
+  </div>
+
+  <div class="modal" id="aboutModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-about></div>
+    <article class="about-detail">
+      <button class="icon-close" type="button" data-close-about aria-label="닫기">×</button>
+      <div id="aboutDetailContent"></div>
+    </article>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
