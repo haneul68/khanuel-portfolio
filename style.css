@@ -2628,3 +2628,50 @@ textarea { min-height: 96px; resize: vertical; }
     height: min(560px, 78vh);
   }
 }
+
+
+/* Final mobile hero name fix: keep KIM / HANEUL visible without clipped letters. */
+.hero h1 {
+  overflow: visible;
+  max-width: 100%;
+}
+
+.name-line {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+  gap: .035em;
+}
+
+.type-char {
+  flex: 0 0 auto;
+  line-height: 1.05;
+}
+
+@media (max-width: 720px) {
+  .hero h1 {
+    font-size: clamp(27px, 11vw, 42px);
+    line-height: 1.14;
+  }
+
+  .name-line {
+    display: flex;
+    width: 100%;
+    transform-origin: left center;
+  }
+
+  .name-line.first-name {
+    transform: scale(.88);
+  }
+}
+
+@media (max-width: 420px) {
+  .hero h1 {
+    font-size: clamp(24px, 10vw, 34px);
+  }
+
+  .name-line.first-name {
+    transform: scale(.82);
+  }
+}

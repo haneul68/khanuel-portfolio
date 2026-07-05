@@ -95,8 +95,8 @@ function gnBancInterviewProjectTemplate() {
     platform: "Android",
     genre: "방치형 수집 RPG",
     contribution: "기획 의도, 전투 루프, 성장/보상, UI, 저장 구조 전반 구현",
-    links: [{ label: "GitHub", url: "https://github.com/haneul68/GN_Banc_GIT" }, { label: "Play Video", url: "https://drive.google.com/file/d/1VZyZFEL5aqi8Qik3seAI9TuwxHPVRjS5/view?usp=drive_link" }],
-    portfolioTemplateVersion: 10,
+    links: [{ label: "GitHub", url: "https://github.com/haneul68/GN_Banc_GIT" }, { label: "전체 플레이 영상", url: "https://drive.google.com/file/d/1VZyZFEL5aqi8Qik3seAI9TuwxHPVRjS5/view?usp=drive_link" }],
+    portfolioTemplateVersion: 11,
     sections: [
       { type: "text", title: "프로젝트 개요", keywords: ["Unity", "C#", "Idle RPG", "Firebase", "Android", "Object Pooling"], text: "GN Banc는 캐릭터를 배치하면 자동 전투가 진행되고, 스테이지 클리어와 던전 보상을 통해 캐릭터와 유물, 스탯을 성장시키는 모바일 방치형 수집 RPG입니다. 자동 전투 자체보다 플레이어가 다시 접속하고 성장 결과를 확인하고 싶어지는 반복 구조를 직접 설계하는 데 목적을 두었습니다." },
       { type: "text", title: "게임 소개", keywords: ["자동 전투", "영웅 수집", "성장 루프", "던전 보상", "오프라인 보상"], text: "플레이어는 여러 영웅을 수집하고 배치해 자동 전투를 진행합니다. 전투에서 얻은 재화와 던전 보상은 캐릭터 성장, 스탯 강화, 유물 획득으로 이어지고, 성장 결과는 다시 더 높은 스테이지 진행으로 연결됩니다. 이 프로젝트는 반복 성장 루프와 저장/보상 피드백을 직접 구현해보는 것을 목표로 만들었습니다." },
@@ -173,6 +173,19 @@ function extraProjectTemplates() {
   ];
 }
 
+function mergeProjectLinks(existingLinks, templateLinks) {
+  const links = Array.isArray(existingLinks) ? [...existingLinks] : [];
+  (Array.isArray(templateLinks) ? templateLinks : []).forEach(link => {
+    const sameUrl = links.some(item => (item.url || "") === (link.url || ""));
+    const sameLabel = links.some(item => (item.label || "") === (link.label || ""));
+    if (!sameUrl && !sameLabel) links.push(link);
+  });
+  if ((existingLinks || []).some(link => (link.url || "").includes("1VZyZFEL5aqi8Qik3seAI9TuwxHPVRjS5")) && !links.some(link => (link.label || "") === "전체 플레이 영상")) {
+    links.push({ label: "전체 플레이 영상", url: "https://drive.google.com/file/d/1VZyZFEL5aqi8Qik3seAI9TuwxHPVRjS5/view?usp=drive_link" });
+  }
+  return links;
+}
+
 function mergeProjectDefaults(existing, template) {
   return {
     ...template,
@@ -192,7 +205,7 @@ function mergeProjectDefaults(existing, template) {
     genre: existing.genre && !isBrokenText(existing.genre) ? existing.genre : template.genre,
     contribution: existing.contribution && !isBrokenText(existing.contribution) ? existing.contribution : template.contribution,
     sections: Array.isArray(existing.sections) && existing.sections.length ? existing.sections : template.sections,
-    links: Array.isArray(existing.links) && existing.links.length ? existing.links : template.links || []
+    links: mergeProjectLinks(existing.links, template.links)
   };
 }
 
@@ -220,12 +233,12 @@ function upgradeGnBancProject(data) {
   const index = data.projects.findIndex(project => (project.title || "").toLowerCase().includes("gn banc"));
   if (index === -1) return false;
   const current = data.projects[index];
-  if ((current.portfolioTemplateVersion || 0) >= 10 && current.thumb && current.heroImage) return false;
+  if ((current.portfolioTemplateVersion || 0) >= 11 && current.thumb && current.heroImage && (current.links || []).some(link => (link.url || "").includes("1VZyZFEL5aqi8Qik3seAI9TuwxHPVRjS5"))) return false;
   const template = gnBancInterviewProjectTemplate();
   data.projects[index] = {
     ...mergeProjectDefaults(current, template),
     sections: template.sections,
-    portfolioTemplateVersion: 10
+    portfolioTemplateVersion: 11
   };
   return true;
 }
