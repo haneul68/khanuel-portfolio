@@ -11,7 +11,7 @@ const DEFAULT_DATA = {
   name: "KIM HANEUL",
   role: "Unity Client Developer",
   desc: "게임을 사랑하고, 플레이어에게 즐거움을 주는 게임을 만들기 위해 고민하는 개발자입니다.",
-  profileAvatar: "",
+  profileAvatar: "assets/profile-photo.jpg",
   profileLocation: "Asia/Seoul",
   profileLanguages: ["한국어", "영어"],
   character: "assets/character.png",
@@ -95,7 +95,7 @@ function gnBancInterviewProjectTemplate() {
     platform: "Android",
     genre: "방치형 수집 RPG",
     contribution: "기획 의도, 전투 루프, 성장/보상, UI, 저장 구조 전반 구현",
-    links: [{ label: "GitHub", url: "https://github.com/haneul68/GN_Banc_GIT" }],
+    links: [{ label: "GitHub", url: "https://github.com/haneul68/GN_Banc_GIT" }, { label: "Play Video", url: "https://drive.google.com/file/d/1VZyZFEL5aqi8Qik3seAI9TuwxHPVRjS5/view?usp=drive_link" }],
     portfolioTemplateVersion: 10,
     sections: [
       { type: "text", title: "프로젝트 개요", keywords: ["Unity", "C#", "Idle RPG", "Firebase", "Android", "Object Pooling"], text: "GN Banc는 캐릭터를 배치하면 자동 전투가 진행되고, 스테이지 클리어와 던전 보상을 통해 캐릭터와 유물, 스탯을 성장시키는 모바일 방치형 수집 RPG입니다. 자동 전투 자체보다 플레이어가 다시 접속하고 성장 결과를 확인하고 싶어지는 반복 구조를 직접 설계하는 데 목적을 두었습니다." },
@@ -271,6 +271,7 @@ function mergeData(base, saved) {
   data.stats = Array.isArray(saved?.stats) && !saved.stats.flat().some(isBrokenText) ? saved.stats : base.stats;
   data.chips = Array.isArray(saved?.chips) && !saved.chips.some(isBrokenText) ? saved.chips : base.chips;
   data.profileAvatar = saved?.profileAvatar || base.profileAvatar || "";
+  if (!data.profileAvatar || data.profileAvatar === data.character || data.profileAvatar === "assets/character.png") data.profileAvatar = base.profileAvatar || "assets/profile-photo.jpg";
   data.profileLocation = saved?.profileLocation || base.profileLocation || "Asia/Seoul";
   data.profileLanguages = Array.isArray(saved?.profileLanguages) && !saved.profileLanguages.some(isBrokenText) ? saved.profileLanguages : base.profileLanguages || ["한국어", "영어"];
   data.aboutTitle = saved?.aboutTitle && !isBrokenText(saved.aboutTitle) ? saved.aboutTitle : base.aboutTitle;
@@ -1129,4 +1130,3 @@ window.addEventListener("DOMContentLoaded", () => {
   bindSiteEvents();
   bindSoundControls();
 });
-
