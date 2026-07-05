@@ -11,6 +11,7 @@
   --danger: #ff6575;
   --card-radius: 8px;
 }
+
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(138, 77, 255, .82) rgba(5, 10, 22, .72);
@@ -2582,5 +2583,48 @@ textarea { min-height: 96px; resize: vertical; }
   }
   .about-detail {
     padding: 28px;
+  }
+}
+
+/* Final override: project detail GIF cards use a tall left media panel and two right text panels. */
+.showcase-board.layout-media-left {
+  grid-template-columns: minmax(420px, 1.12fr) minmax(320px, .88fr);
+  align-items: stretch;
+}
+
+.showcase-board.layout-media-left .showcase-block.is-media:first-child {
+  grid-row: span 2;
+  min-height: 640px;
+}
+
+.showcase-board.layout-media-left .showcase-block.is-media:first-child .showcase-media {
+  height: 470px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(138, 77, 255, .18), transparent 45%),
+    #081426;
+}
+
+.showcase-board.layout-media-left .showcase-block.is-media:first-child .showcase-media img,
+.showcase-board.layout-media-left .showcase-block.is-media:first-child .showcase-media video {
+  object-fit: contain;
+  padding: 10px;
+}
+
+.showcase-board.layout-media-left .showcase-block.is-text {
+  min-height: 300px;
+}
+
+@media (max-width: 900px) {
+  .showcase-board.layout-media-left {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-board.layout-media-left .showcase-block.is-media:first-child {
+    grid-row: auto;
+    min-height: auto;
+  }
+
+  .showcase-board.layout-media-left .showcase-block.is-media:first-child .showcase-media {
+    height: min(560px, 78vh);
   }
 }
