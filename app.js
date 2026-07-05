@@ -1,4 +1,4 @@
-﻿const STORAGE_KEY = "khanuelPortfolioData";
+const STORAGE_KEY = "khanuelPortfolioData";
 const $ = id => document.getElementById(id);
 
 function isBrokenText(value) {
@@ -11,10 +11,10 @@ const DEFAULT_DATA = {
   name: "KIM HANEUL",
   role: "Unity Client Developer",
   desc: "게임을 사랑하고, 플레이어에게 즐거움을 주는 게임을 만들기 위해 고민하는 개발자입니다.",
-  profileAvatar: "assets/profile-photo.jpg",
+  profileAvatar: "",
   profileLocation: "Asia/Seoul",
   profileLanguages: ["한국어", "영어"],
-  character: "assets/hero-character.png",
+  character: "assets/character.png",
   theme: "#8a4dff",
   accent: "#45c7ff",
   background: "night",
@@ -100,8 +100,9 @@ function gnBancInterviewProjectTemplate() {
     sections: [
       { type: "text", title: "프로젝트 개요", keywords: ["Unity", "C#", "Idle RPG", "Firebase", "Android", "Object Pooling"], text: "GN Banc는 캐릭터를 배치하면 자동 전투가 진행되고, 스테이지 클리어와 던전 보상을 통해 캐릭터와 유물, 스탯을 성장시키는 모바일 방치형 수집 RPG입니다. 자동 전투 자체보다 플레이어가 다시 접속하고 성장 결과를 확인하고 싶어지는 반복 구조를 직접 설계하는 데 목적을 두었습니다." },
       { type: "text", title: "게임 소개", keywords: ["자동 전투", "영웅 수집", "성장 루프", "던전 보상", "오프라인 보상"], text: "플레이어는 여러 영웅을 수집하고 배치해 자동 전투를 진행합니다. 전투에서 얻은 재화와 던전 보상은 캐릭터 성장, 스탯 강화, 유물 획득으로 이어지고, 성장 결과는 다시 더 높은 스테이지 진행으로 연결됩니다. 이 프로젝트는 반복 성장 루프와 저장/보상 피드백을 직접 구현해보는 것을 목표로 만들었습니다." },
-      { type: "showcase", title: "한눈에 보기", layout: "media-left", blocks: [{ kind: "media", size: "feature", media: "assets/project-gn-banc-title.png", title: "게임 전체 흐름", text: "튜토리얼, 상점, 전투, 던전까지 이어지는 GN Banc의 전체 플레이 흐름을 보여주는 대표 장면입니다.", caption: "전체 소개 영상은 압축본으로 교체하면 이 자리에 바로 사용할 수 있습니다." }, { kind: "text", size: "normal", title: "제작 목적", text: "방치형 RPG에서 중요한 반복 구조인 자동 전투, 보상, 성장, 저장을 직접 구현하며 모바일 RPG의 기본 사이클을 이해하는 것을 목표로 했습니다." }, { kind: "text", size: "normal", title: "핵심 경험", text: "튜토리얼에서 플레이 방향을 안내하고, 상점과 영웅 편성으로 성장 목표를 만들며, 전투와 던전 보상으로 다시 성장으로 돌아오는 전체 루프를 구성했습니다." }] },
-      { type: "showcase", title: "플레이 화면", layout: "media-left", blocks: [{ kind: "media", size: "feature", media: "assets/project-gn-banc-combat-flow.gif", title: "자동 전투 흐름", text: "영웅 배치 후 전투가 자동으로 진행되고, 전투 결과가 보상과 성장 데이터로 이어지는 흐름을 보여줍니다.", caption: "전투, 보상 획득, 영웅 편성 UI가 함께 보이는 자동 전투 GIF" }, { kind: "text", size: "normal", title: "구현 포인트", text: "Player는 현재 Stage 상태를 기준으로 공격 가능 여부를 판단하고, Spawner가 관리하는 몬스터 목록에서 타겟을 찾습니다. 전투의 결과는 보상과 성장 데이터로 이어지도록 분리했습니다." }, { kind: "text", size: "normal", title: "화면 피드백", text: "HP, 보상, 스킬, 결과 화면이 즉시 읽히도록 UI 표시와 데이터 갱신 흐름을 연결했습니다." }] },
+      { type: "showcase", title: "한눈에 보기", layout: "media-left", blocks: [{ kind: "media", size: "large", media: "assets/project-gn-banc-combat-flow.gif", title: "대표 플레이 장면", text: "캐릭터 편성, 자동 전투, 보스 등장, 보상 획득으로 이어지는 GN Banc의 핵심 플레이 흐름입니다.", caption: "자동 전투와 성장 루프가 가장 잘 드러나는 대표 장면" }, { kind: "text", size: "normal", title: "제작 목적", text: "방치형 RPG에서 중요한 반복 구조인 자동 전투, 보상, 성장, 저장을 직접 구현하며 모바일 RPG의 기본 사이클을 이해하는 것을 목표로 했습니다." }, { kind: "text", size: "normal", title: "핵심 경험", text: "전투 한 장면뿐 아니라 성장 UI, 던전, 오프라인 보상, 저장까지 이어지는 전체 루프를 하나의 프로젝트 안에서 구성했습니다." }] },
+      { type: "showcase", title: "플레이 화면", layout: "media-left", blocks: [{ kind: "media", size: "large", media: "assets/project-gn-banc-hero-upgrade.gif", title: "영웅 장착과 강화", text: "영웅 상세 정보, 능력치, 스킬 설명, 장착/강화 버튼을 한 흐름 안에서 확인할 수 있도록 구성했습니다.", caption: "영웅 선택부터 장착과 강화 판단까지 이어지는 성장 화면" }, { kind: "text", size: "normal", title: "성장 루프", text: "전투 보상으로 얻은 재화를 영웅 강화와 스탯 성장에 다시 사용하게 만들어, 전투 결과가 다음 플레이 목표로 자연스럽게 이어지도록 설계했습니다." }, { kind: "text", size: "normal", title: "UI 피드백", text: "등급, 현재 능력치, 상승 수치, 스킬 정보를 같은 화면에서 확인하게 해 플레이어가 강화 여부를 빠르게 판단할 수 있도록 했습니다." }] },
+      { type: "showcase", title: "던전과 보상 흐름", layout: "media-left", blocks: [{ kind: "media", size: "large", media: "assets/project-gn-banc-dungeon-reward.gif", title: "던전 진입 / 클리어 / 보상", text: "던전 진입 후 전투가 진행되고, 클리어 결과가 재화와 성장 데이터로 연결되는 흐름입니다.", caption: "던전 진행, 보스 게이지, 클리어 보상, 스탯 성장으로 이어지는 장면" }, { kind: "text", size: "normal", title: "보상 설계", text: "던전 보상은 단순 지급에서 끝나지 않고 공격력, 체력, 성장 재화와 연결되도록 구성해 반복 플레이의 목적을 만들었습니다." }, { kind: "text", size: "normal", title: "진행 상태", text: "보스 진행률, 현재 스테이지, 재화 변화, 강화 가능 상태를 화면에 노출해 플레이어가 다음 행동을 바로 선택할 수 있도록 했습니다." }] },
       { type: "architecture", title: "전체 시스템 구조", note: "전투 흐름은 StageManager가 중심에서 상태를 전환하고, 실제 기능은 Manager와 Character 계열 클래스가 나누어 담당합니다. 저장과 보상은 DataManager와 Firebase_Manager를 통해 분리해 전투 코드가 데이터 저장 방식에 직접 묶이지 않도록 구성했습니다.", flowTitle: "Play Loop", systemTitle: "Runtime Modules", flow: ["Start|Firebase 또는 테스트 데이터 초기화", "Prepare|보유 캐릭터 배치와 스테이지 준비", "Battle|자동 전투, 몬스터 스폰, 스킬 처리", "Reward|코인, 아이템, 던전 보상 지급", "Growth|강화, 영웅 성장, 다음 스테이지 진행"], systems: ["BaseManager|주요 매니저 접근점과 공통 코루틴 처리", "StageManager|Ready / Play / Boss / Clear / Dungeon 상태 전환", "Spawner|몬스터와 보스 생성, 전투 대상 리스트 관리", "Player / Monster|타겟 탐색, 공격, 피격, 사망 처리", "DataManager|캐릭터, 아이템, 유물, 진행 데이터 관리", "Firebase_Manager|익명 로그인, 저장, 불러오기"], domains: ["Combat|자동 타겟팅, 공격 판정, 스킬", "Growth|레벨, 스탯 강화, 영웅 성장", "Reward|재화, 아이템 드랍, 던전 보상", "UI|상점, 영웅, 인벤토리, 던전 화면", "Save|Firebase 저장, 오프라인 보상"] },
       { type: "features", title: "담당 구현", features: ["StageManager 기반 전투 상태 전환", "플레이어와 몬스터 전투 처리", "보상 지급과 성장 데이터 관리", "Firebase 저장/불러오기", "던전과 오프라인 보상 UI", "반복 생성 객체 풀링 구조"] },
       { type: "text", title: "핵심 구현", keywords: ["StageManager", "Spawner", "DataManager", "Firebase", "Object Pooling"], text: "전투 상태와 UI, 데이터 저장이 한곳에 섞이면 수정이 어려워지기 때문에 StageManager가 전투 진행 상태를 관리하고, Spawner는 몬스터 생성과 대상 리스트를 담당하도록 분리했습니다. 캐릭터, 아이템, 진행 데이터는 DataManager 중심으로 다루고, 저장/불러오기는 Firebase_Manager로 분리해 기능별 책임이 보이도록 구성했습니다." },
@@ -1128,5 +1129,4 @@ window.addEventListener("DOMContentLoaded", () => {
   bindSiteEvents();
   bindSoundControls();
 });
-
 
