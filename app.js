@@ -193,20 +193,62 @@ function extraProjectTemplates() {
     {
       title: "Shadow Core Defense",
       category: "2D",
-      summary: "코어를 지키는 2D 개인 디펜스 프로젝트입니다.",
+      summary: "Unity와 C#으로 제작한 개인 2D 코어 방어 액션 프로젝트입니다. 라운드 진행, 몬스터 스폰, 코어 방어, 보스 패턴, 어빌리티 선택, 보상/성장, 상점과 룬 시스템까지 전투 이후의 성장 흐름을 함께 구현했습니다.",
       thumb: "assets/project-shadow-core-defense.png",
       heroImage: "assets/project-shadow-core-defense.png",
       heroBg: "assets/project-shadow-core-defense.png",
-      tags: ["Unity", "2D", "Defense", "Personal Project"],
+      tags: ["Unity", "C#", "2D Defense", "Personal Project", "Object Pooling", "Rune System"],
       status: "제작 기록",
-      date: "",
+      date: "Personal Project",
       role: "Unity Client Developer",
       period: "개인 개발",
       team: "개인 프로젝트",
       platform: "PC",
-      genre: "2D Defense",
-      contribution: "전투/방어 흐름 구현",
-      sections: [{ type: "overview", title: "프로젝트 개요", text: "Shadow Core Defense는 코어를 방어하는 2D 개인 프로젝트입니다. 현재는 타이틀 이미지와 기본 정보만 등록되어 있으며, 세부 구현 내용은 이후 관리자에서 추가할 수 있습니다." }]
+      genre: "2D Core Defense Action",
+      contribution: "기획, 라운드/스폰/보스/전투/보상/성장/상점/룬/UI 흐름 전반 구현",
+      links: [
+        { label: "GitHub", url: "https://github.com/haneul68/Shadow_Core_Defense" },
+        { label: "플레이 영상", url: "https://drive.google.com/drive/folders/1nzH5xHGPtT1VIndM8YJPx2lua3KiLoDg?usp=sharing" }
+      ],
+      portfolioTemplateVersion: 13,
+      sections: [
+        { type: "text", title: "프로젝트 개요", keywords: ["Unity", "C#", "2D Defense", "Core Defense", "Object Pooling", "Personal"], text: "Shadow Core Defense는 중앙 코어를 지키며 라운드 단위로 몰려오는 적을 처치하는 2D 코어 방어 액션 프로젝트입니다. 단순히 몬스터를 처치하는 전투 장면만이 아니라, 라운드 진행, 코어 방어, 보스 전투, 어빌리티 선택, 결과 보상, 캐릭터 구매/장착, 인벤토리와 룬 장착까지 전투 이후의 성장 흐름을 하나의 개인 프로젝트 안에서 구성했습니다." },
+        { type: "text", title: "게임 소개", keywords: ["Wave", "Core", "Boss", "Ability", "Reward", "Growth"], text: "플레이어는 코어 주변에서 몬스터의 접근을 막고, 제한 시간 안에 웨이브를 버티거나 처치 흐름을 이어갑니다. 일반 웨이브에서는 적 처치 수와 남은 시간을 확인하며 전투하고, 보스 웨이브에서는 보스 체력과 패턴을 기준으로 위치를 조절합니다. 전투 중에는 스킬과 아이템 슬롯을 활용하고, 클리어 이후에는 보상과 성장 시스템으로 다음 플레이를 준비합니다." },
+        { type: "showcase", title: "한눈에 보기", layout: "media-left", blocks: [
+          { kind: "media", size: "feature", media: "assets/project-shadow-core-defense-core.gif", title: "코어 방어 전투", text: "코어 체력, 웨이브 시간, 적 처치 수, 미니맵, 플레이어 HP/MP/SP와 스킬 슬롯이 함께 보이는 대표 전투 장면입니다.", caption: "몬스터가 코어 근처로 접근하고, 플레이어가 직접 전투로 방어하는 핵심 플레이 흐름입니다." },
+          { kind: "text", size: "normal", title: "제작 목적", text: "라운드 기반 디펜스에서 전투 상태, 적 스폰, UI 피드백, 보상 계산이 어떤 순서로 이어져야 플레이 흐름이 끊기지 않는지 직접 구현해보는 것을 목표로 했습니다." },
+          { kind: "text", size: "normal", title: "핵심 경험", text: "전투 중에는 코어와 적의 위치를 계속 확인하고, 전투가 끝나면 보상과 성장 선택으로 다음 라운드를 준비하는 구조를 만들었습니다." }
+        ] },
+        { type: "architecture", title: "전체 시스템 구조", flowTitle: "Defense Loop", systemTitle: "Runtime Modules", note: "전투 진행은 InGame_State_Manager와 Round_Manager가 상태를 전환하고, Enemy_Spawn_Manager가 라운드 데이터에 맞춰 적과 보스를 생성합니다. Base_Manager는 Data, Pool, Inventory, Rune, Sound 매니저의 접근점을 제공하고, 전투 결과는 In_Game_Canvas와 End_Game_Result_Calculator를 통해 보상과 성장 데이터로 이어지도록 구성했습니다.", flow: ["Ready|카운트다운과 라운드 준비", "Battle|라운드 데이터 기반 몬스터 스폰", "Core Defense|코어 체력과 적 접근 상태 확인", "Boss Battle|보스 라운드 진입과 패턴 전투", "Reward/Growth|결과 보상, 어빌리티, 룬/상점 성장"], systems: ["Round_Manager|READY/BATTLE/BOSS/ABILITY/VICTORY/DEATH 상태 전환", "Enemy_Spawn_Manager|라운드 데이터 기반 적 수량, 스폰 범위, 보스 생성 관리", "Boss_AI_Controller|보스 HP 비율에 따른 페이즈와 패턴 루프 실행", "Base_Manager|Data, Pool, Inventory, Rune, Sound 매니저 초기화와 접근점", "Pool_Manager|몬스터, UI, 이펙트 등 반복 생성 객체 풀링", "In_Game_Canvas|웨이브, 타이머, 적 처치 수, 결과 보상 UI 갱신"], domains: ["Combat|플레이어 공격, 스킬, 적 피격 처리", "Defense|코어 체력과 몬스터 접근 관리", "Reward|라운드 결과, 골드, 경험치, 재료 지급", "Growth|캐릭터 구매/장착, 룬 장착, 어빌리티 선택", "UI|전투 HUD, 상점, 인벤토리, 결과창"] },
+        { type: "features", title: "담당 구현", features: ["개인 프로젝트로 기획과 구현 전반 진행", "라운드 상태 전환과 카운트다운/타이머 처리", "라운드 데이터 기반 몬스터 스폰과 미니맵 아이콘 등록", "코어 방어 전투 UI와 HP/MP/SP 피드백 구성", "보스 페이즈와 패턴 기반 스킬 실행 구조", "결과 보상 계산과 골드/경험치/재료 지급", "상점, 인벤토리, 캐릭터 구매/장착, 룬 장착 UI 흐름 구현", "반복 생성 객체를 Pool_Manager로 관리"] },
+        { type: "showcase", title: "라운드와 코어 방어", layout: "media-left", blocks: [
+          { kind: "media", size: "feature", media: "assets/project-shadow-core-defense-core.gif", title: "코어 방어 장면", text: "몬스터가 코어를 공격하는 상황에서 플레이어가 직접 위치를 잡고 적을 처리하는 방어 흐름입니다.", caption: "웨이브 시간, 처치 수, 코어 체력, 미니맵을 동시에 확인하며 플레이하도록 구성했습니다." },
+          { kind: "text", size: "normal", title: "라운드 진행", text: "Round_Manager는 READY, BATTLE, BOSS_READY, BOSS_BATTLE, ABILITY_SELECT, VICTORY, DEATH 상태를 전환합니다. 카운트다운 후 일반 전투 또는 보스 전투로 진입하고, 적 처치 여부와 타이머에 따라 다음 상태를 결정합니다." },
+          { kind: "text", size: "normal", title: "스폰 구조", text: "Enemy_Spawn_Manager는 Round_Data의 적 수량을 기반으로 스폰 리스트를 만들고, 스폰 순서를 섞은 뒤 일정 간격과 묶음 단위로 적을 생성합니다. 스폰된 적은 리스트와 미니맵 아이콘에 등록해 전투 UI와 연결했습니다." }
+        ] },
+        { type: "showcase", title: "어빌리티와 전투 선택", layout: "media-left", blocks: [
+          { kind: "media", size: "feature", media: "assets/project-shadow-core-defense-ability.gif", title: "어빌리티 선택", text: "보스 또는 특정 라운드 흐름 이후 플레이어가 다음 전투에 영향을 줄 선택지를 고르는 장면입니다.", caption: "전투 사이에 선택을 넣어 다음 웨이브의 플레이 방향을 바꾸는 구조입니다." },
+          { kind: "text", size: "normal", title: "전투 사이의 선택", text: "라운드가 끝난 뒤 바로 다음 전투로 넘어가는 대신 어빌리티 선택 단계를 넣어, 플레이어가 성장 방향을 판단하고 다음 전투를 준비하는 시간을 만들었습니다." },
+          { kind: "text", size: "normal", title: "UI 피드백", text: "전투 중에는 스킬 슬롯, 아이템 슬롯, HP/MP/SP, 적 처치 수, 미니맵 정보를 한 화면에 배치해 현재 상태를 바로 읽을 수 있도록 구성했습니다." }
+        ] },
+        { type: "showcase", title: "성장과 준비 화면", layout: "bento", blocks: [
+          { kind: "media", size: "normal", media: "assets/project-shadow-core-defense-character.gif", title: "캐릭터 구매와 장착", text: "보유 재화로 캐릭터를 구매하고 장착해 다음 전투에 사용할 캐릭터를 준비하는 흐름입니다." },
+          { kind: "media", size: "normal", media: "assets/project-shadow-core-defense-shop.gif", title: "상점과 아이템 구매", text: "상점에서 아이템을 확인하고 구매한 뒤 인벤토리 흐름으로 연결합니다." },
+          { kind: "media", size: "normal", media: "assets/project-shadow-core-defense-inventory.gif", title: "인벤토리", text: "보유 아이템과 재료를 확인하고, 전투 밖 성장 준비를 진행하는 화면입니다." },
+          { kind: "media", size: "normal", media: "assets/project-shadow-core-defense-rune.gif", title: "룬 장착", text: "룬 보유 상태와 장착 슬롯을 확인하고, 전투 전 능력치를 준비하는 성장 화면입니다." }
+        ] },
+        { type: "showcase", title: "결과 보상", layout: "media-left", blocks: [
+          { kind: "media", size: "feature", media: "assets/project-shadow-core-defense-reward.gif", title: "보상 창", text: "플레이 시간, 클리어 라운드, 점수, 획득 골드와 경험치를 결과창에서 보여주는 장면입니다.", caption: "전투 결과가 다음 성장 재화로 이어지도록 결과 계산과 지급 흐름을 연결했습니다." },
+          { kind: "text", size: "normal", title: "보상 계산", text: "End_Game_Result_Calculator는 클리어 라운드와 플레이 시간을 기준으로 골드, 경험치, 점수를 계산합니다. 보스 라운드 여부에 따라 보상 가중치를 다르게 주고, 남은 시간은 점수 보너스로 반영했습니다." },
+          { kind: "text", size: "normal", title: "재료 지급", text: "Material_Reward_Calculator와 Material_Reward_Filter를 통해 보상 재료를 계산하고, 인벤토리 수용 가능 여부를 고려해 실제 지급 가능한 보상만 반영하도록 구성했습니다." }
+        ] },
+        { type: "text", title: "핵심 구현", keywords: ["Round Manager", "Spawner", "Object Pooling", "Boss Phase", "Reward Calculator"], text: "전투 진행은 상태 전환 중심으로 구성했습니다. Round_Manager가 현재 라운드와 타이머를 관리하고, Enemy_Spawn_Manager가 라운드별 적 종류와 수량을 기반으로 적을 생성합니다. 반복적으로 생성되는 적, 미니맵 아이콘, UI 슬롯, 이펙트는 Pool_Manager를 통해 필요한 순간 가져오고 반환하도록 만들어 생성 비용과 관리 지점을 줄였습니다." },
+        { type: "text", title: "보스 전투 구조", keywords: ["Boss AI", "Phase", "Pattern", "Skill Factory"], text: "Boss_AI_Controller는 보스 체력 비율을 확인해 페이즈를 바꾸고, 각 페이즈에 등록된 패턴을 순서대로 실행합니다. 패턴은 Skill_Data를 통해 Boss_Skill_Factory에서 런타임 스킬로 생성되며, 스킬 실행 시 보스 애니메이션 이벤트와 연결되도록 구성했습니다. 보스가 사망하면 보스가 소환한 적을 정리하고 보스 객체를 풀로 반환합니다." },
+        { type: "text", title: "성장 시스템", keywords: ["DataManager", "RuneManager", "Inventory", "Shop"], text: "Data_Manager는 캐릭터, 아이템, 룬, 적 데이터를 Resources의 ScriptableObject에서 읽어 딕셔너리로 관리합니다. Rune_Manager는 룬 보유 여부, 장착 슬롯, 강화 가능 여부, 필요한 재료와 성공 확률을 계산합니다. 상점과 인벤토리는 아이템 구매, 보유 수량, 재료 소비 흐름과 연결해 전투 밖 성장 준비가 가능하도록 구성했습니다." },
+        { type: "features", title: "문제 해결 경험", features: ["전투 상태와 UI 갱신이 섞이지 않도록 상태 전환 이벤트 기반으로 분리", "라운드별 적 수량을 리스트로 만들고 셔플해 매번 같은 순서로 스폰되지 않도록 처리", "반복 생성되는 적과 UI 아이콘을 풀링으로 관리해 생성/삭제 부담 감소", "보스 패턴을 페이즈와 스킬 데이터로 분리해 확장 가능한 구조로 구성", "결과 보상 지급 전 인벤토리 수용 가능 여부를 검사해 보상 데이터와 실제 보유 데이터가 어긋나지 않도록 처리"] },
+        { type: "text", title: "배운 점", text: "디펜스 게임에서는 전투 그 자체만큼이나 전투 전후의 정보 흐름이 중요하다는 점을 배웠습니다. 적이 어디서 오고, 코어가 얼마나 위험하고, 라운드가 얼마나 남았고, 전투 결과가 어떤 보상과 성장으로 이어지는지가 명확해야 플레이어가 다음 행동을 자연스럽게 선택할 수 있었습니다. 그래서 전투, UI, 보상, 성장 데이터를 따로 구현하기보다 하나의 플레이 루프로 이어지도록 구조를 맞추는 데 집중했습니다." },
+        { type: "text", title: "결과와 보완할 부분", text: "라운드 기반 전투, 코어 방어, 보스 패턴, 어빌리티 선택, 결과 보상, 상점/인벤토리/룬 성장 흐름을 하나의 개인 프로젝트로 구성했습니다. 이후에는 보스 전투 GIF를 100MB 이하로 줄여 웹에 직접 넣고, 실제 플레이 데이터를 기준으로 웨이브 난이도와 보상 밸런스를 더 세밀하게 조정하면 완성도를 높일 수 있습니다." }
+      ]
     }
   ];
 }
@@ -303,6 +345,28 @@ function upgradeChaosArenaProject(data) {
   return true;
 }
 
+function upgradeShadowCoreDefenseProject(data) {
+  const index = data.projects.findIndex(project => (project.title || "").toLowerCase().includes("shadow core defense"));
+  const template = extraProjectTemplates().find(project => project.title === "Shadow Core Defense");
+  if (!template) return false;
+  if (index === -1) {
+    data.projects.push(template);
+    return true;
+  }
+  const current = data.projects[index];
+  if ((current.portfolioTemplateVersion || 0) >= 13 && Array.isArray(current.sections) && current.sections.some(section => section.title === "라운드와 코어 방어")) return false;
+  data.projects[index] = {
+    ...mergeProjectDefaults(current, template),
+    summary: template.summary,
+    tags: template.tags,
+    contribution: template.contribution,
+    links: mergeProjectLinks(current.links, template.links),
+    sections: template.sections,
+    portfolioTemplateVersion: 13
+  };
+  return true;
+}
+
 function upgradeProfileFacts(data) {
   if ((data.profileContentVersion || 0) >= 6) return false;
   const base = DEFAULT_DATA;
@@ -336,13 +400,20 @@ function mergeData(base, saved) {
     data.projects.unshift(gnBancInterviewProjectTemplate());
     data.projectImports = [...data.projectImports, "gn-banc"];
   }
+  let projectUpgraded = false;
   if (upgradeGnBancProject(data)) {
     data.projectImports = [...new Set([...data.projectImports, "gn-banc"])];
+    projectUpgraded = true;
   }
   if (upgradeChaosArenaProject(data)) {
     data.projectImports = [...new Set([...data.projectImports, "chaos-arena"] )];
+    projectUpgraded = true;
   }
-  if (ensurePortfolioProjects(data)) {
+  if (upgradeShadowCoreDefenseProject(data)) {
+    data.projectImports = [...new Set([...data.projectImports, "shadow-core-defense"] )];
+    projectUpgraded = true;
+  }
+  if (ensurePortfolioProjects(data) || projectUpgraded) {
     saveData(data);
   }
   data.stats = Array.isArray(saved?.stats) && !saved.stats.flat().some(isBrokenText) ? saved.stats : base.stats;
