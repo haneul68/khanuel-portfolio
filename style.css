@@ -1167,7 +1167,7 @@ button { cursor: pointer; }
   grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
 }
 .system-stack {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 .domain-grid {
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -1204,6 +1204,8 @@ button { cursor: pointer; }
   margin-bottom: 6px;
   color: #ffffff;
   min-width: 0;
+  font-size: 15px;
+  line-height: 1.28;
   overflow-wrap: anywhere;
   word-break: break-word;
 }

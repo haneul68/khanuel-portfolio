@@ -210,12 +210,12 @@ function extraProjectTemplates() {
         { label: "GitHub", url: "https://github.com/haneul68/Shadow_Core_Defense" },
         { label: "플레이 영상", url: "https://drive.google.com/drive/folders/1nzH5xHGPtT1VIndM8YJPx2lua3KiLoDg?usp=sharing" }
       ],
-      portfolioTemplateVersion: 13,
+      portfolioTemplateVersion: 15,
       sections: [
         { type: "text", title: "프로젝트 개요", keywords: ["Unity", "C#", "2D Defense", "Core Defense", "Object Pooling", "Personal"], text: "Shadow Core Defense는 중앙 코어를 지키며 라운드 단위로 몰려오는 적을 처치하는 2D 코어 방어 액션 프로젝트입니다. 단순히 몬스터를 처치하는 전투 장면만이 아니라, 라운드 진행, 코어 방어, 보스 전투, 어빌리티 선택, 결과 보상, 캐릭터 구매/장착, 인벤토리와 룬 장착까지 전투 이후의 성장 흐름을 하나의 개인 프로젝트 안에서 구성했습니다." },
         { type: "text", title: "게임 소개", keywords: ["Wave", "Core", "Boss", "Ability", "Reward", "Growth"], text: "플레이어는 코어 주변에서 몬스터의 접근을 막고, 제한 시간 안에 웨이브를 버티거나 처치 흐름을 이어갑니다. 일반 웨이브에서는 적 처치 수와 남은 시간을 확인하며 전투하고, 보스 웨이브에서는 보스 체력과 패턴을 기준으로 위치를 조절합니다. 전투 중에는 스킬과 아이템 슬롯을 활용하고, 클리어 이후에는 보상과 성장 시스템으로 다음 플레이를 준비합니다." },
         { type: "showcase", title: "한눈에 보기", layout: "media-left", blocks: [
-          { kind: "media", size: "feature", media: "assets/project-shadow-core-defense-core.gif", title: "코어 방어 전투", text: "코어 체력, 웨이브 시간, 적 처치 수, 미니맵, 플레이어 HP/MP/SP와 스킬 슬롯이 함께 보이는 대표 전투 장면입니다.", caption: "몬스터가 코어 근처로 접근하고, 플레이어가 직접 전투로 방어하는 핵심 플레이 흐름입니다." },
+          { kind: "media", size: "feature", media: "assets/project-shadow-core-defense-gameplay-overview.gif", title: "코어 방어 전투", text: "코어 체력, 웨이브 시간, 적 처치 수, 미니맵, 플레이어 HP/MP/SP와 스킬 슬롯이 함께 보이는 대표 전투 장면입니다.", caption: "몬스터가 코어 근처로 접근하고, 플레이어가 직접 전투로 방어하는 핵심 플레이 흐름입니다." },
           { kind: "text", size: "normal", title: "제작 목적", text: "라운드 기반 디펜스에서 전투 상태, 적 스폰, UI 피드백, 보상 계산이 어떤 순서로 이어져야 플레이 흐름이 끊기지 않는지 직접 구현해보는 것을 목표로 했습니다." },
           { kind: "text", size: "normal", title: "핵심 경험", text: "전투 중에는 코어와 적의 위치를 계속 확인하고, 전투가 끝나면 보상과 성장 선택으로 다음 라운드를 준비하는 구조를 만들었습니다." }
         ] },
@@ -226,7 +226,7 @@ function extraProjectTemplates() {
           { kind: "text", size: "normal", title: "라운드 진행", text: "Round_Manager는 READY, BATTLE, BOSS_READY, BOSS_BATTLE, ABILITY_SELECT, VICTORY, DEATH 상태를 전환합니다. 카운트다운 후 일반 전투 또는 보스 전투로 진입하고, 적 처치 여부와 타이머에 따라 다음 상태를 결정합니다." },
           { kind: "text", size: "normal", title: "스폰 구조", text: "Enemy_Spawn_Manager는 Round_Data의 적 수량을 기반으로 스폰 리스트를 만들고, 스폰 순서를 섞은 뒤 일정 간격과 묶음 단위로 적을 생성합니다. 스폰된 적은 리스트와 미니맵 아이콘에 등록해 전투 UI와 연결했습니다." }
         ] },
-        { type: "showcase", title: "어빌리티와 전투 선택", layout: "media-left", blocks: [
+        { type: "showcase", title: "보스처치와 어빌리티 선택", layout: "media-left", blocks: [
           { kind: "media", size: "feature", media: "assets/project-shadow-core-defense-ability.gif", title: "어빌리티 선택", text: "보스 또는 특정 라운드 흐름 이후 플레이어가 다음 전투에 영향을 줄 선택지를 고르는 장면입니다.", caption: "전투 사이에 선택을 넣어 다음 웨이브의 플레이 방향을 바꾸는 구조입니다." },
           { kind: "text", size: "normal", title: "전투 사이의 선택", text: "라운드가 끝난 뒤 바로 다음 전투로 넘어가는 대신 어빌리티 선택 단계를 넣어, 플레이어가 성장 방향을 판단하고 다음 전투를 준비하는 시간을 만들었습니다." },
           { kind: "text", size: "normal", title: "UI 피드백", text: "전투 중에는 스킬 슬롯, 아이템 슬롯, HP/MP/SP, 적 처치 수, 미니맵 정보를 한 화면에 배치해 현재 상태를 바로 읽을 수 있도록 구성했습니다." }
@@ -354,7 +354,7 @@ function upgradeShadowCoreDefenseProject(data) {
     return true;
   }
   const current = data.projects[index];
-  if ((current.portfolioTemplateVersion || 0) >= 13 && Array.isArray(current.sections) && current.sections.some(section => section.title === "라운드와 코어 방어")) return false;
+  if ((current.portfolioTemplateVersion || 0) >= 15 && Array.isArray(current.sections) && current.sections.some(section => section.title === "보스처치와 어빌리티 선택")) return false;
   data.projects[index] = {
     ...mergeProjectDefaults(current, template),
     summary: template.summary,
@@ -362,7 +362,7 @@ function upgradeShadowCoreDefenseProject(data) {
     contribution: template.contribution,
     links: mergeProjectLinks(current.links, template.links),
     sections: template.sections,
-    portfolioTemplateVersion: 13
+    portfolioTemplateVersion: 15
   };
   return true;
 }
