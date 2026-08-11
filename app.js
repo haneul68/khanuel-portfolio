@@ -141,7 +141,7 @@ function extraProjectTemplates() {
         { type: "text", title: "프로젝트 개요", keywords: ["Unity", "C#", "Photon Fusion", "3D Arena", "2인 팀", "PC"], text: "Chaos Arena는 3D 아레나에서 캐릭터를 선택하고 라운드 단위로 전투를 진행하는 멀티플레이 액션 프로젝트입니다. 저는 프로젝트 기획을 총괄하고, 플레이어 조작과 전투 구조를 중심으로 구현했습니다. 플레이어 입력, 이동, 대쉬, 기본 공격 콤보, 스킬 입력 구조, 애니메이션 연동, 라운드 진행, 로비와 인게임 UI 디자인을 맡았습니다." },
         { type: "text", title: "게임 소개", keywords: ["방 생성", "로비", "캐릭터 선택", "라운드 전투", "스킬 액션"], text: "플레이어는 방을 만들거나 입장한 뒤 로비에서 팀과 캐릭터를 준비하고, 어쌔신·마법사·브루트 중 캐릭터를 선택해 전투에 진입합니다. 전투는 라운드 시간과 점수 흐름을 기준으로 진행되며, 캐릭터별 기본 공격과 Q/E/R 스킬, F 이동기를 활용해 상대와 교전하는 구조입니다." },
         { type: "showcase", title: "한눈에 보기", layout: "media-left", blocks: [
-          { kind: "media", size: "feature", media: "assets/project-chaos-ingame-ui.png", title: "인게임 전투 화면", text: "라운드 시간, 팀 점수, 조준점, 체력과 마나, 스킬 키 안내가 함께 보이는 실제 전투 화면입니다.", caption: "전투 상황과 플레이어 조작 정보를 한 화면에서 확인하도록 구성했습니다." },
+          { kind: "media", size: "feature", media: "assets/project-chaos-battle-scene.gif", title: "인게임 전투 장면", text: "라운드 시간, 팀 점수, 조준점, 체력과 마나, 스킬 키 안내가 함께 보이는 실제 전투 흐름입니다.", caption: "플레이어 조작과 상대 캐릭터의 스킬이 동시에 보이는 대표 전투 장면입니다." },
           { kind: "text", size: "normal", title: "제작 목적", text: "멀티플레이 전투에서 플레이어 입력이 이동, 애니메이션, 공격 판정, 스킬 사용으로 자연스럽게 이어지는 구조를 만드는 것을 목표로 했습니다." },
           { kind: "text", size: "normal", title: "핵심 경험", text: "Photon Fusion 환경에서 입력과 상태 권한을 분리하고, 공격·대쉬·스킬이 서로 충돌하지 않도록 플레이어 액션 흐름을 정리했습니다." }
         ] },
@@ -154,15 +154,15 @@ function extraProjectTemplates() {
         { type: "architecture", title: "전체 시스템 구조", flowTitle: "Match Flow", systemTitle: "Runtime Modules", note: "플레이어 입력은 NetworkInputData로 모아지고, 실제 이동·공격·스킬 처리는 StateAuthority 기준으로 실행되도록 구성했습니다. 라운드 흐름은 RoundManager가 상태를 전환하고, 플레이어 전투는 Character 계열 클래스와 ActionLock으로 책임을 나누었습니다.", flow: ["Room|방 생성 또는 입장", "Lobby|플레이어 슬롯과 준비 상태 확인", "Select|캐릭터 선택", "Round|라운드 시간과 점수 기반 전투", "Result|라운드 결과와 다음 진행"], systems: ["NetworkInputData|이동, 시점, 점프, 스프린트, 공격, 대쉬, Q/E/R 입력 수집", "NetworkThirdPersonController|입력 기반 이동, 카메라 방향, 대쉬, 스킬 호출", "PlayerCharacter|HP, Mana, 팀, 사망, 부활, 버프 상태 관리", "CharacterCombat|기본 공격 콤보, 공격 판정, 투사체와 히트 피드백 처리", "CharacterActionLock|공격, 이동, 대쉬, 점프, 스킬 충돌 방지", "RoundManager|캐릭터 선택, 준비, 플레이, 점수와 라운드 상태 전환"], domains: ["Player Control|이동, 점프, 스프린트, 대쉬", "Combat|기본 공격 콤보, 히트박스, 피격 피드백", "Skill|Q/E/R 스킬 입력과 쿨타임/마나 처리", "Network|StateAuthority, RPC, 네트워크 입력", "UI|로비, 캐릭터 선택, 인게임 HUD"] },
         { type: "features", title: "담당 구현", features: ["기획 총괄과 게임 흐름 정리", "플레이어 이동, 점프, 스프린트, 대쉬 구현", "어쌔신과 브루트 기본 공격 및 스킬 구조 구현", "마법사 스킬을 제외한 플레이어 스킬 기본 구조 구현", "Photon Fusion 기반 플레이어 입력과 상태 동기화", "라운드 진행 흐름과 전투 상태 처리", "로비와 인게임 기본 UI 디자인"] },
         { type: "showcase", title: "플레이어 전투 구현", layout: "media-left", blocks: [
-          { kind: "media", size: "feature", media: "assets/project-chaos-assassin-basic.png", title: "어쌔신 기본 공격 콤보", text: "입력 타이밍에 따라 기본 공격이 이어지고, 애니메이션 이벤트 시점에 공격 판정이 발생하도록 구성했습니다.", caption: "콤보 입력 창, 공격 잠금, 히트박스 생성 흐름을 분리했습니다." },
+          { kind: "media", size: "feature", media: "assets/project-chaos-assassin-combo.gif", title: "어쌔신 기본 공격 콤보", text: "입력 타이밍에 따라 기본 공격이 이어지고, 애니메이션 이벤트 시점에 공격 판정이 발생하도록 구성했습니다.", caption: "콤보 입력 창, 공격 잠금, 히트박스 생성 흐름을 분리했습니다." },
           { kind: "text", size: "normal", title: "공격 판정", text: "CharacterCombat에서 AttackData를 기준으로 공격 범위, 데미지, 넉백, 이펙트, 피격 피드백을 처리했습니다. 팀 정보를 확인해 같은 팀에게 공격이 적용되지 않도록 분기했습니다." },
           { kind: "text", size: "normal", title: "브루트 전투", text: "어쌔신뿐 아니라 브루트의 기본 전투 흐름도 함께 구현했습니다. 캐릭터마다 공격 리듬과 판정 타이밍이 다르게 느껴지도록 입력 처리, 액션 제한, 애니메이션 이벤트 흐름을 맞췄습니다." }
         ] },
         { type: "showcase", title: "스킬과 이동기", layout: "bento", blocks: [
-          { kind: "media", size: "normal", media: "assets/project-chaos-skill-q.png", title: "Q 스킬", text: "스킬 입력, 쿨타임, 마나 조건을 확인한 뒤 스킬 실행 흐름으로 연결합니다." },
-          { kind: "media", size: "normal", media: "assets/project-chaos-skill-e.png", title: "E 스킬", text: "캐릭터별 효과가 다른 스킬을 공통 입력 구조에서 호출하도록 구성했습니다." },
-          { kind: "media", size: "normal", media: "assets/project-chaos-skill-r.png", title: "R 스킬", text: "궁극기 사용 중 상태와 액션 제한을 분리해 다른 입력과 충돌하지 않게 처리했습니다." },
-          { kind: "media", size: "normal", media: "assets/project-chaos-dash-f.png", title: "F 이동기", text: "CapsuleCast로 장애물을 확인하고, 대쉬 거리와 지속 시간을 기준으로 이동량을 계산했습니다." }
+          { kind: "media", size: "normal", media: "assets/project-chaos-assassin-q.gif", title: "Q 스킬", text: "스킬 입력, 쿨타임, 마나 조건을 확인한 뒤 어쌔신의 투사체 흐름으로 연결합니다." },
+          { kind: "media", size: "normal", media: "assets/project-chaos-assassin-e.gif", title: "E 스킬", text: "어쌔신의 근접 전투 흐름 안에서 스킬 사용과 액션 제한이 자연스럽게 이어지도록 구성했습니다." },
+          { kind: "media", size: "normal", media: "assets/project-chaos-assassin-r.gif", title: "R 스킬", text: "궁극기 사용 중 상태와 액션 제한을 분리해 다른 입력과 충돌하지 않게 처리했습니다." },
+          { kind: "media", size: "normal", media: "assets/project-chaos-assassin-dash.gif", title: "F 이동기", text: "CapsuleCast로 장애물을 확인하고, 대쉬 거리와 지속 시간을 기준으로 이동량을 계산했습니다." }
         ] },
         { type: "text", title: "멀티플레이 구현", keywords: ["Photon Fusion", "NetworkBehaviour", "INetworkInput", "StateAuthority", "RPC"], text: "NetworkInputData에 이동, 시점, 점프, 대쉬, Q/E/R 입력을 모아 전달하고, NetworkThirdPersonController가 해당 입력을 받아 플레이어 행동으로 변환합니다. 실제 상태 변경은 StateAuthority 기준으로 처리하고, 애니메이션과 이펙트처럼 다른 클라이언트에서도 보여야 하는 요소는 RPC로 동기화했습니다." },
         { type: "text", title: "라운드 진행", keywords: ["RoundManager", "Character Select", "Preparation", "Playing", "Score"], text: "RoundManager는 대기, 캐릭터 선택, 준비, 플레이 상태를 전환하며 라운드 시간과 점수 흐름을 관리합니다. 캐릭터 선택 이후 플레이어를 전투 위치로 이동시키고, 라운드 결과와 다음 진행이 자연스럽게 이어지도록 구성했습니다." },
