@@ -145,7 +145,6 @@ function extraProjectTemplates() {
           { kind: "text", size: "normal", title: "제작 목적", text: "멀티플레이 전투에서 플레이어 입력이 이동, 애니메이션, 공격 판정, 스킬 사용으로 자연스럽게 이어지는 구조를 만드는 것을 목표로 했습니다." },
           { kind: "text", size: "normal", title: "핵심 경험", text: "Photon Fusion 환경에서 입력과 상태 권한을 분리하고, 공격·대쉬·스킬이 서로 충돌하지 않도록 플레이어 액션 흐름을 정리했습니다." }
         ] },
-        { type: "video", title: "전체 플레이 영상", url: "https://drive.google.com/drive/folders/1pKR-7ToKYZ0Pp2ic_i1ULvNALnNmsVV0?usp=sharing" },
         { type: "showcase", title: "로비와 매치 진입", layout: "bento", blocks: [
           { kind: "media", size: "normal", media: "assets/project-chaos-main.png", title: "메인 화면", text: "방 생성과 입장 흐름이 시작되는 화면입니다." },
           { kind: "media", size: "normal", media: "assets/project-chaos-room-create.png", title: "방 만들기", text: "방 이름, 비밀번호, 인원, 맵을 설정해 매치를 생성합니다." },
@@ -157,18 +156,13 @@ function extraProjectTemplates() {
         { type: "showcase", title: "플레이어 전투 구현", layout: "media-left", blocks: [
           { kind: "media", size: "feature", media: "assets/project-chaos-assassin-basic.png", title: "어쌔신 기본 공격 콤보", text: "입력 타이밍에 따라 기본 공격이 이어지고, 애니메이션 이벤트 시점에 공격 판정이 발생하도록 구성했습니다.", caption: "콤보 입력 창, 공격 잠금, 히트박스 생성 흐름을 분리했습니다." },
           { kind: "text", size: "normal", title: "공격 판정", text: "CharacterCombat에서 AttackData를 기준으로 공격 범위, 데미지, 넉백, 이펙트, 피격 피드백을 처리했습니다. 팀 정보를 확인해 같은 팀에게 공격이 적용되지 않도록 분기했습니다." },
-          { kind: "text", size: "normal", title: "브루트 전투", text: "브루트는 근접 공격과 범위형 스킬이 중심이 되도록 구성했습니다. 스킬 사용 중에는 CharacterActionLock을 통해 이동, 공격, 대쉬, 점프 입력이 겹치지 않게 처리했습니다." }
+          { kind: "text", size: "normal", title: "브루트 전투", text: "어쌔신뿐 아니라 브루트의 기본 전투 흐름도 함께 구현했습니다. 캐릭터마다 공격 리듬과 판정 타이밍이 다르게 느껴지도록 입력 처리, 액션 제한, 애니메이션 이벤트 흐름을 맞췄습니다." }
         ] },
         { type: "showcase", title: "스킬과 이동기", layout: "bento", blocks: [
           { kind: "media", size: "normal", media: "assets/project-chaos-skill-q.png", title: "Q 스킬", text: "스킬 입력, 쿨타임, 마나 조건을 확인한 뒤 스킬 실행 흐름으로 연결합니다." },
           { kind: "media", size: "normal", media: "assets/project-chaos-skill-e.png", title: "E 스킬", text: "캐릭터별 효과가 다른 스킬을 공통 입력 구조에서 호출하도록 구성했습니다." },
           { kind: "media", size: "normal", media: "assets/project-chaos-skill-r.png", title: "R 스킬", text: "궁극기 사용 중 상태와 액션 제한을 분리해 다른 입력과 충돌하지 않게 처리했습니다." },
           { kind: "media", size: "normal", media: "assets/project-chaos-dash-f.png", title: "F 이동기", text: "CapsuleCast로 장애물을 확인하고, 대쉬 거리와 지속 시간을 기준으로 이동량을 계산했습니다." }
-        ] },
-        { type: "showcase", title: "브루트 액션", layout: "media-left", blocks: [
-          { kind: "media", size: "feature", media: "assets/project-chaos-brute-basic.png", title: "브루트 기본 전투", text: "무거운 근접 캐릭터의 공격 리듬이 느껴지도록 모션과 판정 타이밍을 연결했습니다.", caption: "캐릭터별 전투 감각이 달라지도록 입력 처리와 판정 구조를 맞췄습니다." },
-          { kind: "text", size: "normal", title: "캐릭터별 역할", text: "어쌔신은 빠른 이동과 콤보, 브루트는 방어와 강한 근접 압박을 중심으로 플레이 감각을 나누었습니다. 마법사 스킬은 제 담당 범위가 아니어서, 이 페이지에서는 제가 구현한 플레이어 공통 구조와 어쌔신·브루트 흐름 중심으로 정리했습니다." },
-          { kind: "text", size: "normal", title: "애니메이션 연동", text: "이동 속도, 지면 상태, 공격 상태를 애니메이터와 연결하고, 공격 판정은 애니메이션 이벤트 타이밍에 맞춰 실행되도록 구성했습니다." }
         ] },
         { type: "text", title: "멀티플레이 구현", keywords: ["Photon Fusion", "NetworkBehaviour", "INetworkInput", "StateAuthority", "RPC"], text: "NetworkInputData에 이동, 시점, 점프, 대쉬, Q/E/R 입력을 모아 전달하고, NetworkThirdPersonController가 해당 입력을 받아 플레이어 행동으로 변환합니다. 실제 상태 변경은 StateAuthority 기준으로 처리하고, 애니메이션과 이펙트처럼 다른 클라이언트에서도 보여야 하는 요소는 RPC로 동기화했습니다." },
         { type: "text", title: "라운드 진행", keywords: ["RoundManager", "Character Select", "Preparation", "Playing", "Score"], text: "RoundManager는 대기, 캐릭터 선택, 준비, 플레이 상태를 전환하며 라운드 시간과 점수 흐름을 관리합니다. 캐릭터 선택 이후 플레이어를 전투 위치로 이동시키고, 라운드 결과와 다음 진행이 자연스럽게 이어지도록 구성했습니다." },

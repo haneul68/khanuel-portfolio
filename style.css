@@ -1203,12 +1203,16 @@ button { cursor: pointer; }
   display: block;
   margin-bottom: 6px;
   color: #ffffff;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .system-card b,
 .domain-card b,
 .system-card small,
 .domain-card small {
   grid-column: 2;
+  min-width: 0;
 }
 .flow-step span,
 .system-card small,
@@ -1217,6 +1221,8 @@ button { cursor: pointer; }
   color: #b9c7df;
   font-size: 14px;
   line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
 }
 .architecture-note {
   margin: 0;
