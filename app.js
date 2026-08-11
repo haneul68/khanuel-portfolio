@@ -136,7 +136,7 @@ function extraProjectTemplates() {
         { label: "GitHub", url: "https://github.com/Yongwankim1/Chaos-Arena" },
         { label: "플레이 영상", url: "https://drive.google.com/drive/folders/1pKR-7ToKYZ0Pp2ic_i1ULvNALnNmsVV0?usp=sharing" }
       ],
-      portfolioTemplateVersion: 12,
+      portfolioTemplateVersion: 13,
       sections: [
         { type: "text", title: "프로젝트 개요", keywords: ["Unity", "C#", "Photon Fusion", "3D Arena", "2인 팀", "PC"], text: "Chaos Arena는 3D 아레나에서 캐릭터를 선택하고 라운드 단위로 전투를 진행하는 멀티플레이 액션 프로젝트입니다. 저는 프로젝트 기획을 총괄하고, 플레이어 조작과 전투 구조를 중심으로 구현했습니다. 플레이어 입력, 이동, 대쉬, 기본 공격 콤보, 스킬 입력 구조, 애니메이션 연동, 라운드 진행, 로비와 인게임 UI 디자인을 맡았습니다." },
         { type: "text", title: "게임 소개", keywords: ["방 생성", "로비", "캐릭터 선택", "라운드 전투", "스킬 액션"], text: "플레이어는 방을 만들거나 입장한 뒤 로비에서 팀과 캐릭터를 준비하고, 어쌔신·마법사·브루트 중 캐릭터를 선택해 전투에 진입합니다. 전투는 라운드 시간과 점수 흐름을 기준으로 진행되며, 캐릭터별 기본 공격과 Q/E/R 스킬, F 이동기를 활용해 상대와 교전하는 구조입니다." },
@@ -169,7 +169,7 @@ function extraProjectTemplates() {
         { type: "text", title: "UI 디자인", keywords: ["Lobby UI", "Room UI", "Character Select", "In-game HUD"], text: "로비와 인게임 기본 UI 디자인을 담당했습니다. 방 생성, 입장, 플레이어 슬롯, 캐릭터 선택, 라운드 점수, 체력과 마나, 스킬 키 안내처럼 전투 전후 흐름에서 플레이어가 필요한 정보를 빠르게 확인할 수 있게 구성했습니다." },
         { type: "features", title: "문제 해결 경험", features: ["공격, 대쉬, 스킬 입력이 겹치지 않도록 CharacterActionLock으로 액션 제한 관리", "StateAuthority 기준으로 실제 전투 상태를 처리해 클라이언트별 결과 차이를 줄임", "콤보 입력 창과 애니메이션 이벤트를 분리해 공격 타이밍을 조절", "대쉬 중 장애물 관통을 막기 위해 CapsuleCast 기반 거리 보정 적용", "라운드 상태를 RoundManager로 모아 UI와 전투 흐름을 함께 관리"] },
         { type: "text", title: "배운 점", text: "멀티플레이 전투에서는 기능을 단순히 실행하는 것보다 입력, 권한, 애니메이션, 판정, UI가 같은 흐름으로 이어지는지가 중요하다는 점을 배웠습니다. 특히 플레이어 조작감은 이동 코드만으로 결정되지 않고, 대쉬 제한, 공격 타이밍, 스킬 중 액션 잠금, 라운드 상태까지 함께 맞물릴 때 안정적으로 느껴진다는 것을 확인했습니다." },
-        { type: "text", title: "보완할 부분", text: "이후에는 네트워크 지연 상황에서의 피격 판정 검증을 더 강화하고, 캐릭터별 스킬 밸런스와 UI 피드백을 세밀하게 조정할 계획입니다. 또한 플레이 영상과 테스트 장면을 더 추가해 각 캐릭터의 플레이 흐름이 더 명확하게 보이도록 보완할 수 있습니다." }
+        { type: "text", title: "보완할 부분", text: "현재 구조에서 가장 먼저 보완해야 할 부분은 네트워크 지연 상황에서의 피격 판정 안정성입니다. 공격 판정과 피격 피드백을 StateAuthority 기준으로 처리했지만, 실제 플레이 환경에서는 지연 시간에 따라 공격이 맞은 것처럼 보이는데 결과가 늦게 반영될 수 있습니다. 이후에는 히트 판정 로그와 리플레이 가능한 테스트 상황을 만들어 판정 기준을 더 검증하고 싶습니다. 또한 CharacterActionLock에 공격, 대쉬, 스킬 제한이 모여 있어 캐릭터가 늘어날수록 조건이 복잡해질 수 있으므로, 캐릭터 공통 액션 상태와 캐릭터별 스킬 상태를 더 분리하는 리팩토링이 필요하다고 느꼈습니다. UI 쪽에서는 스킬 쿨타임, 피격 방향, 라운드 승패 피드백이 아직 기능 중심으로 보이는 부분이 있어, 플레이어가 전투 상황을 더 빠르게 읽을 수 있도록 시각 효과와 사운드 피드백을 보강해야 합니다." }
       ]
     },
     {
@@ -210,7 +210,7 @@ function extraProjectTemplates() {
         { label: "GitHub", url: "https://github.com/haneul68/Shadow_Core_Defense" },
         { label: "플레이 영상", url: "https://drive.google.com/drive/folders/1nzH5xHGPtT1VIndM8YJPx2lua3KiLoDg?usp=sharing" }
       ],
-      portfolioTemplateVersion: 15,
+      portfolioTemplateVersion: 16,
       sections: [
         { type: "text", title: "프로젝트 개요", keywords: ["Unity", "C#", "2D Defense", "Core Defense", "Object Pooling", "Personal"], text: "Shadow Core Defense는 중앙 코어를 지키며 라운드 단위로 몰려오는 적을 처치하는 2D 코어 방어 액션 프로젝트입니다. 단순히 몬스터를 처치하는 전투 장면만이 아니라, 라운드 진행, 코어 방어, 보스 전투, 어빌리티 선택, 결과 보상, 캐릭터 구매/장착, 인벤토리와 룬 장착까지 전투 이후의 성장 흐름을 하나의 개인 프로젝트 안에서 구성했습니다." },
         { type: "text", title: "게임 소개", keywords: ["Wave", "Core", "Boss", "Ability", "Reward", "Growth"], text: "플레이어는 코어 주변에서 몬스터의 접근을 막고, 제한 시간 안에 웨이브를 버티거나 처치 흐름을 이어갑니다. 일반 웨이브에서는 적 처치 수와 남은 시간을 확인하며 전투하고, 보스 웨이브에서는 보스 체력과 패턴을 기준으로 위치를 조절합니다. 전투 중에는 스킬과 아이템 슬롯을 활용하고, 클리어 이후에는 보상과 성장 시스템으로 다음 플레이를 준비합니다." },
@@ -247,7 +247,7 @@ function extraProjectTemplates() {
         { type: "text", title: "성장 시스템", keywords: ["DataManager", "RuneManager", "Inventory", "Shop"], text: "Data_Manager는 캐릭터, 아이템, 룬, 적 데이터를 Resources의 ScriptableObject에서 읽어 딕셔너리로 관리합니다. Rune_Manager는 룬 보유 여부, 장착 슬롯, 강화 가능 여부, 필요한 재료와 성공 확률을 계산합니다. 상점과 인벤토리는 아이템 구매, 보유 수량, 재료 소비 흐름과 연결해 전투 밖 성장 준비가 가능하도록 구성했습니다." },
         { type: "features", title: "문제 해결 경험", features: ["전투 상태와 UI 갱신이 섞이지 않도록 상태 전환 이벤트 기반으로 분리", "라운드별 적 수량을 리스트로 만들고 셔플해 매번 같은 순서로 스폰되지 않도록 처리", "반복 생성되는 적과 UI 아이콘을 풀링으로 관리해 생성/삭제 부담 감소", "보스 패턴을 페이즈와 스킬 데이터로 분리해 확장 가능한 구조로 구성", "결과 보상 지급 전 인벤토리 수용 가능 여부를 검사해 보상 데이터와 실제 보유 데이터가 어긋나지 않도록 처리"] },
         { type: "text", title: "배운 점", text: "디펜스 게임에서는 전투 그 자체만큼이나 전투 전후의 정보 흐름이 중요하다는 점을 배웠습니다. 적이 어디서 오고, 코어가 얼마나 위험하고, 라운드가 얼마나 남았고, 전투 결과가 어떤 보상과 성장으로 이어지는지가 명확해야 플레이어가 다음 행동을 자연스럽게 선택할 수 있었습니다. 그래서 전투, UI, 보상, 성장 데이터를 따로 구현하기보다 하나의 플레이 루프로 이어지도록 구조를 맞추는 데 집중했습니다." },
-        { type: "text", title: "결과와 보완할 부분", text: "라운드 기반 전투, 코어 방어, 보스 패턴, 어빌리티 선택, 결과 보상, 상점/인벤토리/룬 성장 흐름을 하나의 개인 프로젝트로 구성했습니다. 이후에는 보스 전투 GIF를 100MB 이하로 줄여 웹에 직접 넣고, 실제 플레이 데이터를 기준으로 웨이브 난이도와 보상 밸런스를 더 세밀하게 조정하면 완성도를 높일 수 있습니다." }
+        { type: "text", title: "결과와 보완할 부분", text: "라운드 기반 전투, 코어 방어, 보스 패턴, 어빌리티 선택, 결과 보상, 상점/인벤토리/룬 성장 흐름을 하나의 개인 프로젝트로 구성했습니다. 다만 구현을 진행하면서 보완해야 할 부분도 분명했습니다. 먼저 Round_Manager가 라운드 상태 전환을 맡고 있지만, 전투 진행, 보스 진입, 어빌리티 선택, 결과 처리까지 연결되는 흐름이 길어져 상태별 책임을 더 작게 나눌 필요가 있습니다. Enemy_Spawn_Manager도 라운드 데이터 기반으로 동작하지만, 난이도 곡선과 스폰 규칙이 더 세밀하게 데이터화되어야 이후 웨이브 추가와 밸런스 조정이 쉬워질 것 같습니다. 보스 패턴은 페이즈 구조를 만들었지만 패턴 예고, 회피 가능 시간, 피격 위험 표시가 부족해 플레이어가 왜 맞았는지 즉시 이해하기 어려운 순간이 있을 수 있습니다. 앞으로는 보스 공격 범위 표시와 위험도 피드백을 강화하고, 보상/룬/상점 수치도 테스트 데이터를 기준으로 조정해 전투 결과가 성장 선택으로 더 자연스럽게 이어지도록 개선해야 한다고 느꼈습니다." }
       ]
     }
   ];
@@ -332,7 +332,7 @@ function upgradeChaosArenaProject(data) {
     return true;
   }
   const current = data.projects[index];
-  if ((current.portfolioTemplateVersion || 0) >= 12 && Array.isArray(current.sections) && current.sections.some(section => section.title === "플레이어 전투 구현")) return false;
+  if ((current.portfolioTemplateVersion || 0) >= 13 && Array.isArray(current.sections) && current.sections.some(section => section.title === "플레이어 전투 구현")) return false;
   data.projects[index] = {
     ...mergeProjectDefaults(current, template),
     summary: template.summary,
@@ -340,7 +340,7 @@ function upgradeChaosArenaProject(data) {
     contribution: template.contribution,
     links: mergeProjectLinks(current.links, template.links),
     sections: template.sections,
-    portfolioTemplateVersion: 12
+    portfolioTemplateVersion: 13
   };
   return true;
 }
@@ -354,7 +354,7 @@ function upgradeShadowCoreDefenseProject(data) {
     return true;
   }
   const current = data.projects[index];
-  if ((current.portfolioTemplateVersion || 0) >= 15 && Array.isArray(current.sections) && current.sections.some(section => section.title === "보스처치와 어빌리티 선택")) return false;
+  if ((current.portfolioTemplateVersion || 0) >= 16 && Array.isArray(current.sections) && current.sections.some(section => section.title === "보스처치와 어빌리티 선택")) return false;
   data.projects[index] = {
     ...mergeProjectDefaults(current, template),
     summary: template.summary,
@@ -362,7 +362,7 @@ function upgradeShadowCoreDefenseProject(data) {
     contribution: template.contribution,
     links: mergeProjectLinks(current.links, template.links),
     sections: template.sections,
-    portfolioTemplateVersion: 15
+    portfolioTemplateVersion: 16
   };
   return true;
 }
