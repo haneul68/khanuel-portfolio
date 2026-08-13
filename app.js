@@ -175,20 +175,61 @@ function extraProjectTemplates() {
     {
       title: "Cops Catch",
       category: "3D",
-      summary: "현재 진행 중인 5인 팀 기반 3D 멀티플레이 프로젝트입니다.",
+      summary: "어릴 때 함께 즐기던 경찰과 도둑 놀이를 온라인 3D 멀티플레이로 구현한 5인 팀 프로젝트입니다. 기획과 초기 공용 코드 구조를 맡았으며 플레이어 조작, 상태, 아이템, 감옥, 특별 모드인 사물 숨바꼭질, 설정과 결과 UI를 구현했습니다.",
       thumb: "assets/project-cops-catch.png",
       heroImage: "assets/project-cops-catch.png",
       heroBg: "assets/project-cops-catch.png",
-      tags: ["Unity", "3D", "Multiplayer", "Team Project", "5인", "In Progress"],
+      tags: ["Unity", "C#", "Photon Fusion", "3D Multiplayer", "Team Project", "Player System"],
       status: "진행 중",
       date: "",
-      role: "Unity Client Developer",
+      role: "Planner / Unity Client Developer",
       period: "진행 중",
       team: "5인 팀 프로젝트",
       platform: "PC",
-      genre: "3D Multiplayer",
-      contribution: "멀티플레이 시스템 구현 참여",
-      sections: [{ type: "overview", title: "프로젝트 개요", text: "Cops Catch는 현재 진행 중인 5인 팀 기반 3D 멀티플레이 프로젝트입니다. 현재는 타이틀 이미지와 기본 정보만 등록되어 있으며, 세부 구현 내용은 이후 관리자에서 추가할 수 있습니다." }]
+      genre: "3D Multiplayer Cops & Robbers",
+      contribution: "기획, 초기 공용 코드 설계, 경찰과 도둑 모드의 플레이어 이동/카메라/상태, 아이템과 장비 슬롯, 감옥과 구출, 특별 모드 사물 변신, 설정 UI, 결과 UI, 네트워크 동기화 안정화",
+      links: [
+        { label: "GitHub", url: "https://github.com/Yongwankim1/CopsCatch" },
+        { label: "플레이 영상", url: "https://www.youtube.com/watch?v=lpSZ64Ych1M&feature=youtu.be" }
+      ],
+      portfolioTemplateVersion: 18,
+      sections: [
+        { type: "text", title: "프로젝트 개요", keywords: ["Unity", "C#", "Photon Fusion", "3D Multiplayer", "5인 팀", "PC"], text: "Cops Catch는 어릴 때 여러 사람이 함께 즐기던 경찰과 도둑 놀이를 온라인에서 다시 즐길 수 있도록 만든 3D 멀티플레이 프로젝트입니다. 주 모드에서는 경찰이 도둑을 추격해 기절시키고 감옥까지 호송하며, 도둑은 도망치거나 수감된 팀원을 구출합니다. 저는 기획과 초기 공용 코드 구조를 설계했고, 플레이어 관련 기능과 설정·결과 UI를 중심으로 구현했습니다." },
+        { type: "text", title: "게임 소개", keywords: ["경찰과 도둑", "온라인 추격전", "기절과 호송", "감옥", "팀원 구출", "아이템"], text: "주 모드인 경찰과 도둑은 경찰의 추격·기절·호송과 도둑의 도주·구출이 맞물리는 팀 대전입니다. 경찰은 도둑을 찾아 제압한 뒤 감옥에 수감해야 하고, 도둑은 제한 시간 동안 도망치며 수감된 팀원을 구출할 수 있습니다. 맵에서 획득한 아이템과 역할별 장비가 추격 흐름을 바꾸고, 라운드 종료 후에는 점수와 순위를 결과 씬에서 보여줍니다. 사물로 변신해 숨는 플레이는 주 모드와 구분된 특별 모드로 제작했습니다." },
+        { type: "showcase", title: "한눈에 보기", layout: "media-left", blocks: [
+          { kind: "media", size: "feature", media: "assets/project-cops-catch-overview.webp", title: "대표 플레이", text: "경찰과 도둑이 도시를 오가며 추격하고, 역할별 아이템과 행동을 활용하는 실제 플레이 장면입니다.", caption: "추격, 아이템 사용, 상태 변화가 한 라운드 안에서 이어지는 핵심 플레이 흐름" },
+          { kind: "text", size: "normal", title: "기획 의도", text: "어릴 때 친구들과 뛰어놀며 즐겼던 경찰과 도둑의 추격과 팀 구출을 온라인 공간에서도 함께 즐길 수 있게 만드는 것이 출발점이었습니다. 경찰과 도둑의 목표와 행동을 분명히 나누고, 한 라운드 안에서 추격·제압·호송·수감·구출이 자연스럽게 이어지도록 설계했습니다." },
+          { kind: "text", size: "normal", title: "담당 범위", text: "기획과 공용 코드 기초 설계부터 주 모드의 플레이어 이동·카메라·상태·아이템·감옥·구출 흐름을 구현했습니다. 여기에 별도 특별 모드인 사물 숨바꼭질의 변신·배치·카메라 기능과 설정·결과 UI도 담당했습니다." }
+        ] },
+        { type: "architecture", title: "전체 시스템 구조", flowTitle: "경찰과 도둑 Round Flow", systemTitle: "KHN Runtime Modules", note: "주 모드인 경찰과 도둑은 역할 배정부터 추격, 기절과 호송, 감옥 수감과 구출, 결과 집계까지 하나의 라운드 흐름으로 연결했습니다. 입력과 카메라, 상태, 아이템, 감옥 기능을 컴포넌트로 나누고 Photon Fusion의 권한 기준에 맞춰 동기화했으며, 특별 모드의 사물 변신은 별도 플레이어 모듈로 분리했습니다.", flow: ["Role|경찰 또는 도둑 역할 배정", "Chase|이동, 카메라, 아이템을 활용한 추격", "Stun/Grab|기절과 래그돌 전환 후 잡기·호송", "Jail/Rescue|감옥 수감과 팀원 구출", "Result|점수 집계와 순위 연출"], systems: ["Player_Input_Reader_RB|이동, 시점, 상호작용과 역할별 입력 수집", "Player_Movement_RB|이동, 스태미나, 낙하 높이 기반 기절 처리", "Player_Status_Controller_RB|기절, 이동 제한, 래그돌, 잡기 상태 관리", "Player_Item_Holder_RB|아이템 획득, 사용, 교체, 버리기와 장비 슬롯", "Player_Jail_Interactor_RB|경찰과 도둑 역할에 따른 수감·구출 상호작용", "HideAndSeek_Player_RB|특별 모드의 사물 변신, 고정, 회전, 기울기와 자유 카메라", "Input_Rebind_Settings_UI|키 바인딩과 마우스 감도 저장·적용", "Result_Scene_Controller_RB|최종 점수와 순위 데이터 기반 결과 씬 연출"], domains: ["Player|이동, 카메라, 스태미나", "Status|기절, 래그돌, 잡기, 호송", "Item|획득, 사용, 교체, 장비 슬롯", "Jail|수감, 구출, 역할 판정", "Special Mode|사물 선택, 변신, 안전 배치", "Network|권한과 상태 동기화", "UI|설정, 상호작용 안내, 결과 순위"] },
+        { type: "features", title: "담당 구현", features: ["게임 기획과 초기 공용 코드 기초 설계", "플레이어 이동, 카메라와 스태미나 처리", "기절·래그돌 전환과 잡기·호송 흐름", "아이템 획득·사용·교체·버리기와 장비 슬롯", "경찰·도둑 역할과 감옥 수감·구출", "특별 모드의 사물 선택·변신·고정·회전·기울기와 자유 카메라", "특별 모드 변신 사물의 충돌·끼임 방지와 안전 배치", "키 바인딩, 마우스 감도, 상호작용 안내 UI", "결과 씬 순위 연출과 결과 UI", "호스트·클라이언트 상태 동기화 안정화와 플레이어 최적화"] },
+        { type: "showcase", title: "플레이어 조작과 낙하 상태", layout: "bento", blocks: [
+          { kind: "media", size: "normal", media: "assets/project-cops-catch-movement.webp", title: "플레이어 이동과 카메라", text: "입력 방향과 카메라 기준을 연결해 도시 지형을 자연스럽게 이동하고 추격 대상을 계속 확인하도록 구성했습니다.", caption: "이동, 카메라 회전, 스태미나 UI가 함께 반응하는 플레이어 조작" },
+          { kind: "media", size: "normal", media: "assets/project-cops-catch-fall-stun.webp", title: "낙하 높이 기반 기절", text: "낙하 높이를 추적해 기준을 넘으면 기절과 래그돌 상태로 전환하고, 높이에 따라 기절 시간을 계산하도록 구현했습니다.", caption: "높은 건물에서 낙하한 뒤 조작 제한과 래그돌이 적용되는 장면" }
+        ] },
+        { type: "showcase", title: "기절과 감옥 흐름", layout: "bento", blocks: [
+          { kind: "media", size: "normal", media: "assets/project-cops-catch-stun.webp", title: "플레이어 기절", text: "상태 컨트롤러가 기절 여부를 관리하고, 상태 브리지가 이동 제한과 래그돌 전환을 같은 상태값에 맞춰 연결합니다.", caption: "피격 이후 기절 상태가 양쪽 플레이어 화면에 반영되는 장면" },
+          { kind: "media", size: "normal", media: "assets/project-cops-catch-jail.webp", title: "감옥 수감과 구출", text: "경찰이 기절한 도둑을 호송해 감옥에 수감하고, 역할과 상태 조건을 확인해 팀원이 구출할 수 있도록 흐름을 구성했습니다.", caption: "기절, 호송, 수감으로 이어지는 경찰 역할의 핵심 흐름" }
+        ] },
+        { type: "showcase", title: "아이템과 장비 슬롯", layout: "media-left", blocks: [
+          { kind: "media", size: "feature", media: "assets/project-cops-catch-item.webp", title: "아이템 획득과 사용", text: "상호작용 가능한 아이템을 감지해 획득하고, 고정 장비와 일반 슬롯을 구분해 사용·교체·버리기로 이어지도록 구현했습니다.", caption: "맵 위 아이템 선택부터 장비 슬롯 표시와 실제 사용까지 이어지는 흐름" },
+          { kind: "text", size: "normal", title: "슬롯 구조", text: "Player_Item_Holder_RB가 현재 장비와 슬롯 상태를 관리하고 Player_Item_Interactor_RB가 상호작용 입력과 획득 조건을 처리하도록 책임을 나눴습니다." },
+          { kind: "text", size: "normal", title: "네트워크 처리", text: "아이템 소유권과 실제 상태 변경은 권한이 있는 쪽에서 처리하고, 다른 클라이언트에는 장착 상태와 월드 오브젝트 변화를 동기화하도록 구성했습니다." }
+        ] },
+        { type: "showcase", title: "특별 모드: 사물 숨바꼭질", layout: "media-left", blocks: [
+          { kind: "media", size: "feature", media: "assets/project-cops-catch-prop-choice.webp", title: "사물 선택과 변신", text: "도둑이 선택 UI에서 사물을 고르고 해당 외형으로 변신한 뒤 위치, 회전, 기울기와 고정 상태를 조절하도록 구현했습니다.", caption: "라운드 시작 전 사물을 선택하고 실제 플레이 상태로 전환하는 흐름" },
+          { kind: "text", size: "normal", title: "안전 배치", text: "변신 사물의 콜라이더 크기와 주변 충돌을 검사해 벽이나 지형에 끼는 위치를 피하고, 배치가 불가능하면 안전한 위치를 다시 찾도록 처리했습니다." },
+          { kind: "text", size: "normal", title: "자유 카메라", text: "사물 고정 중에는 플레이어 본체를 움직이지 않고 주변을 살필 수 있도록 자유 카메라 모드를 분리해 숨는 플레이의 정보 확인 수단을 만들었습니다." }
+        ] },
+        { type: "showcase", title: "설정과 결과 화면", layout: "bento", blocks: [
+          { kind: "media", size: "normal", media: "assets/project-cops-catch-key-binding.webp", title: "키 바인딩과 마우스 감도", text: "플레이어가 이동과 상호작용 키를 직접 변경하고 마우스 감도를 조절한 뒤 저장된 값을 실제 입력과 카메라에 적용하도록 구성했습니다.", caption: "현재 키 표시, 입력 대기, 초기화와 감도 조절을 한 화면에서 처리" },
+          { kind: "media", size: "normal", media: "assets/project-cops-catch-result.webp", title: "결과 씬 순위 연출", text: "라운드 종료 데이터를 전달받아 순위를 계산하고, 1·2·3위 단상과 승리 연출, 전체 순위 UI로 결과를 보여줍니다.", caption: "최종 결과와 플레이어 순위가 실제 씬 연출로 이어지는 장면" }
+        ] },
+        { type: "text", title: "핵심 구현", keywords: ["Photon Fusion", "State Authority", "Ragdoll", "Interaction", "Prop Transform", "Result Scene"], text: "플레이어 기능은 이동만 따로 동작하는 구조가 아니라 현재 상태를 기준으로 서로 연결되도록 구성했습니다. 기절 상태에서는 이동과 아이템 사용을 제한하고 래그돌을 활성화하며, 잡기와 호송 중에는 양쪽 플레이어의 권한과 위치를 맞춥니다. 수감 상태는 감옥 상호작용과 연결하고, 특별 모드의 사물 변신 상태에서는 일반 플레이어 충돌과 카메라 규칙을 변신 전용 흐름으로 전환했습니다." },
+        { type: "features", title: "문제 해결 경험", features: ["낙하 높이와 추가 높이를 기준으로 기절 시간을 계산해 낙하 위험을 플레이 규칙으로 연결", "기절·래그돌·잡기·수감 상태가 충돌하지 않도록 공통 상태값과 상태 브리지로 전환 순서 관리", "잡힌 플레이어와 잡는 플레이어의 권한을 구분해 호스트·클라이언트 위치 차이와 물리 튐 완화", "변신 사물의 실제 콜라이더를 기준으로 주변 공간을 검사해 벽 끼임과 잘못된 배치 방지", "아이템의 월드 상태와 장비 슬롯 상태가 어긋나지 않도록 획득·교체·버리기 순서를 한 흐름으로 정리", "설정값을 저장한 뒤 입력 시스템과 카메라 감도에 즉시 반영하도록 UI와 런타임 설정 연결"] },
+        { type: "text", title: "배운 점", text: "멀티플레이 플레이어를 구현하면서 이동, 상태, 물리, 아이템, 역할 규칙을 따로 완성하는 것만으로는 안정적인 플레이가 되지 않는다는 점을 배웠습니다. 한 플레이어가 기절하고 다른 플레이어가 잡는 순간처럼 여러 상태와 두 클라이언트의 권한이 동시에 바뀌는 구간에서 처리 순서가 가장 중요했습니다. 이후에는 상태를 먼저 확정하고, 이동과 물리, UI가 그 상태를 따라가도록 기준을 세워 기능을 연결했습니다." },
+        { type: "text", title: "보완할 부분", text: "현재 플레이어 기능이 확장되면서 HideAndSeek_Player_RB와 일부 플레이어 클래스가 많은 역할을 함께 맡고 있어, 사물 변신 상태·카메라·충돌 보정·네트워크 요청을 더 작은 컴포넌트와 명시적인 상태 머신으로 분리할 필요가 있습니다. 래그돌과 잡기·호송은 네트워크 지연과 프레임 차이에 따라 손 위치나 몸체가 순간적으로 튈 수 있으므로, 지연 환경을 재현하는 테스트와 권한 전환 로그를 추가해 보정 기준을 더 검증해야 합니다. 또한 Test_Code, RB_Test_Code, RG_Test_Code에 남은 실험 구현을 정리하고 실제 사용 경로를 하나로 통합하면 유지보수와 회귀 테스트가 쉬워질 것이라 판단했습니다. 사물 안전 배치는 맵 구조에 따라 예외가 생길 수 있으므로 콜라이더 검사 결과를 화면에서 확인하는 디버그 도구와 맵별 자동 배치 테스트도 추가할 계획입니다." }
+      ]
     },
     {
       title: "Shadow Core Defense",
@@ -367,6 +408,33 @@ function upgradeShadowCoreDefenseProject(data) {
   return true;
 }
 
+function upgradeCopsCatchProject(data) {
+  const index = data.projects.findIndex(project => {
+    const title = (project.title || "").toLowerCase();
+    return title.includes("cops catch") || title.includes("copscatch") || title.includes("콥스");
+  });
+  const template = extraProjectTemplates().find(project => project.title === "Cops Catch");
+  if (!template) return false;
+  if (index === -1) {
+    data.projects.push(template);
+    return true;
+  }
+  const current = data.projects[index];
+  if ((current.portfolioTemplateVersion || 0) >= 18 && Array.isArray(current.sections) && current.sections.some(section => section.title === "특별 모드: 사물 숨바꼭질")) return false;
+  data.projects[index] = {
+    ...mergeProjectDefaults(current, template),
+    summary: template.summary,
+    tags: template.tags,
+    role: template.role,
+    genre: template.genre,
+    contribution: template.contribution,
+    links: mergeProjectLinks(current.links, template.links),
+    sections: template.sections,
+    portfolioTemplateVersion: 18
+  };
+  return true;
+}
+
 function upgradeProfileFacts(data) {
   if ((data.profileContentVersion || 0) >= 6) return false;
   const base = DEFAULT_DATA;
@@ -411,6 +479,10 @@ function mergeData(base, saved) {
   }
   if (upgradeShadowCoreDefenseProject(data)) {
     data.projectImports = [...new Set([...data.projectImports, "shadow-core-defense"] )];
+    projectUpgraded = true;
+  }
+  if (upgradeCopsCatchProject(data)) {
+    data.projectImports = [...new Set([...data.projectImports, "cops-catch"] )];
     projectUpgraded = true;
   }
   if (ensurePortfolioProjects(data) || projectUpgraded) {
@@ -578,8 +650,8 @@ function projectMeta(project) {
 
 function mediaHTML(url, alt = "") {
   if (!url) return `<div class="empty-media"><span>${iconSVG("VIDEO")}</span><b>${escapeHTML(alt || "Portfolio Media")}</b><small>관리자에서 이미지, GIF, 영상을 추가하면 이곳에 표시됩니다.</small></div>`;
-  if (isVideoUrl(url)) return `<video src="${escapeHTML(url)}" muted loop playsinline controls></video>`;
-  return `<img src="${escapeHTML(url)}" alt="${escapeHTML(alt)}">`;
+  if (isVideoUrl(url)) return `<video src="${escapeHTML(url)}" muted loop playsinline controls preload="metadata"></video>`;
+  return `<img src="${escapeHTML(url)}" alt="${escapeHTML(alt)}" loading="lazy" decoding="async">`;
 }
 function heroBackgroundStyle(project) {
   const image = project.heroImage || project.thumb || "";

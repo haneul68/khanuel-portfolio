@@ -900,7 +900,12 @@ button { cursor: pointer; }
 .detail-menu { padding: 76px 18px 18px; border-right: 1px solid #263551; background: #0b1427; overflow: auto; }
 .detail-menu a { display: block; margin-bottom: 7px; padding: 11px 12px; border-radius: 8px; color: #cdd7ec; }
 .detail-menu a:hover { background: #18223a; color: #fff; }
-.detail-content { overflow: auto; padding: 64px 46px 90px; }
+.detail-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+  padding: 64px 46px 90px;
+}
 .detail-hero {
   position: relative;
   display: grid;
@@ -1103,6 +1108,16 @@ button { cursor: pointer; }
   height: 270px;
   background: #101a2e;
 }
+.showcase-board.layout-bento .showcase-media {
+  background:
+    radial-gradient(circle at 50% 20%, rgba(69, 199, 255, .12), transparent 48%),
+    #081426;
+}
+.showcase-board.layout-bento .showcase-media img,
+.showcase-board.layout-bento .showcase-media video {
+  object-fit: contain;
+  padding: 8px;
+}
 .showcase-copy {
   padding: 18px;
 }
@@ -1118,11 +1133,15 @@ button { cursor: pointer; }
   margin: 0 0 10px;
   color: #fff;
   font-size: 20px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .showcase-copy p {
   margin: 0;
   color: #cbd8ef;
   line-height: 1.7;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .showcase-copy small {
   display: block;
@@ -2594,6 +2613,31 @@ textarea { min-height: 96px; resize: vertical; }
   }
 }
 
+/* Landscape gameplay captures keep their native 16:9 framing without a tall empty media well. */
+.showcase-board.layout-media-left .showcase-block.is-media:first-child:has(.showcase-media img[src*="project-cops-catch"]),
+.showcase-board.layout-media-left .showcase-block.is-media:first-child:has(.showcase-media img[src*="project-chaos-arena"]),
+.showcase-board.layout-media-left .showcase-block.is-media:first-child:has(.showcase-media img[src*="project-shadow-core"]) {
+  display: flex;
+  flex-direction: column;
+}
+
+.showcase-board.layout-media-left .showcase-block.is-media:first-child:has(.showcase-media img[src*="project-cops-catch"]) .showcase-media,
+.showcase-board.layout-media-left .showcase-block.is-media:first-child:has(.showcase-media img[src*="project-chaos-arena"]) .showcase-media,
+.showcase-board.layout-media-left .showcase-block.is-media:first-child:has(.showcase-media img[src*="project-shadow-core"]) .showcase-media {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.showcase-board.layout-media-left .showcase-block.is-media:first-child:has(.showcase-media img[src*="project-cops-catch"]) .showcase-copy,
+.showcase-board.layout-media-left .showcase-block.is-media:first-child:has(.showcase-media img[src*="project-chaos-arena"]) .showcase-copy,
+.showcase-board.layout-media-left .showcase-block.is-media:first-child:has(.showcase-media img[src*="project-shadow-core"]) .showcase-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* Final override: project detail GIF cards use a tall left media panel and two right text panels. */
 .showcase-board.layout-media-left {
   grid-template-columns: minmax(420px, 1.12fr) minmax(320px, .88fr);
@@ -2625,6 +2669,20 @@ textarea { min-height: 96px; resize: vertical; }
 @media (max-width: 900px) {
   .showcase-board.layout-media-left {
     grid-template-columns: 1fr;
+  }
+
+  .architecture-board,
+  .architecture-band,
+  .flow-step,
+  .system-card,
+  .domain-card {
+    min-width: 0;
+  }
+
+  .flow-steps,
+  .system-stack,
+  .domain-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .showcase-board.layout-media-left .showcase-block.is-media:first-child {

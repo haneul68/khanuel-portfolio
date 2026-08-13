@@ -1,5 +1,15 @@
 # KHANEUL Game Developer Portfolio
 
+## 2026-08-13 Cops Catch update
+
+- The main mode is presented as the online `Police and Thieves` team mode.
+- `Prop Hunt` is described separately as a special mode.
+- Nine Cops Catch gameplay captures are included as animated WebP assets.
+- Player, jail/rescue, item, settings, result, and network responsibilities are documented from the KHN implementation scope.
+- Mobile project details use single-column architecture cards and prevent horizontal overflow.
+
+To publish this build, replace the files in the GitHub Desktop repository root with this folder's contents, then commit and push to `main`. The public URL stays the same.
+
 게임 개발자 포트폴리오 정적 웹사이트입니다.
 
 ## 실행
