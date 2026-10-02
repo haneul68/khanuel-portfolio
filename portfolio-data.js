@@ -1248,12 +1248,21 @@ const DEFAULT_DATA = {
       "thumb": "assets/project-golden-apple.png",
       "heroImage": "assets/project-golden-apple.png",
       "heroBg": "assets/project-golden-apple.png",
-      "previewMedia": "assets/project-golden-apple-basic-attack.webp",
+      "previewMedia": "assets/project-golden-apple.png",
+      "gameplayVideo": {
+        "url": "https://drive.google.com/file/d/1Fb9IMwYksT8d1MvhBPuGZOxJRgUjCrCR/view",
+        "poster": "assets/project-golden-apple.png",
+        "duration": "1:47"
+      },
       "previewType": "gameplay",
       "links": [
         {
           "label": "GitHub · 비공개 저장소",
           "url": "https://github.com/Yongwankim1/Olympus_Saga_V4"
+        },
+        {
+          "label": "전체 플레이 영상 · 1분 47초",
+          "url": "https://drive.google.com/file/d/1Fb9IMwYksT8d1MvhBPuGZOxJRgUjCrCR/view"
         }
       ],
       "sections": [

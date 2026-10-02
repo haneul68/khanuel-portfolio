@@ -39,6 +39,7 @@ function syncRoute(options={}) {
   $('main').hidden=activeView!=='home';$('profilePage').hidden=activeView!=='profile';$('projectPage').hidden=activeView!=='project';
   document.body.dataset.view=activeView;
   document.querySelectorAll('main[hidden] video').forEach(video=>video.pause());
+  document.querySelectorAll('main[hidden]').forEach(resetDrivePlayers);
   if(activeView==='project')renderProjectPage(project);
   if(activeView==='profile'&&!profileRendered){renderProfilePage();profileRendered=true;}
   document.title=activeView==='project'?`${project.title} | 김하늘 게임 개발 포트폴리오`:activeView==='profile'?'김하늘 소개 | 게임 개발 포트폴리오':'김하늘 | 함께하는 게임을 만드는 개발자';

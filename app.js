@@ -33,6 +33,18 @@ function mergeData(base, saved) {
   if (legacy) for (const project of base.projects) {
     if (project.introducedIn > (saved.schemaVersion || 1) && !merged.projects.some(p => projectId(p) === projectId(project))) merged.projects.push(project);
   }
+  // Replace the previous built-in overview clip for returning visitors, preserving custom media.
+  for (const project of merged.projects) {
+    const current = base.projects.find(item => projectId(item) === projectId(project));
+    if (projectId(project) === 'golden-apple' && current?.gameplayVideo && !project.gameplayVideo &&
+        (!project.previewMedia || ['assets/project-golden-apple-basic-attack.webp','assets/project-golden-apple-basic-attack.gif','assets/project-golden-apple.png'].includes(project.previewMedia))) {
+      project.gameplayVideo = { ...current.gameplayVideo };
+      project.previewMedia = current.previewMedia;
+      if (!(project.links || []).some(link => link.url === current.gameplayVideo.url)) {
+        project.links = [...(project.links || []), { label: '전체 플레이 영상 · 1분 47초', url: current.gameplayVideo.url }];
+      }
+    }
+  }
   if (legacy && (!saved.schemaVersion || saved.schemaVersion < 2)) merged.featuredIndex = Math.max(0, merged.projects.findIndex(p => projectId(p) === 'cops-catch'));
   for (const key of ['skills','education','certificates','chips','profileLanguages','playPhilosophy','aboutStrengths','interests','activities','learning','workStyle']) if (!Array.isArray(merged[key])) merged[key] = base[key];
   const oldHeadings={aboutTitle:'플레이 감각을 코드로 구현하는 개발자',aboutDetailTitle:'함께 즐기는 게임 경험을 설계하는 개발자'};
@@ -109,7 +121,10 @@ function setMotionPaused(paused) {
   if(paused)stopGameMotion();
   document.documentElement.classList.toggle('reduce-motion', paused);
   document.querySelectorAll('.motion-media').forEach(frame => setMediaPaused(frame, paused));
-  if (paused) document.querySelectorAll('video').forEach(video => video.pause());
+  if (paused) {
+    document.querySelectorAll('video').forEach(video => video.pause());
+    resetDrivePlayers(document);
+  }
   $('motionToggle').textContent = paused ? '움직임 켜기' : '움직임 끄기';
   $('motionToggle').setAttribute('aria-pressed', String(paused));
   scheduleCarousel();
@@ -128,11 +143,45 @@ function previewMeta(project) {
     : {label:'실제 플레이', code:'GAMEPLAY'};
 }
 function projectPreviewHTML(project) {
+  const video = project.gameplayVideo;
+  if (video && driveVideoId(video.url)) {
+    const title = `${project.title} 전체 플레이 영상`;
+    return `<div class="drive-player" data-drive-url="${escapeHTML(video.url)}"><img class="drive-poster" src="${escapeHTML(safeMedia(video.poster || project.heroImage))}" alt="${escapeHTML(project.title)} 타이틀 화면" loading="lazy" decoding="async"><button class="drive-play" type="button" data-drive-play aria-label="${escapeHTML(title)} 플레이어 열기"><span class="drive-play-icon" aria-hidden="true">▶</span><strong>전체 플레이 영상</strong><span>스토리 · 전투 3라운드 · 보스전 · 여관</span><small>${escapeHTML(video.duration || '')} · 눌러서 재생</small></button><a class="drive-open" href="${escapeHTML(video.url)}" target="_blank" rel="noopener noreferrer">Drive에서 보기 ↗</a></div>`;
+  }
   const media=overviewMedia(project);
   if(projectId(project)==='gn-banc' && media==='assets/project-gn-banc-combat-flow.webp') {
     return `<div class="portrait-pair">${mediaHTML(media,'GN Banc 자동 전투',true)}${mediaHTML('assets/project-gn-banc-hero-upgrade.webp','GN Banc 영웅 성장',true)}</div>`;
   }
   return mediaHTML(media,`${project.title} ${previewMeta(project).label}`,true);
+}
+function driveVideoId(url) {
+  return String(url || '').match(/^https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/(?:view|preview)(?:[?#].*)?$/)?.[1] || '';
+}
+function openDrivePlayer(button) {
+  const player = button.closest('.drive-player'), id = driveVideoId(player?.dataset.driveUrl);
+  if (!id || player.querySelector('iframe')) return;
+  const frame = document.createElement('iframe');
+  frame.src = `https://drive.google.com/file/d/${id}/preview`;
+  frame.title = button.getAttribute('aria-label').replace(' 플레이어 열기', '');
+  frame.allow = 'autoplay; fullscreen; picture-in-picture';
+  frame.allowFullscreen = true;
+  player.insertBefore(frame, player.querySelector('.drive-open'));
+  button.hidden = true;
+  player.classList.add('is-loaded');
+  if (player.closest('#featuredGame')) {
+    carouselPaused = true;
+    $('carouselToggle').textContent = '▶ 자동 전환 켜기';
+    $('carouselToggle').setAttribute('aria-pressed', 'true');
+    scheduleCarousel();
+  }
+  frame.focus();
+}
+function resetDrivePlayers(root) {
+  root.querySelectorAll('.drive-player.is-loaded').forEach(player => {
+    player.querySelector('iframe')?.remove();
+    player.querySelector('[data-drive-play]').hidden = false;
+    player.classList.remove('is-loaded');
+  });
 }
 function renderSite() {
   if (!$('featuredGame')) return;
@@ -279,6 +328,8 @@ async function toggleSound() {
 function bindSiteEvents() {
   bindCarousel();bindPlaybook();bindPageNavigation();
   document.addEventListener('click',event=>{
+    const driveButton=event.target.closest('[data-drive-play]');
+    if(driveButton)openDrivePlayer(driveButton);
     const mediaButton=event.target.closest('[data-media-toggle]');
     if(mediaButton){const frame=mediaButton.closest('.motion-media');setMediaPaused(frame,!frame.classList.contains('is-paused'));}
   });

@@ -82,3 +82,20 @@ body :is(.strength-slots b,.knowledge-slots b,.detail-stage figcaption){font-fam
 }
 
 .showcase-board.capture-compact .is-media { width:min(100%,800px); justify-self:center; }
+/* Full gameplay: load Drive only when the visitor chooses to watch. */
+.drive-player{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;isolation:isolate;background:#050d17;color:#fff}
+.expedition-preview .game-screen>.drive-player{position:absolute;inset:0;height:100%;aspect-ratio:auto}
+.drive-player .drive-poster{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(.48)}
+.drive-player .drive-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;border:0;border-radius:0;background:linear-gradient(transparent,rgba(4,13,23,.6));color:#fff;cursor:pointer;font-family:var(--ui-font);padding:22px 16px 46px;text-align:center}
+.drive-player .drive-play[hidden]{display:none}
+.drive-play-icon{display:grid;place-items:center;flex-shrink:0;width:62px;height:62px;padding-left:4px;border:1px solid #ffe8ad;border-radius:50%;background:linear-gradient(145deg,#ffe6a2,#c99342);color:#152030;font-size:23px;box-shadow:0 0 25px #e6bc5733}
+.drive-play strong{font-size:1.3rem;line-height:1.5;letter-spacing:-.02em}
+.drive-play>span:not(.drive-play-icon){font-size:.875rem;line-height:1.6;color:#dce9f2}
+.drive-play small{font-size:.8125rem;line-height:1.5;color:#ffdf93}
+.drive-play:hover .drive-play-icon{background:#fff0c4;box-shadow:0 0 30px #f0ce7777}
+.drive-play:focus-visible{outline:3px solid #ffe2a4;outline-offset:-5px}
+.drive-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#050d17}
+.drive-player .drive-open{position:absolute;z-index:2;right:12px;bottom:10px;padding:7px 11px;border:1px solid #7396b5;border-radius:4px;background:#061324e8;color:#e1edfa;font:500 .8125rem/1.5 var(--ui-font);text-decoration:none}
+.drive-player .drive-open:hover{border-color:#ffe2a4;color:#ffe2a4}
+.drive-player.is-loaded .drive-open{display:none}
+@media(max-width:760px){.drive-player .drive-play{gap:5px;padding:12px 10px 38px}.drive-play-icon{width:42px;height:42px;font-size:18px}.drive-play strong{font-size:1rem}.drive-play>span:not(.drive-play-icon),.drive-play small{font-size:.75rem}.drive-player .drive-open{right:8px;bottom:7px;font-size:.75rem;padding:4px 8px}}
