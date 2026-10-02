@@ -142,7 +142,8 @@ const DEFAULT_DATA = {
       "desc": "플레이어 이동, 전투, 상태와 UI를 연결합니다.",
       "projects": [
         "cops-catch",
-        "chaos-arena"
+        "chaos-arena",
+        "golden-apple"
       ]
     },
     {
@@ -1219,6 +1220,381 @@ const DEFAULT_DATA = {
       "lead": "코어 하나를 지키기 위한\n매 라운드의 새로운 선택",
       "teaser": "웨이브를 넘고, 보상을 고르고, 다시 코어를 지키는 디펜스",
       "previewMedia": "assets/project-shadow-core-defense-gameplay-overview.webp"
+    },
+    {
+      "id": "golden-apple",
+      "title": "Golden Apple",
+      "introducedIn": 6,
+      "category": "2D",
+      "genre": "2D 턴제 RPG",
+      "team": "6인 팀",
+      "platform": "",
+      "status": "졸업작품",
+      "date": "2025",
+      "period": "2025년",
+      "role": "플레이어 · 전투 시스템",
+      "summary": "캐릭터와 스킬, 아이템을 선택하며 몬스터와 맞서는 턴제 RPG 졸업작품입니다. 플레이어 데이터부터 보스전과 전투 UI까지 구현했습니다.",
+      "lead": "공격할까, 회복할까?\n다음 한 수를 고르는 전투",
+      "teaser": "한 번의 선택이 다음 턴을 바꾸는 RPG",
+      "cardRole": "플레이어 · 턴제 전투 · 몬스터 · 아이템 사용",
+      "contribution": "플레이어 데이터·전투 능력치·스킬·이펙트, 턴제 전투와 라운드 진행, 일반·보스 몬스터와 스킬, 아이템 데이터·사용 로직, 전투 버튼과 UI 흐름",
+      "motivation": "턴제 전투 한 판을 선택 UI와 데이터 처리까지 연결해 직접 완성해 보고 싶었습니다. 캐릭터·스킬·아이템을 고르고 대상을 정하는 UI 흐름, 행동을 주고받는 턴 진행, 전투 중 바뀌는 플레이어와 아이템 데이터를 관리하는 방법을 익히는 것이 목표였습니다.",
+      "tags": [
+        "Unity",
+        "C#",
+        "턴제 전투",
+        "졸업작품"
+      ],
+      "thumb": "assets/project-golden-apple.png",
+      "heroImage": "assets/project-golden-apple.png",
+      "heroBg": "assets/project-golden-apple.png",
+      "previewMedia": "assets/project-golden-apple-basic-attack.webp",
+      "previewType": "gameplay",
+      "links": [
+        {
+          "label": "GitHub · 비공개 저장소",
+          "url": "https://github.com/Yongwankim1/Olympus_Saga_V4"
+        }
+      ],
+      "sections": [
+        {
+          "type": "showcase",
+          "title": "한 번의 선택으로 이어지는 전투",
+          "layout": "showcase-grid",
+          "blocks": [
+            {
+              "kind": "text",
+              "title": "프로젝트 소개",
+              "text": "Golden Apple은 스토리 진행과 턴제 전투가 결합된 Unity 2D RPG 졸업작품입니다. 2025년 프로그래머 2명·그래픽 3명·기획 1명으로 구성된 6인 팀에서 제작했습니다. 저는 플레이어와 전투 씬 전반, 아이템 데이터·사용 로직을 담당했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "만들고 배우고 싶었던 것",
+              "text": "턴제 전투 한 판을 선택 UI와 데이터 처리까지 연결해 직접 완성해 보고 싶었습니다. 캐릭터·스킬·아이템을 고르고 대상을 정하는 UI 흐름, 행동을 주고받는 턴 진행, 전투 중 바뀌는 플레이어와 아이템 데이터를 관리하는 방법을 익히는 것이 목표였습니다."
+            }
+          ]
+        },
+        {
+          "type": "features",
+          "title": "내가 맡은 부분",
+          "layout": "responsibilities",
+          "features": [
+            "플레이어 데이터와 기본·장비·버프·디버프 전투 능력치 처리",
+            "플레이어 일반 공격과 단일·전체 대상 스킬, 사용 횟수와 이펙트 연동",
+            "플레이어·적 턴 전환, 행동 횟수와 승패 조건 처리",
+            "전투 라운드 구성과 다음 라운드의 몬스터 재배치",
+            "일반 몬스터·보스 몬스터와 공격·소환·상태 효과 스킬",
+            "아이템 데이터, 전투 중 대상 선택·효과 적용·수량 차감",
+            "전투 버튼과 선택 패널, 뒤로가기, HP·상태 표시와 전투 메시지"
+          ]
+        },
+        {
+          "type": "showcase",
+          "title": "누구 차례인지부터 확실하게",
+          "layout": "case-study",
+          "blocks": [
+            {
+              "kind": "media",
+              "title": "공격 선택부터 적의 반격까지",
+              "media": "assets/project-golden-apple-basic-attack.webp",
+              "caption": "캐릭터와 공격 대상을 선택하고, 피해 표시와 전투 메시지가 이어지는 실제 플레이"
+            },
+            {
+              "kind": "text",
+              "title": "구현 과제",
+              "text": "행동을 선택하는 단계, 공격 결과와 메시지를 보여주는 단계, 적이 행동하는 단계를 연결해야 했습니다. 행동 횟수만 넘기는 것이 아니라 적의 생존 여부와 라운드 종료 조건도 함께 판단해야 했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "턴 진행 구현",
+              "text": "TurnManager에서 플레이어와 적의 행동 횟수를 각각 관리했습니다. 플레이어 턴은 최대 3회 행동하거나 적이 모두 쓰러지면 종료하고, 적 턴에서는 살아 있는 적을 선택해 행동을 수행합니다. 턴 시작·종료 시점에 상태 효과의 지속 턴을 처리했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "표시와 라운드 연결",
+              "text": "BattleUI는 전투 메시지를 Queue로 순서대로 표시하고, TurnManager는 메시지 표시 상태를 확인하는 대기 지점을 둡니다. 중간 라운드 승리 후에는 다음 적 구성을 설정하고 EnemySpawner.ResetForNextRound로 기존 적과 배치 목록을 정리한 뒤 다시 생성합니다."
+            },
+            {
+              "kind": "text",
+              "title": "구현 결과",
+              "text": "행동 선택→판정과 메시지→적 행동→다음 턴의 전투 흐름을 구성했습니다. 라운드 전환은 전투 씬을 다시 불러오는 대신 적 구성을 갱신하도록 구현하고, 최종 승리·패배와 중간 라운드 진행을 구분했습니다."
+            }
+          ],
+          "captureCompact": true
+        },
+        {
+          "type": "showcase",
+          "title": "공격할까, 한 단계 돌아갈까?",
+          "layout": "case-study",
+          "blocks": [
+            {
+              "kind": "media",
+              "title": "스킬을 고르면, 효과가 전투로",
+              "media": "assets/project-golden-apple-skill-use.webp",
+              "caption": "공격 스킬과 파티 강화 스킬을 선택하고 이펙트·전투 상태에 반영하는 장면"
+            },
+            {
+              "kind": "text",
+              "title": "구현 과제",
+              "text": "일반 공격은 캐릭터와 적을 고르고, 스킬은 캐릭터·스킬·대상으로 선택 단계가 달라집니다. 취소했을 때 이전 화면으로 돌아갈 수 있어야 하고, 단일 대상과 전체 대상 스킬도 다른 흐름으로 처리해야 했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "선택 UI 구현",
+              "text": "BackButtonManager에서 열린 패널을 Stack으로 관리했습니다. 새 패널을 열면 이전 패널을 숨기고, 뒤로가면 현재 패널을 꺼낸 뒤 이전 패널을 복구합니다. 선택 창이 열려 있는 동안 기본 행동 버튼을 제한하도록 연결했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "스킬과 연출 연결",
+              "text": "Skill에는 종류·배율·남은 사용 횟수·시전 및 타격 이펙트·사운드를 두었습니다. SkillManager에서 단일 적·단일 아군·전체 적·전체 아군으로 선택을 분기하고 SkillLogic으로 효과를 적용합니다. 공격 스킬은 컷인 재생 후 지정된 대기 시간을 거쳐 판정에 연결했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "구현 결과",
+              "text": "행동별로 필요한 대상 선택 단계와 취소 흐름을 구성했습니다. 스킬 데이터, 선택 UI, 효과 적용 코드를 구분했으며 전체 공격은 적 목록의 복사본을 순회해 도중에 적이 제거되는 경우를 다뤘습니다."
+            }
+          ],
+          "captureCompact": true
+        },
+        {
+          "type": "showcase",
+          "title": "버프는 잠깐, 기본 능력치는 그대로",
+          "layout": "case-study",
+          "blocks": [
+            {
+              "kind": "text",
+              "title": "구현 과제",
+              "text": "기본 능력치에 장비 수치와 여러 버프·디버프가 더해지고, 턴이 지나면 일부 효과만 만료됩니다. 효과마다 현재 수치를 덧셈·뺄셈으로 되돌리기보다 어떤 값으로 최종 능력치를 구할지 기준이 필요했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "데이터와 계산 방식",
+              "text": "Player에서 기본 능력치, 장비 보정치, 활성 버프·디버프 목록을 구분했습니다. RecalculateStats는 기본값과 장비값을 합친 뒤 활성 효과의 증감 비율을 적용해 공격력·방어력·속도를 다시 계산합니다."
+            },
+            {
+              "kind": "text",
+              "title": "만료와 UI 갱신",
+              "text": "버프·디버프의 남은 턴을 줄이고 만료된 항목을 제거한 다음 능력치를 재계산했습니다. HP·최대 HP·상태 효과 변경 이벤트를 통해 전투 UI가 갱신할 정보를 전달하도록 구성했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "구현 결과",
+              "text": "장비 보정과 일시적인 상태 효과를 구분해 최종 능력치를 계산하는 경로를 만들었습니다. 전투 종료 시에는 버프·디버프·보호막과 스킬 사용 횟수 등을 정리하는 초기화 처리를 연결했습니다."
+            }
+          ],
+          "roster": {
+            "title": "같은 전투 규칙, 서로 다른 캐릭터",
+            "caption": "팀 제작 캐릭터 이미지 · 담당 구현: 플레이어 데이터, 전투 능력치, 스킬·이펙트 연동",
+            "items": [
+              {
+                "name": "헤라",
+                "image": "assets/project-golden-apple-hera.webp",
+                "description": "캐릭터별 능력치와 보유 스킬 데이터"
+              },
+              {
+                "name": "아테나",
+                "image": "assets/project-golden-apple-athena.webp",
+                "description": "스킬 선택부터 효과·이펙트 적용까지"
+              },
+              {
+                "name": "아프로디테",
+                "image": "assets/project-golden-apple-aphrodite.webp",
+                "description": "HP와 상태 효과를 전투 UI에 연결"
+              }
+            ]
+          }
+        },
+        {
+          "type": "showcase",
+          "title": "포션도 대상부터 골라주세요",
+          "layout": "case-study",
+          "blocks": [
+            {
+              "kind": "media",
+              "title": "가방을 열고, 사용할 대상을 고르고",
+              "media": "assets/project-golden-apple-item-use.webp",
+              "caption": "전투 중 아이템 목록을 열고 대상을 선택하는 흐름과 이어지는 플레이"
+            },
+            {
+              "kind": "text",
+              "title": "구현 과제",
+              "text": "회복·버프·공격·스킬 횟수 회복 아이템은 적용할 대상과 선택 단계가 다릅니다. 효과를 사용할 수 없는 대상은 선택 단계에서 구분하고, 사용 후 전투 목록과 보유 데이터의 수량을 함께 반영해야 했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "아이템 데이터와 대상 조건",
+              "text": "Item에 종류·효과 값·능력치 보정치·아이콘·사운드·이펙트를 정의했습니다. ItemUIManager는 종류에 따라 아군·적·개별 스킬 선택으로 분기합니다. 사망한 캐릭터는 목록에서 제외하고, 같은 버프가 있거나 회복이 필요 없는 대상은 버튼을 비활성화했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "사용과 수량 처리",
+              "text": "사용이 확정되면 효과와 이펙트를 적용하고 턴 행동을 등록합니다. 전투 아이템 목록에서 사용한 항목을 제거하고 슬롯 UI를 갱신한 뒤 보유 아이템 목록에도 반영했습니다. 스킬 회복 아이템은 캐릭터 선택 후 회복할 스킬을 한 번 더 선택하도록 했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "구현 결과",
+              "text": "아이템 선택→유효 대상 선택→효과 적용→행동 등록→수량·UI 갱신을 연결했습니다. 같은 아이템을 묶어 표시하고 마지막 항목을 사용하면 슬롯을 줄이는 처리도 구현했습니다."
+            }
+          ],
+          "captureCompact": true
+        },
+        {
+          "type": "showcase",
+          "title": "보스에게도 한 수가 있으니까",
+          "layout": "case-study",
+          "blocks": [
+            {
+              "kind": "media",
+              "title": "이번 턴은 고블린수장의 차례",
+              "media": "assets/project-golden-apple-boss-battle.webp",
+              "caption": "고블린수장의 공격과 강화 효과, 파티의 체력·생존 상태가 바뀌는 보스전"
+            },
+            {
+              "kind": "text",
+              "title": "구현 과제",
+              "text": "일반 몬스터의 공격과 보스의 소환·광역 공격·상태 효과를 같은 턴 흐름에서 실행해야 했습니다. 몬스터 구성은 라운드마다 바뀌고, 일부 보스 행동에는 체력과 발동 횟수 조건이 필요했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "몬스터와 스킬 구조",
+              "text": "EnemyBase를 공통 기반으로 몬스터를 구성하고, EnemySkill에는 사용 횟수와 SkillEffect 목록을 두었습니다. 효과 유형에 따라 공격·광역 피해·능력치 변화·지속 피해 등을 처리하고 몬스터별 스킬과 이펙트를 연결했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "보스별 행동과 라운드",
+              "text": "고블린수장은 아군 공격력을 높이는 격려의 함성과 강한 단일 공격을 사용합니다. 킹슬라임에는 소환과 광역 공격을, 상처많은 웨어베어에는 체력 조건에 따른 포효와 대지 강타를 구현했습니다. 라운드 매니저에서 적 종류·수량·보스 여부를 구성해 BattleData로 전달합니다."
+            },
+            {
+              "kind": "text",
+              "title": "구현 결과",
+              "text": "공통 몬스터 데이터와 보스별 행동을 턴 진행에 연결하고, 다음 라운드에서 적과 배치 정보를 갱신하도록 구현했습니다. 보스의 일회성 발동과 스킬 사용 횟수를 별도로 관리해 행동 조건을 표현했습니다."
+            }
+          ],
+          "roster": {
+            "title": "보스마다 꺼내는 카드가 다르니까",
+            "caption": "프로젝트 내 몬스터 리소스 · 담당 구현: 몬스터 데이터, 스킬, 행동 조건과 라운드 연결",
+            "items": [
+              {
+                "name": "고블린수장",
+                "image": "assets/project-golden-apple-goblin-chief.webp",
+                "description": "아군 공격력 강화 · 강한 단일 공격"
+              },
+              {
+                "name": "킹슬라임",
+                "image": "assets/project-golden-apple-king-slime.webp",
+                "description": "슬라임 소환 · 광역 공격"
+              },
+              {
+                "name": "상처많은 웨어베어",
+                "image": "assets/project-golden-apple-scarred-werebear.webp",
+                "description": "체력 조건부 포효 · 대지 강타"
+              }
+            ]
+          },
+          "captureCompact": true
+        },
+        {
+          "type": "architecture",
+          "title": "버튼 한 번이 전투 결과가 되기까지",
+          "flowTitle": "플레이어 행동 한 번의 흐름",
+          "flow": [
+            "행동 선택|공격·스킬·아이템",
+            "대상 선택|아군·적·개별 스킬",
+            "효과 적용|피해·회복·상태 효과",
+            "행동 등록|사용 횟수·아이템 목록 반영",
+            "진행 판단|남은 행동·생존·라운드 검사"
+          ],
+          "systemTitle": "담당한 주요 모듈",
+          "systems": [
+            "TurnManager · BattleData|턴 진행과 전투·라운드 설정",
+            "Player · PlayerManager|플레이어 데이터와 파티 구성",
+            "Skill · SkillManager · SkillLogic|스킬 데이터·대상 선택·효과 적용",
+            "EnemyBase · EnemySkill · EnemySpawner|몬스터·보스 행동과 배치",
+            "Item · ItemUIManager|아이템 데이터와 사용 처리",
+            "BackButtonManager · BattleUI|선택 화면 복귀와 전투 메시지"
+          ],
+          "note": "데이터 클래스와 선택 UI, 전투 진행을 나누어 연결했습니다. 현재 구현에는 UI 상태를 기다리는 턴 처리와 고정 시간으로 연결한 연출이 함께 있으며, 이후에는 행동 완료 신호를 명확히 하는 방향으로 다듬고 싶습니다."
+        },
+        {
+          "type": "features",
+          "title": "구현에 사용한 기술",
+          "layout": "toolbox",
+          "features": [
+            "Unity · C# | 플레이어·몬스터·아이템 데이터와 턴제 전투, 전투 씬 UI를 구현했습니다.",
+            "Coroutine · Queue · Stack | 턴 진행 대기, 전투 메시지 순차 표시, 선택 패널의 뒤로가기 흐름을 구성했습니다.",
+            "uGUI · TextMeshPro · Events | 전투 버튼·대상 목록·HP·상태 표시를 데이터 변경과 연결했습니다."
+          ]
+        },
+        {
+          "type": "showcase",
+          "title": "그래서, 전투 한 판에 담은 것",
+          "layout": "outcome",
+          "blocks": [
+            {
+              "kind": "text",
+              "title": "선택부터 결과까지",
+              "text": "플레이어의 공격·스킬·아이템 선택을 턴 행동으로 연결하고, 적 행동과 라운드 전환·승패 처리까지 전투 씬의 흐름을 구현했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "전투 데이터를 함께 다루는 구조",
+              "text": "플레이어 기본·장비 능력치와 버프·디버프, 스킬 사용 횟수, 아이템 효과와 보유 목록을 전투 UI에 연결했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "몬스터마다 다른 행동",
+              "text": "일반 몬스터와 보스의 스킬·소환·조건부 상태 효과를 구현하고, 라운드별 적 구성과 배치 갱신에 연결했습니다."
+            }
+          ]
+        },
+        {
+          "type": "showcase",
+          "title": "배운 점",
+          "layout": "lessons",
+          "blocks": [
+            {
+              "kind": "text",
+              "title": "선택 화면도 전투 규칙의 일부",
+              "text": "스킬과 아이템마다 대상 조건이 달라 UI에서부터 사용 가능한 행동을 구분해야 했습니다. 화면을 여닫는 일과 선택을 확정하는 일을 나누고, 뒤로가기 경로를 스택으로 정리했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "현재 수치보다 계산 근거를 남기기",
+              "text": "기본·장비·일시 효과를 구분하고 활성 목록에서 능력치를 재계산했습니다. 효과를 해제할 때 반대 수치를 적용하는 방식보다 어떤 값이 최종 결과를 만들었는지 확인하기 쉬운 구조를 경험했습니다."
+            },
+            {
+              "kind": "text",
+              "title": "행동의 끝은 판정 이후에도 이어진다",
+              "text": "피해와 회복을 적용한 뒤에도 메시지·이펙트·대상 제거·행동 횟수 처리가 남아 있었습니다. 전투 흐름을 연결하며 무엇을 기준으로 다음 행동으로 넘어갈지 명확히 해야 한다는 점을 배웠습니다."
+            }
+          ]
+        },
+        {
+          "type": "showcase",
+          "title": "다음에 더 다듬고 싶은 것",
+          "layout": "roadmap",
+          "blocks": [
+            {
+              "kind": "text",
+              "title": "연출이 끝나면 다음 행동으로",
+              "text": "고정 대기 시간과 메시지 표시 여부에 의존하는 부분을 행동 시작·적용·완료 단계로 정리하고 싶습니다. 완료 신호로 입력 잠금과 다음 턴 진입을 제어해 연출 길이가 달라져도 흐름을 확인하기 쉽게 만들 계획입니다.",
+              "caption": "검증 기준 · 연속 클릭·2배속·연출 중 대상 사망 시 행동 등록 횟수"
+            },
+            {
+              "kind": "text",
+              "title": "같은 전투를 다시 돌려 볼 수 있게",
+              "text": "마지막 적 처치, 전체 공격 중 적 제거, 보스 소환과 라운드 전환을 재현 가능한 테스트로 정리하고 싶습니다. 행동 횟수와 적 목록·배치 위치가 전환 후 일치하는지 확인하려 합니다.",
+              "caption": "검증 기준 · 턴 종료 조건과 적 데이터·씬 오브젝트의 일치"
+            },
+            {
+              "kind": "text",
+              "title": "효과가 늘어나도 계산은 한곳에서",
+              "text": "문자열로 구분하는 능력치·효과 종류와 스킬별 분기를 명시적인 식별자와 공통 효과 처리로 정리하고 싶습니다. 장비 변경, 버프 만료와 아이템 사용을 조합해 능력치·남은 수량을 비교할 계획입니다.",
+              "caption": "검증 기준 · 중첩·만료·회복 후 최종 능력치와 아이템 수량"
+            }
+          ]
+        }
+      ]
     }
   ],
   "featuredIndex": 0,
@@ -1250,8 +1626,8 @@ const DEFAULT_DATA = {
       "desc": "최적화, 버그 수정, 플레이 흐름 개선을 반복합니다."
     }
   ],
-  "schemaVersion": 5,
-  "contentVersion": "2026-10-02-source-verified",
+  "schemaVersion": 6,
+  "contentVersion": "2026-10-02-golden-apple",
   "heroTitle": "같이 할 사람?\n게임은 제가\n만들게요",
   "heroSubtitle": "함께 웃고, 다시 모일 게임을 만들고 싶습니다"
 };
@@ -1263,3 +1639,5 @@ const REVISION2_FINGERPRINTS = {"profile":{"brand":"2484005349","hello":"2190820
 const REVISION3_FINGERPRINTS = {"profile":{"brand":"2484005349","hello":"2190820593","name":"2390135483","role":"1040825807","desc":"2378251555","profileAvatar":"1045516200","profileLocation":"3104936846","profileLanguages":"3244348347","character":"399434981","theme":"178686425","accent":"1497532572","background":"2246735961","radius":"1396752095","soundDefaultOn":"184981848","bgmUrl":"3612720026","profileContentVersion":"856466825","chips":"3442496082","aboutTitle":"274835460","aboutText":"1535186942","aboutDetailTitle":"3000382818","aboutDetailText":"317430974","playPhilosophy":"1147946782","aboutStrengths":"1110647527","awards":"1947613349","education":"2106507601","certificates":"90045221","interests":"887210195","activities":"2788409293","learning":"1649072805","workStyle":"1983847733","aboutGoal":"455838562","stats":"1947613349","contact":"133989338","skills":"2881984805","featuredIndex":"890022063","projectImports":"4008848007","workflow":"2078759746","schemaVersion":"906799682","contentVersion":"937057964","heroTitle":"1892743097","heroSubtitle":"1505771673"},"projects":{"CopsCatch":{"title":"28545221","category":"2023393040","summary":"2696509533","thumb":"3917555877","heroImage":"3917555877","heroBg":"3917555877","tags":"2727651022","status":"1383518713","date":"4291472005","role":"24632564","period":"4291472005","team":"3833824110","platform":"3391470930","genre":"1235059031","contribution":"3807816631","links":"3069953499","portfolioTemplateVersion":"334175660","sections":"3273790012","id":"1689499362","cardRole":"1830753995","lead":"1439654208","motivation":"2249004637","teaser":"1722085330","previewMedia":"3833759922"},"Chaos Arena":{"title":"389229398","category":"2023393040","summary":"2225792232","thumb":"1430986046","heroImage":"1430986046","heroBg":"1430986046","tags":"4066366218","status":"3032238145","date":"4291472005","role":"3847443067","period":"4291472005","team":"394435255","platform":"3391470930","genre":"2422957583","contribution":"3839454924","links":"4023565573","portfolioTemplateVersion":"518729469","sections":"1079235220","id":"3908295913","cardRole":"2808445660","motivation":"2868798777","lead":"2257792125","teaser":"79426990","previewMedia":"1194054709"},"GN Banc":{"title":"4286704292","category":"1198326355","summary":"3593132070","thumb":"2974567891","heroImage":"2974567891","heroBg":"2974567891","tags":"4220755459","status":"3032238145","date":"4291472005","role":"2588728659","period":"4291472005","team":"817756812","platform":"2284939338","genre":"2186651557","contribution":"1740114195","links":"1882296004","portfolioTemplateVersion":"485174231","sections":"210891810","id":"1616828965","cardRole":"1860651749","motivation":"1803261974","lead":"1908730978","teaser":"2617362431","previewMedia":"2664393179"},"Shadow Core Defense":{"title":"3814527330","category":"1198326355","summary":"3172047777","thumb":"1946342995","heroImage":"1946342995","heroBg":"1946342995","tags":"4209980195","status":"3032238145","date":"4291472005","role":"2588728659","period":"4291472005","team":"817756812","platform":"3391470930","genre":"2671853306","contribution":"422358238","links":"1479319560","portfolioTemplateVersion":"434841374","sections":"712955680","id":"1288850052","cardRole":"3249244832","motivation":"4008373944","lead":"3765894382","teaser":"4073226714","previewMedia":"1298549551"}}};
 
 const REVISION4_FINGERPRINTS = {"profile":{"brand":"2484005349","hello":"2190820593","name":"2390135483","role":"1040825807","desc":"2378251555","profileAvatar":"1045516200","profileLocation":"3104936846","profileLanguages":"3244348347","character":"399434981","theme":"3995337445","accent":"934307345","background":"2246735961","radius":"1396752095","soundDefaultOn":"184981848","bgmUrl":"3612720026","profileContentVersion":"856466825","chips":"3442496082","aboutTitle":"3586462213","aboutText":"1535186942","aboutDetailTitle":"1910887340","aboutDetailText":"317430974","playPhilosophy":"1147946782","aboutStrengths":"1110647527","awards":"1947613349","education":"2106507601","certificates":"90045221","interests":"887210195","activities":"2788409293","learning":"1649072805","workStyle":"1983847733","aboutGoal":"455838562","stats":"1947613349","contact":"133989338","skills":"2881984805","featuredIndex":"890022063","projectImports":"4008848007","workflow":"2078759746","schemaVersion":"822911587","contentVersion":"2560353898","heroTitle":"1892743097","heroSubtitle":"1505771673"},"projects":{"CopsCatch":{"title":"28545221","category":"2023393040","summary":"2696509533","thumb":"3917555877","heroImage":"3917555877","heroBg":"3917555877","tags":"2727651022","status":"1383518713","date":"4291472005","role":"24632564","period":"4291472005","team":"3833824110","platform":"3391470930","genre":"1235059031","contribution":"3807816631","links":"3069953499","portfolioTemplateVersion":"334175660","sections":"721944003","id":"1689499362","cardRole":"1830753995","lead":"1439654208","motivation":"2249004637","teaser":"1722085330","previewMedia":"3833759922"},"Chaos Arena":{"title":"389229398","category":"2023393040","summary":"2225792232","thumb":"1430986046","heroImage":"1430986046","heroBg":"1430986046","tags":"4066366218","status":"3032238145","date":"4291472005","role":"3847443067","period":"4291472005","team":"394435255","platform":"3391470930","genre":"2422957583","contribution":"3839454924","links":"4023565573","portfolioTemplateVersion":"518729469","sections":"1542050301","id":"3908295913","cardRole":"2808445660","motivation":"2868798777","lead":"2257792125","teaser":"79426990","previewMedia":"3774408871"},"GN Banc":{"title":"4286704292","category":"1198326355","summary":"3593132070","thumb":"2974567891","heroImage":"2974567891","heroBg":"2974567891","tags":"4220755459","status":"3032238145","date":"4291472005","role":"2588728659","period":"4291472005","team":"817756812","platform":"2284939338","genre":"2186651557","contribution":"1740114195","links":"1882296004","portfolioTemplateVersion":"485174231","sections":"1019809846","id":"1616828965","cardRole":"1860651749","motivation":"1803261974","lead":"1908730978","teaser":"2617362431","previewMedia":"3080946281"},"Shadow Core Defense":{"title":"3814527330","category":"1198326355","summary":"3172047777","thumb":"1946342995","heroImage":"1946342995","heroBg":"1946342995","tags":"4209980195","status":"3032238145","date":"4291472005","role":"2588728659","period":"4291472005","team":"817756812","platform":"3391470930","genre":"2671853306","contribution":"422358238","links":"1479319560","portfolioTemplateVersion":"434841374","sections":"3213562833","id":"1288850052","cardRole":"3249244832","motivation":"4008373944","lead":"3765894382","teaser":"4073226714","previewMedia":"2002767429"}}};
+
+const REVISION5_FINGERPRINTS = {"profile":{"brand":"2484005349","hello":"2190820593","name":"2390135483","role":"1040825807","desc":"2378251555","profileAvatar":"1045516200","profileLocation":"3104936846","profileLanguages":"3244348347","character":"399434981","theme":"3995337445","accent":"934307345","background":"2246735961","radius":"1396752095","soundDefaultOn":"184981848","bgmUrl":"3612720026","profileContentVersion":"856466825","chips":"3442496082","aboutTitle":"3586462213","aboutText":"1535186942","aboutDetailTitle":"1910887340","aboutDetailText":"317430974","playPhilosophy":"1147946782","aboutStrengths":"1110647527","awards":"1947613349","education":"2106507601","certificates":"90045221","interests":"887210195","activities":"2788409293","learning":"1649072805","workStyle":"1983847733","aboutGoal":"455838562","stats":"1947613349","contact":"133989338","skills":"2881984805","featuredIndex":"890022063","projectImports":"4008848007","workflow":"2078759746","schemaVersion":"806133968","contentVersion":"4146538857","heroTitle":"1892743097","heroSubtitle":"1505771673"},"projects":{"CopsCatch":{"title":"28545221","category":"2023393040","summary":"2696509533","thumb":"3917555877","heroImage":"3917555877","heroBg":"3917555877","tags":"2727651022","status":"1383518713","date":"4291472005","role":"24632564","period":"4291472005","team":"3833824110","platform":"3391470930","genre":"1235059031","contribution":"3807816631","links":"3069953499","portfolioTemplateVersion":"334175660","sections":"2454200223","id":"1689499362","cardRole":"1830753995","lead":"1439654208","motivation":"2249004637","teaser":"1722085330","previewMedia":"3833759922"},"Chaos Arena":{"title":"389229398","category":"2023393040","summary":"2225792232","thumb":"1430986046","heroImage":"1430986046","heroBg":"1430986046","tags":"4066366218","status":"3032238145","date":"4291472005","role":"3847443067","period":"4291472005","team":"394435255","platform":"3391470930","genre":"2422957583","contribution":"3839454924","links":"4023565573","portfolioTemplateVersion":"518729469","sections":"2589074270","id":"3908295913","cardRole":"2808445660","motivation":"2868798777","lead":"2257792125","teaser":"79426990","previewMedia":"3774408871"},"GN Banc":{"title":"4286704292","category":"1198326355","summary":"3593132070","thumb":"2974567891","heroImage":"2974567891","heroBg":"2974567891","tags":"4220755459","status":"3032238145","date":"4291472005","role":"2588728659","period":"4291472005","team":"817756812","platform":"2284939338","genre":"2186651557","contribution":"1740114195","links":"1882296004","portfolioTemplateVersion":"485174231","sections":"3489464545","id":"1616828965","cardRole":"1860651749","motivation":"1803261974","lead":"1908730978","teaser":"2617362431","previewMedia":"3080946281"},"Shadow Core Defense":{"title":"3814527330","category":"1198326355","summary":"3172047777","thumb":"1946342995","heroImage":"1946342995","heroBg":"1946342995","tags":"4209980195","status":"3032238145","date":"4291472005","role":"2588728659","period":"4291472005","team":"817756812","platform":"3391470930","genre":"2671853306","contribution":"422358238","links":"1479319560","portfolioTemplateVersion":"434841374","sections":"1446224793","id":"1288850052","cardRole":"3249244832","motivation":"4008373944","lead":"3765894382","teaser":"4073226714","previewMedia":"2002767429"}}};

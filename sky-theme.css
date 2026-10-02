@@ -52,3 +52,40 @@ body :is(.dossier-top,.dossier-top>span,.dossier-photo>span,.dossier-name>span,.
 body :is(.strength-slots b,.knowledge-slots b,.detail-stage figcaption){font-family:var(--ui-font);font-size:.875rem;line-height:1.65}
 .credential-copy time{color:#b0b9c8}.dossier-top{gap:12px;flex-wrap:wrap}.detail-progress>span{gap:12px}.knowledge-case>header{flex-wrap:wrap}
 @media(min-width:761px) and (max-width:980px){.scene-characters{bottom:30px;height:260px}.scene-robot.mascot-button{left:calc(2% + 195px);right:auto}}
+
+/* The new project's own title art identifies its destination on the sky chart. */
+.world-map button.world-node .island-golden-apple {
+  background-image:url('assets/project-golden-apple.png');
+  background-size:auto 100%;background-position:center;
+  width:158px;height:158px;margin:9px auto;
+  border-radius:50% 50% 45% 45%;border:2px solid #be9a59;
+  box-shadow:inset 0 0 0 5px #152c2bcc,inset 0 -24px 30px #071626,0 6px 0 #11273b,0 9px 0 #527975,0 15px 22px #061426;
+  mix-blend-mode:normal;
+}
+.world-map button.world-node .island-golden-apple::after {
+  content:'◆';position:absolute;bottom:-13px;left:calc(50% - 9px);
+  color:#efcc76;font-size:20px;text-shadow:0 0 10px #ffce6a80;
+}
+
+/* In-project artwork supports the Golden Apple implementation notes. */
+.combat-roster { margin: 0 0 30px; padding: 22px; background: #0a1727; border: 1px solid #45607a; border-top: 2px solid #c9ac72; }
+.combat-roster-heading { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+.combat-roster-heading svg { color:#e8ca8e; width:23px; height:23px; flex:0 0 23px; }
+.combat-roster-heading h4 { margin:0; font-size:19px; color:#eaf1fc; }
+.combat-roster-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.combat-roster-card { margin:0; min-width:0; border:1px solid #30465e; background:linear-gradient(155deg,#1b3047,#0c1a2b); }
+.combat-roster-art { height:250px; display:flex; justify-content:center; padding:16px 8px 0; overflow:hidden; background:radial-gradient(ellipse at 50% 70%,#3b536650,transparent 70%); }
+.combat-roster-art img { display:block; width:100%; height:100%; object-fit:contain; }
+.combat-roster-card figcaption { padding:16px; border-top:1px solid #30465e; }
+.combat-roster-card strong { display:block; font-size:18px; line-height:1.5; color:#f1e3c8; }
+.combat-roster-card figcaption span { display:block; margin-top:5px; font-size:14px; line-height:1.65; color:#b9cce0; }
+.combat-roster .combat-roster-credit { margin:16px 0 0; color:#99adc4; font-size:14px; line-height:1.7; }
+@media(max-width:600px) {
+  .combat-roster { padding:16px; }
+  .combat-roster-list { grid-template-columns:1fr; }
+  .combat-roster-card { display:grid; grid-template-columns:112px 1fr; align-items:center; }
+  .combat-roster-art { height:150px; padding:8px; }
+  .combat-roster-card figcaption { border-top:0; border-left:1px solid #30465e; padding:14px; }
+}
+
+.showcase-board.capture-compact .is-media { width:min(100%,800px); justify-self:center; }

@@ -34,7 +34,7 @@ function selectTrait(console,index,focus=false) {
 }
 let worldJourney=null,worldPosition=null,worldGeneration=0,worldSpacing=240;
 function worldPoint(index) { return {x:120+index*worldSpacing,y:index%2?183:146}; }
-function islandType(project,index=0) { return {'cops-catch':0,'chaos-arena':1,'gn-banc':2,'shadow-core-defense':3}[projectId(project)] ?? index%4; }
+function islandType(project,index=0) { return {'cops-catch':0,'chaos-arena':1,'gn-banc':2,'shadow-core-defense':3,'golden-apple':'golden-apple'}[projectId(project)] ?? index%4; }
 function renderWorldMap() {
   worldSpacing=Math.max(205,($('gameTabs').clientWidth-240)/Math.max(1,carouselOrder.length-1));
   const width=Math.max(370,(carouselOrder.length-1)*worldSpacing+240);

@@ -16,8 +16,8 @@ function mergeUntouched(base, saved, fingerprints = {}) {
 }
 function mergeData(base, saved) {
   if (!saved || typeof saved !== 'object' || Array.isArray(saved)) return base;
-  const legacy = !saved.schemaVersion || saved.schemaVersion < 5;
-  const fingerprints = saved.schemaVersion === 4 ? REVISION4_FINGERPRINTS : saved.schemaVersion === 3 ? REVISION3_FINGERPRINTS : saved.schemaVersion === 2 ? REVISION2_FINGERPRINTS : LEGACY_FINGERPRINTS;
+  const legacy = !saved.schemaVersion || saved.schemaVersion < 6;
+  const fingerprints = saved.schemaVersion === 5 ? REVISION5_FINGERPRINTS : saved.schemaVersion === 4 ? REVISION4_FINGERPRINTS : saved.schemaVersion === 3 ? REVISION3_FINGERPRINTS : saved.schemaVersion === 2 ? REVISION2_FINGERPRINTS : LEGACY_FINGERPRINTS;
   const merged = legacy ? mergeUntouched(base, saved, fingerprints.profile) : { ...base, ...saved };
   merged.contact = { ...base.contact, ...(saved.contact || {}) };
   merged.projects = Array.isArray(saved.projects) ? saved.projects.filter(p => p && typeof p === 'object').map(p => {
@@ -30,11 +30,14 @@ function mergeData(base, saved) {
     }
     return updated;
   }) : base.projects;
+  if (legacy) for (const project of base.projects) {
+    if (project.introducedIn > (saved.schemaVersion || 1) && !merged.projects.some(p => projectId(p) === projectId(project))) merged.projects.push(project);
+  }
   if (legacy && (!saved.schemaVersion || saved.schemaVersion < 2)) merged.featuredIndex = Math.max(0, merged.projects.findIndex(p => projectId(p) === 'cops-catch'));
   for (const key of ['skills','education','certificates','chips','profileLanguages','playPhilosophy','aboutStrengths','interests','activities','learning','workStyle']) if (!Array.isArray(merged[key])) merged[key] = base[key];
   const oldHeadings={aboutTitle:'플레이 감각을 코드로 구현하는 개발자',aboutDetailTitle:'함께 즐기는 게임 경험을 설계하는 개발자'};
   for(const [key,old] of Object.entries(oldHeadings))if(merged[key]===old)merged[key]=base[key];
-  merged.schemaVersion = 5;
+  merged.schemaVersion = 6;
   return merged;
 }
 function loadData() {
@@ -119,12 +122,17 @@ function overviewMedia(project) {
   // Custom project media retains precedence over the built-in footage.
   return project.previewMedia || (project.sections || []).find(s=>s.type==='showcase' && s.layout!=='case-study')?.blocks?.find(b=>b.kind==='media')?.media || defaults[projectId(project)] || project.heroImage || project.thumb;
 }
+function previewMeta(project) {
+  return project.previewType === 'title'
+    ? {label:'타이틀 화면', code:'TITLE SCREEN'}
+    : {label:'실제 플레이', code:'GAMEPLAY'};
+}
 function projectPreviewHTML(project) {
   const media=overviewMedia(project);
   if(projectId(project)==='gn-banc' && media==='assets/project-gn-banc-combat-flow.webp') {
     return `<div class="portrait-pair">${mediaHTML(media,'GN Banc 자동 전투',true)}${mediaHTML('assets/project-gn-banc-hero-upgrade.webp','GN Banc 영웅 성장',true)}</div>`;
   }
-  return mediaHTML(media,`${project.title} 실제 플레이`,true);
+  return mediaHTML(media,`${project.title} ${previewMeta(project).label}`,true);
 }
 function renderSite() {
   if (!$('featuredGame')) return;
@@ -165,7 +173,7 @@ function scheduleCarousel() {
 function renderSelectedGame(p) {
   const host=$('featuredGame');host.hidden=false;host.dataset.ready='true';host.dataset.project=projectId(p);
   const featured=p===featuredProject(),number=String(carouselIndex+1).padStart(2,'0');
-  host.innerHTML=`<article class="selected-game expedition-preview" data-game="${projectId(p)}" data-featured="${featured}" role="group" aria-roledescription="슬라이드" aria-label="${carouselIndex+1} / ${carouselOrder.length} ${escapeHTML(p.title)}"><header class="destination-bar"><span class="destination-marker">${uiIcon('game')}</span><div><span class="eyebrow">${featured?'FEATURED PROJECT':'SELECTED PROJECT'} / ${number}</span><h3>도착했으니, 한 판 구경할까요?</h3></div><a href="#projects" class="back-to-map">지도에서 다시 고르기 <span aria-hidden="true">↑</span></a></header><div class="destination-content"><div class="playback-bay"><div class="playback-panel-head"><span><i class="live-mark" aria-hidden="true"></i> 실제 플레이</span><span>${escapeHTML(p.platform || '')} / GAMEPLAY</span></div><div class="game-screen">${projectPreviewHTML(p)}</div><div class="playback-caption"><span>${uiIcon('game')} ${escapeHTML(p.genre || '')}</span><span>PLAY CAPTURE</span></div></div><div class="selected-info"><span class="destination-stamp">${featured?'★ 대표 게임':'GAME / '+number}</span><h2>${headingHTML(p.title)}</h2><p class="selected-lead">${headingHTML(p.lead || p.teaser || p.summary).replace(/\n/g,' ')}</p><div class="destination-facts"><span>${uiIcon('network')} ${escapeHTML(p.team || '')}</span><span>${uiIcon('game')} ${escapeHTML(p.platform || '')}</span></div><div class="role-loadout"><span class="role-emblem" aria-hidden="true">${uiIcon('code')}</span><div><span class="eyebrow">이 게임에서 맡은 일</span><p>${escapeHTML(p.cardRole || p.contribution || '')}</p></div></div><div class="destination-tech">${tagsHTML(p.tags)}</div>${p.summary?`<p class="destination-summary">${escapeHTML(p.summary)}</p>`:''}<a class="game-enter" href="${projectHref(p)}" aria-label="${escapeHTML(p.title)} 개발 이야기 보기"><span class="enter-icon" aria-hidden="true">${uiIcon('learn')}</span><span>이 게임의 개발 이야기<small>구현 · 문제 해결 · 배운 점</small></span><b aria-hidden="true">↗</b></a></div></div></article>`;
+  host.innerHTML=`<article class="selected-game expedition-preview" data-game="${projectId(p)}" data-featured="${featured}" role="group" aria-roledescription="슬라이드" aria-label="${carouselIndex+1} / ${carouselOrder.length} ${escapeHTML(p.title)}"><header class="destination-bar"><span class="destination-marker">${uiIcon('game')}</span><div><span class="eyebrow">${featured?'FEATURED PROJECT':'SELECTED PROJECT'} / ${number}</span><h3>도착했으니, 한 판 구경할까요?</h3></div><a href="#projects" class="back-to-map">지도에서 다시 고르기 <span aria-hidden="true">↑</span></a></header><div class="destination-content"><div class="playback-bay"><div class="playback-panel-head"><span><i class="live-mark" aria-hidden="true"></i> ${previewMeta(p).label}</span><span>${p.platform?escapeHTML(p.platform)+' / ':''}${previewMeta(p).code}</span></div><div class="game-screen">${projectPreviewHTML(p)}</div><div class="playback-caption"><span>${uiIcon('game')} ${escapeHTML(p.genre || '')}</span><span>${previewMeta(p).code}</span></div></div><div class="selected-info"><span class="destination-stamp">${featured?'★ 대표 게임':'GAME / '+number}</span><h2>${headingHTML(p.title)}</h2><p class="selected-lead">${headingHTML(p.lead || p.teaser || p.summary).replace(/\n/g,' ')}</p><div class="destination-facts"><span>${uiIcon('network')} ${escapeHTML(p.team || '')}</span><span>${uiIcon('game')} ${escapeHTML(p.platform || p.genre || '')}</span></div><div class="role-loadout"><span class="role-emblem" aria-hidden="true">${uiIcon('code')}</span><div><span class="eyebrow">이 게임에서 맡은 일</span><p>${escapeHTML(p.cardRole || p.contribution || '')}</p></div></div><div class="destination-tech">${tagsHTML(p.tags)}</div>${p.summary?`<p class="destination-summary">${escapeHTML(p.summary)}</p>`:''}<a class="game-enter" href="${projectHref(p)}" aria-label="${escapeHTML(p.title)} 개발 이야기 보기"><span class="enter-icon" aria-hidden="true">${uiIcon('learn')}</span><span>이 게임의 개발 이야기<small>구현 · 문제 해결 · 배운 점</small></span><b aria-hidden="true">↗</b></a></div></div></article>`;
   initMedia(host);pulseElement(host,'preview-ready');
 }
 function selectGame(index,manual=false) {
@@ -202,7 +210,7 @@ function renderShowcaseSection(section) {
     const kind=section.layout,icon=kind==='lessons'?'learn':kind==='roadmap'?'upgrade':'result';
     return `<div class="reflection-grid ${kind}">${(section.blocks || []).map((b,i)=>`<article class="reflection-card"><div class="reflection-card-top"><span class="reflection-icon">${uiIcon(icon)}</span><span>${kind==='roadmap'?'NEXT':kind==='lessons'?'LEARNED':'BUILT'} / ${String(i+1).padStart(2,'0')}</span></div><h4>${headingHTML(b.title)}</h4><p>${escapeHTML(b.text)}</p>${b.caption?`<div class="reflection-caption">${escapeHTML(b.caption)}</div>`:''}</article>`).join('')}</div>`;
   }
-  return `<div class="showcase-board ${section.layout==='case-study'?'case-study':'showcase-grid'}">${(section.blocks || []).map((block,i)=>`<div class="showcase-block ${block.kind==='media'?'is-media':'is-text'}" style="--block-index:${i}">${block.kind==='media'?`<figure>${mediaHTML(block.media,block.title)}<figcaption>${headingHTML(block.title)}</figcaption></figure>`:`<div class="note-label"><span aria-hidden="true">${String(i).padStart(2,'0')}</span><h4>${headingHTML(block.title)}</h4></div>`}${block.text?`<p>${escapeHTML(block.text)}</p>`:''}${block.caption?`<p class="caption">${escapeHTML(block.caption)}</p>`:''}</div>`).join('')}</div>`;
+  return `<div class="showcase-board ${section.layout==='case-study'?'case-study':'showcase-grid'}${section.captureCompact?' capture-compact':''}">${(section.blocks || []).map((block,i)=>`<div class="showcase-block ${block.kind==='media'?'is-media':'is-text'}" style="--block-index:${i}">${block.kind==='media'?`<figure>${mediaHTML(block.media,block.title)}<figcaption>${headingHTML(block.title)}</figcaption></figure>`:`<div class="note-label"><span aria-hidden="true">${String(i).padStart(2,'0')}</span><h4>${headingHTML(block.title)}</h4></div>`}${block.text?`<p>${escapeHTML(block.text)}</p>`:''}${block.caption?`<p class="caption">${escapeHTML(block.caption)}</p>`:''}</div>`).join('')}</div>`;
 }
 function splitCardLine(line) { const [title,...rest] = String(line).split('|'); return {title, desc:rest.join('|')}; }
 function renderArchitectureSection(section) {
@@ -237,6 +245,11 @@ const DISPLAY_TITLES={
 };
 function sectionTitleHTML(title) { return headingHTML(Object.hasOwn(DISPLAY_TITLES,title)?DISPLAY_TITLES[title]:title); }
 
+function renderCombatRoster(roster) {
+  if (!roster?.items?.length) return '';
+  return `<aside class="combat-roster" aria-label="${escapeHTML(roster.title)}"><div class="combat-roster-heading">${uiIcon('game')}<h4>${headingHTML(roster.title)}</h4></div><div class="combat-roster-list">${roster.items.map(item=>`<figure class="combat-roster-card"><div class="combat-roster-art"><img src="${escapeHTML(item.image)}" alt="${escapeHTML(item.name)}" loading="lazy" decoding="async"></div><figcaption><strong>${escapeHTML(item.name)}</strong><span>${escapeHTML(item.description)}</span></figcaption></figure>`).join('')}</div><p class="combat-roster-credit">${escapeHTML(roster.caption)}</p></aside>`;
+}
+
 function renderDetailSection(section,index) {
   let body='';
   switch (section.type) {
@@ -249,7 +262,7 @@ function renderDetailSection(section,index) {
     case 'media': body=mediaHTML(section.url,section.title)+`<p>${escapeHTML(section.text || '')}</p>`;break;
     default: body=`<p>${escapeHTML(section.text || '')}</p>`;
   }
-  return `<section class="detail-section" id="section-${index}"><div class="detail-heading"><span class="eyebrow">${String(index).padStart(2,'0')}</span><h3>${sectionTitleHTML(section.title)}</h3></div>${body}</section>`;
+  return `<section class="detail-section" id="section-${index}"><div class="detail-heading"><span class="eyebrow">${String(index).padStart(2,'0')}</span><h3>${sectionTitleHTML(section.title)}</h3></div>${renderCombatRoster(section.roster)}${body}</section>`;
 }
 let bgm=null;
 let soundEnabled=false;
