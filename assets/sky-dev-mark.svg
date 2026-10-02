@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" fill="none">
+  <defs>
+    <linearGradient id="shell" x1="18" y1="16" x2="48" y2="61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ddf6ff"/><stop offset=".48" stop-color="#79c9e9"/><stop offset="1" stop-color="#3984ad"/>
+    </linearGradient>
+    <linearGradient id="face" x1="36" y1="23" x2="36" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#173650"/><stop offset="1" stop-color="#091c30"/>
+    </linearGradient>
+  </defs>
+  <!-- A controller chassis with a shared center, for making games together. -->
+  <path d="M21 19h30l8 7 8 26c2 8-1 13-7 13-4 0-7-3-11-9l-5-6H28l-5 6c-4 6-7 9-11 9-6 0-9-5-7-13l8-26Z" fill="#174669"/>
+  <path d="M21 15h30l8 7 8 26c2 8-1 13-7 13-4 0-7-3-11-9l-5-6H28l-5 6c-4 6-7 9-11 9-6 0-9-5-7-13l8-26Z" fill="url(#shell)"/>
+  <path d="m21 16-7 7-8 26" stroke="#effbff" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M22 22h28l5 5 5 17-5 4-8-9H25l-8 9-5-4 5-17Z" fill="url(#face)"/>
+  <!-- Game input on the left, source-code brackets on the right. -->
+  <path d="M20 28h4v4h4v4h-4v4h-4v-4h-4v-4h4Z" fill="#c7effb"/>
+  <path d="m48 29-4 5 4 5m5-10 4 5-4 5" stroke="#f0cf8b" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter"/>
+  <!-- A bespoke angular S, cut into the controller's upper bridge. -->
+  <path d="M41 20H31l-3 3v6l3 3h6v3h-9v5h11l3-3v-6l-3-3h-6v-3h8Z" fill="#8bdcf3"/>
+  <path d="m11 49 4 3m46-3-4 3" stroke="#b9ebfb" stroke-width="2" stroke-linecap="round"/>
+  <path d="m57 2 2.5 7.5L67 12l-7.5 2.5L57 22l-2.5-7.5L47 12l7.5-2.5Z" fill="#e9bf70"/>
+  <path d="m57 7 1.25 3.75L62 12l-3.75 1.25L57 17l-1.25-3.75L52 12l3.75-1.25Z" fill="#fff3ce"/>
+</svg>
