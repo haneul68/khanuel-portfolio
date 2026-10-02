@@ -16,8 +16,8 @@ function mergeUntouched(base, saved, fingerprints = {}) {
 }
 function mergeData(base, saved) {
   if (!saved || typeof saved !== 'object' || Array.isArray(saved)) return base;
-  const legacy = !saved.schemaVersion || saved.schemaVersion < 4;
-  const fingerprints = saved.schemaVersion === 3 ? REVISION3_FINGERPRINTS : saved.schemaVersion === 2 ? REVISION2_FINGERPRINTS : LEGACY_FINGERPRINTS;
+  const legacy = !saved.schemaVersion || saved.schemaVersion < 5;
+  const fingerprints = saved.schemaVersion === 4 ? REVISION4_FINGERPRINTS : saved.schemaVersion === 3 ? REVISION3_FINGERPRINTS : saved.schemaVersion === 2 ? REVISION2_FINGERPRINTS : LEGACY_FINGERPRINTS;
   const merged = legacy ? mergeUntouched(base, saved, fingerprints.profile) : { ...base, ...saved };
   merged.contact = { ...base.contact, ...(saved.contact || {}) };
   merged.projects = Array.isArray(saved.projects) ? saved.projects.filter(p => p && typeof p === 'object').map(p => {
@@ -34,7 +34,7 @@ function mergeData(base, saved) {
   for (const key of ['skills','education','certificates','chips','profileLanguages','playPhilosophy','aboutStrengths','interests','activities','learning','workStyle']) if (!Array.isArray(merged[key])) merged[key] = base[key];
   const oldHeadings={aboutTitle:'플레이 감각을 코드로 구현하는 개발자',aboutDetailTitle:'함께 즐기는 게임 경험을 설계하는 개발자'};
   for(const [key,old] of Object.entries(oldHeadings))if(merged[key]===old)merged[key]=base[key];
-  merged.schemaVersion = 4;
+  merged.schemaVersion = 5;
   return merged;
 }
 function loadData() {
@@ -218,21 +218,21 @@ const DISPLAY_TITLES={
   "배운 점": "다음 개발에도 챙겨 갈 것",
   "다음에 더 다듬고 싶은 것": "다음 패치에 담고 싶은 것",
   "기절한 도둑을 붙잡고, 감옥까지": "잡았다고 끝? 감옥까지 데려가야죠",
-  "사물이 바뀌면 충돌 기준도 함께": "상자로 변했는데, 몸은 그대로라면?",
-  "주운 아이템과 손에 든 아이템이 같도록": "주운 건 분명한데, 손에는 왜 없죠?",
+  "사물이 바뀌면 충돌 기준도 함께": "사물로 숨으려다 벽에 숨지 않도록",
+  "주운 아이템과 손에 든 아이템이 같도록": "줍고 바꿔도, 아이템의 주인은 하나",
   "상태를 기준으로 연결한 플레이어 구조": "플레이어도 상태 정리가 먼저",
-  "조작부터 라운드 결과까지": "시작 버튼부터 결과창까지 한 바퀴",
+  "조작부터 라운드 결과까지": "낙하 판정 · 조작 설정 · 결과 순위",
   "공격 중에 대쉬를 누르면": "콤보 중에 대쉬를 누른다면?",
   "벽 앞에서 멈추는 대쉬": "대쉬도 벽은 못 뚫어요",
-  "이동기와 매치 준비": "뛰기 전에 준비부터 맞추고",
+  "이동기와 매치 준비": "캐릭터 골랐으면, 라운드 준비",
   "입력에서 전투까지": "버튼 하나가 한 방이 되기까지",
-  "보상이 다음 성장으로 이어지려면": "보상을 받았으니, 한 판 더?",
+  "보상이 다음 성장으로 이어지려면": "보상 받기, 숫자만 바꾸면 끝일까?",
   "전투와 저장의 책임 나누기": "싸우는 일과 기억하는 일은 따로",
   "보상을 다음 전투 준비로": "전리품 챙기고, 다음 전투로",
-  "웨이브가 바뀌어도 흐름은 자연스럽게": "다음 웨이브, 줄 서서 들어오세요",
-  "얻은 보상과 가방 속 아이템 맞추기": "분명 받았는데, 가방에도 있나요?",
-  "라운드와 보스 패턴": "보스라고 새치기는 안 돼요",
-  "선택과 보상": "이번 보상은 뭘로 할까요?",
+  "웨이브가 바뀌어도 흐름은 자연스럽게": "다음 웨이브에도 각자 할 일이 있다",
+  "얻은 보상과 가방 속 아이템 맞추기": "가방이 꽉 찼다면, 보상부터 계산",
+  "라운드와 보스 패턴": "라운드는 상태로, 보스는 패턴으로",
+  "선택과 보상": "보스는 넘겼고, 다음 능력은?",
   "싱글 플레이보다 파티 초대가 반갑습니다": "파티 초대라면 일단 반갑죠"
 };
 function sectionTitleHTML(title) { return headingHTML(Object.hasOwn(DISPLAY_TITLES,title)?DISPLAY_TITLES[title]:title); }
