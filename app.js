@@ -219,6 +219,7 @@ function renderArchitectureSection(section) {
 }
 
 const DISPLAY_TITLES={
+  "포션도 대상부터 골라주세요": "이 아이템, 누구에게 쓸까요?",
   "만들고 싶었던 게임": "시작은 이런 한 판이었어요",
   "내가 맡은 부분": "이 부분은 제 손을 탔어요",
   "사용 기술과 선택한 이유": "이 장비를 챙긴 이유",

@@ -53,18 +53,11 @@ body :is(.strength-slots b,.knowledge-slots b,.detail-stage figcaption){font-fam
 .credential-copy time{color:#b0b9c8}.dossier-top{gap:12px;flex-wrap:wrap}.detail-progress>span{gap:12px}.knowledge-case>header{flex-wrap:wrap}
 @media(min-width:761px) and (max-width:980px){.scene-characters{bottom:30px;height:260px}.scene-robot.mascot-button{left:calc(2% + 195px);right:auto}}
 
-/* The new project's own title art identifies its destination on the sky chart. */
+/* Golden Apple's forest destination shares the map's floating-island treatment. */
 .world-map button.world-node .island-golden-apple {
-  background-image:url('assets/project-golden-apple.png');
-  background-size:auto 100%;background-position:center;
-  width:158px;height:158px;margin:9px auto;
-  border-radius:50% 50% 45% 45%;border:2px solid #be9a59;
-  box-shadow:inset 0 0 0 5px #152c2bcc,inset 0 -24px 30px #071626,0 6px 0 #11273b,0 9px 0 #527975,0 15px 22px #061426;
+  background-image:url('assets/island-golden-apple.webp');
+  background-size:contain;background-position:center;
   mix-blend-mode:normal;
-}
-.world-map button.world-node .island-golden-apple::after {
-  content:'◆';position:absolute;bottom:-13px;left:calc(50% - 9px);
-  color:#efcc76;font-size:20px;text-shadow:0 0 10px #ffce6a80;
 }
 
 /* In-project artwork supports the Golden Apple implementation notes. */

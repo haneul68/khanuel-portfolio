@@ -1406,7 +1406,7 @@ const DEFAULT_DATA = {
         },
         {
           "type": "showcase",
-          "title": "포션도 대상부터 골라주세요",
+          "title": "이 아이템, 누구에게 쓸까요?",
           "layout": "case-study",
           "blocks": [
             {

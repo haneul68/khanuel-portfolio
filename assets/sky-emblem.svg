@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" fill="none">
+  <defs>
+    <linearGradient id="land" x1="16" y1="30" x2="53" y2="51" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e3f7ff"/><stop offset="1" stop-color="#70bad9"/>
+    </linearGradient>
+    <linearGradient id="gate" x1="24" y1="10" x2="47" y2="43" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f1faff"/><stop offset="1" stop-color="#9bd7ea"/>
+    </linearGradient>
+    <linearGradient id="rock" x1="13" y1="43" x2="40" y2="65" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#347a9c"/><stop offset="1" stop-color="#133b5c"/>
+    </linearGradient>
+  </defs>
+  <!-- The destination: two facets suspended beneath a lit landing. -->
+  <path d="m9 40 27 11 27-11-10 17-17 12-16-12Z" fill="url(#rock)"/>
+  <path d="m36 51 27-11-10 17-17 12Z" fill="#429ec2"/>
+  <path d="m36 51 11-4-11 22Z" fill="#72d9ed"/>
+  <path d="m9 40 27-11 27 11-27 12Z" fill="url(#land)"/>
+  <path d="m16 40 20-8 20 8-20 9Z" fill="#285570"/>
+  <path d="m26 41 10-4 10 4-10 5Z" fill="#c9f2fa"/>
+  <!-- An open gateway, with the sky visible through the center. -->
+  <path d="M21 39V17L36 8l15 9v22l-7 3V21l-8-5-8 5v21Z" fill="url(#gate)"/>
+  <path d="M21 17 36 8v8l-8 5v21l-7-3Z" fill="#75b8d3"/>
+  <path d="m22 17 14-8 14 8" stroke="#e2f6ff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="m9 40 27 12 27-12" stroke="#b9eaf8" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- A small guiding star ties the mark to the world's warm highlights. -->
+  <path d="m57 2 2.7 7.3L67 12l-7.3 2.7L57 22l-2.7-7.3L47 12l7.3-2.7Z" fill="#efc879"/>
+  <path d="m57 7 1.35 3.65L62 12l-3.65 1.35L57 17l-1.35-3.65L52 12l3.65-1.35Z" fill="#fff2cc"/>
+</svg>
