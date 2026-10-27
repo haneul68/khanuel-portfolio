@@ -36,6 +36,15 @@ function mergeData(base, saved) {
   // Replace the previous built-in overview clip for returning visitors, preserving custom media.
   for (const project of merged.projects) {
     const current = base.projects.find(item => projectId(item) === projectId(project));
+    if (projectId(project) === 'cops-catch' && current?.gameplayVideo) {
+      const oldVideo = url => ['https://www.youtube.com/watch?v=lpSZ64Ych1M&feature=youtu.be', 'https://www.youtube.com/watch?v=lpSZ64Ych1M'].includes(url);
+      const hadOldLink = (project.links || []).some(link => oldVideo(link.url));
+      const builtInPreview = !project.previewMedia || ['assets/project-cops-catch-overview.webp', 'assets/project-cops-catch-overview.gif', 'assets/project-cops-catch.png'].includes(project.previewMedia);
+      if (oldVideo(project.gameplayVideo?.url) || (!project.gameplayVideo && builtInPreview && hadOldLink)) {
+        project.gameplayVideo = { ...current.gameplayVideo };
+      }
+      project.links = (project.links || []).map(link => oldVideo(link.url) ? { ...link, url: current.links.find(link => link.url === 'https://www.youtube.com/watch?v=EJCr81g_G9w').url } : link);
+    }
     if (projectId(project) === 'golden-apple' && current?.gameplayVideo && !project.gameplayVideo &&
         (!project.previewMedia || ['assets/project-golden-apple-basic-attack.webp','assets/project-golden-apple-basic-attack.gif','assets/project-golden-apple.png'].includes(project.previewMedia))) {
       project.gameplayVideo = { ...current.gameplayVideo };
@@ -144,6 +153,9 @@ function previewMeta(project) {
 }
 function projectPreviewHTML(project) {
   const video = project.gameplayVideo;
+  if (video && isVideoUrl(video.url) && safeMedia(video.url)) {
+    return `<video data-gameplay-video src="${escapeHTML(video.url)}" poster="${escapeHTML(safeMedia(video.poster || project.heroImage))}" aria-label="${escapeHTML(project.title)} ${escapeHTML(video.title || '전체 플레이 영상')}" controls playsinline preload="metadata"></video>`;
+  }
   if (video && driveVideoId(video.url)) {
     const title = `${project.title} 전체 플레이 영상`;
     return `<div class="drive-player" data-drive-url="${escapeHTML(video.url)}"><img class="drive-poster" src="${escapeHTML(safeMedia(video.poster || project.heroImage))}" alt="${escapeHTML(project.title)} 타이틀 화면" loading="lazy" decoding="async"><button class="drive-play" type="button" data-drive-play aria-label="${escapeHTML(title)} 플레이어 열기"><span class="drive-play-icon" aria-hidden="true">▶</span><strong>전체 플레이 영상</strong><span>스토리 · 전투 3라운드 · 보스전 · 여관</span><small>${escapeHTML(video.duration || '')} · 눌러서 재생</small></button><a class="drive-open" href="${escapeHTML(video.url)}" target="_blank" rel="noopener noreferrer">Drive에서 보기 ↗</a></div>`;
@@ -327,6 +339,16 @@ async function toggleSound() {
 }
 function bindSiteEvents() {
   bindCarousel();bindPlaybook();bindPageNavigation();
+  document.addEventListener('play', event => {
+    if (!event.target.matches?.('video[data-gameplay-video]')) return;
+    document.querySelectorAll('video[data-gameplay-video]').forEach(video => { if (video !== event.target) video.pause(); });
+    if (event.target.closest('#featuredGame')) {
+      carouselPaused = true;
+      $('carouselToggle').textContent = '▶ 자동 전환 켜기';
+      $('carouselToggle').setAttribute('aria-pressed', 'true');
+      scheduleCarousel();
+    }
+  }, true);
   document.addEventListener('click',event=>{
     const driveButton=event.target.closest('[data-drive-play]');
     if(driveButton)openDrivePlayer(driveButton);

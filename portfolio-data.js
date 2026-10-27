@@ -180,6 +180,13 @@ const DEFAULT_DATA = {
       "thumb": "assets/project-cops-catch.png",
       "heroImage": "assets/project-cops-catch.png",
       "heroBg": "assets/project-cops-catch.png",
+      "gameplayVideo": {
+        "url": "assets/project-cops-catch-main.mp4",
+        "poster": "assets/project-cops-catch.png",
+        "title": "메인 플레이 영상",
+        "description": "CopsCatch · 실제 플레이",
+        "duration": "1:13"
+      },
       "tags": [
         "Unity",
         "C#",
@@ -203,7 +210,7 @@ const DEFAULT_DATA = {
         },
         {
           "label": "플레이 영상",
-          "url": "https://www.youtube.com/watch?v=lpSZ64Ych1M&feature=youtu.be"
+          "url": "https://www.youtube.com/watch?v=EJCr81g_G9w"
         }
       ],
       "portfolioTemplateVersion": 18,
