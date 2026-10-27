@@ -36,6 +36,15 @@ function mergeData(base, saved) {
   // Replace the previous built-in overview clip for returning visitors, preserving custom media.
   for (const project of merged.projects) {
     const current = base.projects.find(item => projectId(item) === projectId(project));
+    // Refresh only unchanged built-in reflections; preserve separately edited chapters.
+    if (current && Array.isArray(project.sections)) {
+      const baseline = TECHNICAL_REFLECTION_BASELINES[projectId(project)] || {};
+      project.sections = project.sections.map(section => {
+        const replacement = current.sections?.find(item => item.layout === section.layout);
+        return replacement && valueHash(section) === baseline[section.layout]
+          ? JSON.parse(JSON.stringify(replacement)) : section;
+      });
+    }
     if (projectId(project) === 'cops-catch' && current?.gameplayVideo) {
       const oldVideo = url => ['https://www.youtube.com/watch?v=lpSZ64Ych1M&feature=youtu.be', 'https://www.youtube.com/watch?v=lpSZ64Ych1M'].includes(url);
       const hadOldLink = (project.links || []).some(link => oldVideo(link.url));
@@ -269,7 +278,7 @@ function bindCarousel() {
 function renderShowcaseSection(section) {
   if(['lessons','roadmap','outcome'].includes(section.layout)){
     const kind=section.layout,icon=kind==='lessons'?'learn':kind==='roadmap'?'upgrade':'result';
-    return `<div class="reflection-grid ${kind}">${(section.blocks || []).map((b,i)=>`<article class="reflection-card"><div class="reflection-card-top"><span class="reflection-icon">${uiIcon(icon)}</span><span>${kind==='roadmap'?'NEXT':kind==='lessons'?'LEARNED':'BUILT'} / ${String(i+1).padStart(2,'0')}</span></div><h4>${headingHTML(b.title)}</h4><p>${escapeHTML(b.text)}</p>${b.caption?`<div class="reflection-caption">${escapeHTML(b.caption)}</div>`:''}</article>`).join('')}</div>`;
+    return `<div class="reflection-grid ${kind}" style="--reflection-columns:${Math.min(3, Math.max(1, section.blocks?.length || 0))}">${(section.blocks || []).map((b,i)=>`<article class="reflection-card"><div class="reflection-card-top"><span class="reflection-icon">${uiIcon(icon)}</span><span>${kind==='roadmap'?'NEXT':kind==='lessons'?'LEARNED':'BUILT'} / ${String(i+1).padStart(2,'0')}</span></div><h4>${headingHTML(b.title)}</h4><p>${escapeHTML(b.text)}</p>${b.caption?`<div class="reflection-caption">${escapeHTML(b.caption)}</div>`:''}</article>`).join('')}</div>`;
   }
   return `<div class="showcase-board ${section.layout==='case-study'?'case-study':'showcase-grid'}${section.captureCompact?' capture-compact':''}">${(section.blocks || []).map((block,i)=>`<div class="showcase-block ${block.kind==='media'?'is-media':'is-text'}" style="--block-index:${i}">${block.kind==='media'?`<figure>${mediaHTML(block.media,block.title)}<figcaption>${headingHTML(block.title)}</figcaption></figure>`:`<div class="note-label"><span aria-hidden="true">${String(i).padStart(2,'0')}</span><h4>${headingHTML(block.title)}</h4></div>`}${block.text?`<p>${escapeHTML(block.text)}</p>`:''}${block.caption?`<p class="caption">${escapeHTML(block.caption)}</p>`:''}</div>`).join('')}</div>`;
 }
@@ -285,8 +294,8 @@ const DISPLAY_TITLES={
   "내가 맡은 부분": "이 부분은 제 손을 탔어요",
   "사용 기술과 선택한 이유": "이 장비를 챙긴 이유",
   "만들어 낸 결과": "그래서, 어디까지 만들었냐면",
-  "배운 점": "다음 개발에도 챙겨 갈 것",
-  "다음에 더 다듬고 싶은 것": "다음 패치에 담고 싶은 것",
+  "배운 점": "다음 개발에도 챙겨갈 것",
+  "다음에 더 다듬고 싶은 것": "다음엔 이 기술, 더 깊게",
   "기절한 도둑을 붙잡고, 감옥까지": "잡았다고 끝? 감옥까지 데려가야죠",
   "사물이 바뀌면 충돌 기준도 함께": "사물로 숨으려다 벽에 숨지 않도록",
   "주운 아이템과 손에 든 아이템이 같도록": "줍고 바꿔도, 아이템의 주인은 하나",

@@ -144,7 +144,7 @@
 .note-label { display:flex; align-items:baseline; gap:12px; margin-bottom:13px; }
 .note-label>span { color:#7e668d; font:500 .65rem ui-monospace,monospace; }
 .note-label h4 { margin:0; font-size:.95rem; }
-.reflection-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.reflection-grid { display:grid; grid-template-columns:repeat(var(--reflection-columns,3),minmax(0,1fr)); gap:20px; }
 .reflection-grid.roadmap { grid-template-columns:1fr; }
 .reflection-card { border:1px solid #695074; border-radius:10px; padding:25px; background:linear-gradient(145deg,#2c2037,#181522); min-width:0; position:relative; overflow:hidden; }
 .reflection-card-top { display:flex; align-items:center; justify-content:space-between; gap:15px; margin-bottom:22px; }
