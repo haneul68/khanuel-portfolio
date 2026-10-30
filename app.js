@@ -54,6 +54,18 @@ function mergeData(base, saved) {
       }
       project.links = (project.links || []).map(link => oldVideo(link.url) ? { ...link, url: current.links.find(link => link.url === 'https://www.youtube.com/watch?v=EJCr81g_G9w').url } : link);
     }
+    // Add the store and promotional work without replacing saved project edits.
+    if (projectId(project) === 'cops-catch' && current) {
+      const storeLink = current.links.find(link => link.url === 'https://store.onstove.com/ko/games/105888');
+      if (storeLink && !(project.links || []).some(link => link.url === storeLink.url)) {
+        project.links = [{ ...storeLink }, ...(project.links || [])];
+      }
+      if (!project.status || project.status === '진행 중') project.status = current.status;
+      const promotion = current.sections.find(section => section.id === 'cops-catch-promotion');
+      if (promotion && !(project.sections || []).some(section => section.id === promotion.id)) {
+        project.sections = [...(project.sections || []), JSON.parse(JSON.stringify(promotion))];
+      }
+    }
     if (projectId(project) === 'golden-apple' && current?.gameplayVideo && !project.gameplayVideo &&
         (!project.previewMedia || ['assets/project-golden-apple-basic-attack.webp','assets/project-golden-apple-basic-attack.gif','assets/project-golden-apple.png'].includes(project.previewMedia))) {
       project.gameplayVideo = { ...current.gameplayVideo };
@@ -326,6 +338,7 @@ function renderDetailSection(section,index) {
   switch (section.type) {
     case 'showcase': body=renderShowcaseSection(section);break;
     case 'architecture': body=renderArchitectureSection(section);break;
+    case 'promotion': body=`<div class="showcase-block is-text"><p>${escapeHTML(section.text || '')}</p><div class="project-links">${(section.links || []).map(link=>linkHTML(link,'btn')).join('')}</div></div>`;break;
     case 'gallery': body=`<div class="gallery">${(section.images || []).map((url,i)=>mediaHTML(url,`${section.title} ${i+1}`)).join('')}</div>`;break;
     case 'features': case 'timeline': body=section.layout==='toolbox'?`<div class="toolbox-grid">${(section.features || []).map(item=>{const line=splitCardLine(item);return `<article class="toolbox-card">${uiIcon(equipmentKind({name:line.title}))}<h4>${headingHTML(line.title)}</h4><p>${escapeHTML(line.desc)}</p></article>`;}).join('')}</div>`:`<ul class="detail-list ${section.layout==='responsibilities'?'responsibility-grid':''}">${(section.features || section.items || []).map(item=>`<li>${escapeHTML(item)}</li>`).join('')}</ul>`;break;
     case 'code': body=`<pre class="code"><code>${escapeHTML(section.code || '')}</code></pre>`;break;

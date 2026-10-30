@@ -192,7 +192,7 @@ const DEFAULT_DATA = {
         "C#",
         "Photon Fusion"
       ],
-      "status": "진행 중",
+      "status": "출시 예정",
       "date": "",
       "role": "기획 · Unity 클라이언트",
       "period": "",
@@ -201,6 +201,10 @@ const DEFAULT_DATA = {
       "genre": "3D 멀티플레이 추격 게임",
       "contribution": "기획과 초기 공용 코드 구조, 플레이어 이동·상태·아이템 슬롯·감옥 상호작용, 특별 모드 사물 변신, 설정·결과 UI",
       "links": [
+        {
+          "label": "스토브에서 보기 · 출시 예정",
+          "url": "https://store.onstove.com/ko/games/105888"
+        },
         {
           "label": "GitHub",
           "url": "https://github.com/Yongwankim1/CopsCatch",
@@ -465,6 +469,18 @@ const DEFAULT_DATA = {
               "kind": "text",
               "title": "물리 상호작용의 반응 속도까지",
               "text": "일반 이동에는 예측을 적용했지만, 잡기·호송처럼 물리적인 연결이 생기는 상황에서는 예측 범위를 제한하고 권한 측 결과를 따르도록 구성했습니다. 다음 프로젝트에서는 이 방식이 지연 상황의 반응성과 위치 보정에 미치는 영향을 측정하고 싶습니다. 입력 반응 시간과 위치 보정량을 비교하면서, 예측할 수 있는 동작과 권한 측에 남겨야 할 판정을 구분하는 방법을 더 연구하겠습니다."
+            }
+          ]
+        },
+        {
+          "id": "cops-catch-promotion",
+          "type": "promotion",
+          "title": "게임 밖에서도, CopsCatch",
+          "text": "CopsCatch를 알리기 위해 GPT와 Higgsfield를 활용해 플레이 영상을 편집하고 홍보 영상을 제작했습니다. 영상의 연출과 디자인은 직접 담당했습니다.",
+          "links": [
+            {
+              "label": "홍보 영상 보기",
+              "url": "https://www.youtube.com/@KGangStudio"
             }
           ]
         }
@@ -1558,7 +1574,7 @@ const DEFAULT_DATA = {
     }
   ],
   "schemaVersion": 6,
-  "contentVersion": "2026-10-27-technical-reflections",
+  "contentVersion": "2026-10-30-cops-promotion",
   "heroTitle": "같이 할 사람?\n게임은 제가\n만들게요",
   "heroSubtitle": "함께 웃고, 다시 모일 게임을 만들고 싶습니다"
 };
