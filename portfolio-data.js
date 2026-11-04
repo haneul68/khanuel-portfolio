@@ -132,7 +132,7 @@ const DEFAULT_DATA = {
   "stats": [],
   "contact": {
     "github": "https://github.com/haneul68",
-    "email": "k648087851@gmail.com",
+    "email": "smfgkrla608@naver.com",
     "steam": ""
   },
   "skills": [
