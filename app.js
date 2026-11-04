@@ -25,6 +25,10 @@ function mergeData(base, saved) {
   const fingerprints = saved.schemaVersion === 5 ? REVISION5_FINGERPRINTS : saved.schemaVersion === 4 ? REVISION4_FINGERPRINTS : saved.schemaVersion === 3 ? REVISION3_FINGERPRINTS : saved.schemaVersion === 2 ? REVISION2_FINGERPRINTS : LEGACY_FINGERPRINTS;
   const merged = legacy ? mergeUntouched(base, saved, fingerprints.profile) : { ...base, ...saved };
   merged.contact = { ...base.contact, ...(saved.contact || {}) };
+  if (String(merged.contact.email || '').trim().toLowerCase() === 'k648087851@gmail.com') {
+    merged.contact.email = base.contact.email;
+  }
+  if (merged.profileAvatar === 'assets/profile-photo.jpg') merged.profileAvatar = base.profileAvatar;
   merged.projects = Array.isArray(saved.projects) ? saved.projects.filter(p => p && typeof p === 'object').map(p => {
     const current = base.projects.find(item => projectId(item) === projectId(p));
     if (!current || !legacy) return { ...p, id: projectId(p) };
@@ -228,7 +232,7 @@ function renderSite() {
   $('heroTitle').innerHTML=headingHTML(DATA.heroTitle).split('\n').map((line,i)=>`<span${i===0?' class="together-word"':''}>${line}</span>`).join('');
   $('heroSubtitle').textContent=cleanTitle(DATA.heroSubtitle);
   $('heroDesc').textContent=DATA.desc;
-  $('profilePhoto').src=safeMedia(DATA.profileAvatar) || 'assets/profile-photo.jpg';
+  $('profilePhoto').src=safeMedia(DATA.profileAvatar) || 'assets/profile-portrait.jpg';
   $('aboutPhoto').src=$('profilePhoto').src;
   $('heroProfilePhoto').src=$('profilePhoto').src;
   $('heroProfileName').textContent=DATA.name==='KIM HANEUL'?'김하늘':DATA.name;

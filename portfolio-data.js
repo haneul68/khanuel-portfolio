@@ -4,7 +4,7 @@ const DEFAULT_DATA = {
   "name": "KIM HANEUL",
   "role": "Unity Client Developer",
   "desc": "누군가와 함께하는 게임을 좋아합니다. 친구와 도전하고, 서로를 구하고, 한 판의 이야기를 나누는 즐거움을 Unity로 만들어 가는 개발자 김하늘입니다.",
-  "profileAvatar": "assets/profile-photo.jpg",
+  "profileAvatar": "assets/profile-portrait.jpg",
   "profileLocation": "Asia/Seoul",
   "profileLanguages": [
     "한국어",
