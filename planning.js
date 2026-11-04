@@ -2,12 +2,12 @@
 function planningEntryHTML(project) {
   const docs=PLANNING_DOCS.filter(d=>d.id===projectId(project));
   if(!docs.length)return '';
-  return `<aside class="planning-entry" aria-label="기획 포트폴리오"><div><span class="eyebrow">GAME DESIGN</span><strong>이 게임은 이렇게 설계했어요</strong><p>게임 기획 전반 · 김하늘 <span>개발 기록과 함께, 기획 의도와 상세 명세도 읽어보세요.</span></p></div><button type="button" class="btn planning-open" data-planning-open="${escapeHTML(projectId(project))}">기획 포트폴리오 열기 <span aria-hidden="true">↗</span></button></aside>`;
+  return `<aside class="planning-entry" aria-label="기획서"><div><span class="eyebrow">GAME DESIGN</span><strong>이 게임은 이렇게 설계했어요</strong><p>게임 기획 전반 · 김하늘 <span>개발 기록과 함께, 기획 의도와 상세 명세도 읽어보세요.</span></p></div><button type="button" class="btn planning-open" data-planning-open="${escapeHTML(projectId(project))}">기획서 열기 <span aria-hidden="true">↗</span></button></aside>`;
 }
 (() => {
   const reader=document.createElement('dialog');
   reader.id='planningReader';reader.className='planning-reader';reader.setAttribute('aria-labelledby','planningTitle');
-  reader.innerHTML=`<header class="planning-top"><div><span class="eyebrow">GAME DESIGN / 김하늘</span><h2 id="planningTitle"></h2></div><button type="button" class="planning-close" aria-label="기획 창 닫기">닫기 <span aria-hidden="true">×</span></button></header><div class="planning-scroll"><section class="planning-intro"><span class="planning-ownership">게임 기획 전반 담당</span><p id="planningIntent"></p><div class="planning-doc-tabs" id="planningDocTabs" aria-label="기획 문서 선택"></div></section><div class="planning-layout"><nav class="planning-nav" aria-label="기획서 목차"></nav><div class="planning-paper"><header class="planning-document-header"><div><span class="eyebrow">DESIGN DOCUMENT</span><h3 id="planningDocTitle"></h3></div><a id="planningDownload" class="btn" download>Word 기획서 받기 ↓</a></header><div id="planningBody"></div></div></div></div>`;
+  reader.innerHTML=`<header class="planning-top"><div><span class="eyebrow">GAME DESIGN / 김하늘</span><h2 id="planningTitle"></h2></div><button type="button" class="planning-close" aria-label="기획 창 닫기">닫기 <span aria-hidden="true">×</span></button></header><div class="planning-doc-tabs" id="planningDocTabs" aria-label="기획 문서 선택"></div><div class="planning-scroll"><section class="planning-intro"><span class="planning-ownership">게임 기획 전반 담당</span><p id="planningIntent"></p></section><div class="planning-layout"><nav class="planning-nav" aria-label="기획서 목차"></nav><div class="planning-paper"><header class="planning-document-header"><div><span class="eyebrow">DESIGN DOCUMENT</span><h3 id="planningDocTitle"></h3></div><a id="planningDownload" class="btn" download>Word 기획서 받기 ↓</a></header><div id="planningBody"></div></div></div></div>`;
   document.body.append(reader);
   let currentDocs=[],currentDoc=null,opener=null,scrollBefore=0,overflowBefore='';
   const e=s=>escapeHTML(String(s));
@@ -26,6 +26,7 @@ function planningEntryHTML(project) {
     reader.querySelector('#planningDocTitle').textContent=d.title;
     reader.querySelector('#planningDownload').href=`assets/planning/${d.key}.docx`;
     reader.querySelector('#planningDownload').setAttribute('download',`${d.title}.docx`);
+    reader.querySelector('#planningDocTabs').hidden=currentDocs.length<2;
     reader.querySelector('#planningDocTabs').innerHTML=currentDocs.map(x=>`<button type="button" data-planning-doc="${e(x.key)}" aria-pressed="${x===d}">${x.key.endsWith('tutorial')?'튜토리얼 상세 기획서':'게임 및 시스템 기획서'}</button>`).join('');
     reader.querySelector('.planning-nav').innerHTML=d.pages.map((pg,i)=>`<button type="button" data-planning-chapter="${i}"><span>${String(i+1).padStart(2,'0')}</span>${e(pg.title)}</button>`).join('');
     reader.querySelector('#planningBody').innerHTML=d.pages.map((pg,i)=>`<section id="planning-chapter-${i}" class="planning-chapter"><h3 tabindex="-1"><span>${String(i+1).padStart(2,'0')}</span>${e(pg.title)}</h3>${blocksHTML(pg.blocks)}</section>`).join('');
@@ -34,7 +35,7 @@ function planningEntryHTML(project) {
   function open(id,button){
     currentDocs=PLANNING_DOCS.filter(d=>d.id===id);if(!currentDocs.length)return;
     opener=button;scrollBefore=window.scrollY;overflowBefore=document.body.style.overflow;
-    reader.querySelector('#planningTitle').textContent=currentDocs[0].game+' 기획 포트폴리오';
+    reader.querySelector('#planningTitle').textContent=currentDocs[0].game+' 기획서';
     reader.querySelector('#planningIntent').textContent=currentDocs[0].intent;
     selectDoc(currentDocs[0].key);
     document.querySelectorAll('video').forEach(v=>v.pause());

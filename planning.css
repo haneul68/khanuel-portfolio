@@ -6,3 +6,10 @@
 @media(max-width:600px){.planning-entry{flex-direction:column;align-items:stretch;padding:20px;gap:14px}.planning-reader{width:100vw;height:100dvh;border:0;border-radius:0}.planning-top{height:100px;padding:15px}.planning-top h2{font-size:18px}.planning-top .eyebrow{font-size:10px}.planning-close{padding:9px 11px;font-size:13px;white-space:nowrap}.planning-scroll{height:calc(100% - 100px);padding:18px 12px 28px}.planning-intro>p{font-size:15px}.planning-paper{padding:23px 17px}.planning-document-header h3,.planning-chapter>h3{font-size:20px}.planning-chapter p{font-size:15px;line-height:1.9}.planning-chapter h4{font-size:17px}.planning-table-wrap th,.planning-table-wrap td{padding:10px}.planning-doc-tabs button{font-size:13px}.planning-diagram{overflow:auto}.planning-diagram img{min-width:500px}}
 
 .planning-entry .eyebrow,.planning-reader .eyebrow{color:#bbbbbb}.planning-entry .btn:hover{background:#444444;border-color:#dddddd;color:#ffffff}.planning-reader .btn:hover{background:#111111;color:#ffffff}.planning-reader .planning-document-header .eyebrow{color:#555555}
+
+.planning-reader[open]{display:flex;flex-direction:column}
+.planning-reader>.planning-top{flex:none}
+.planning-reader>.planning-doc-tabs{flex:none;margin:0;padding:10px 28px;border-bottom:1px solid #444;background:#222}
+.planning-reader>.planning-doc-tabs[hidden]{display:none}
+.planning-reader>.planning-scroll{flex:1;min-height:0;height:auto}
+@media(max-width:600px){.planning-reader>.planning-doc-tabs{padding:8px 12px;gap:6px}.planning-reader>.planning-doc-tabs button{padding:8px 10px}}
