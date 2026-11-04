@@ -13,4 +13,11 @@
 .planning-reader>.planning-doc-tabs[hidden]{display:none}
 .planning-reader>.planning-scroll{flex:1;min-height:0;height:auto}
 @media(max-width:600px){.planning-reader>.planning-doc-tabs{padding:8px 12px;gap:6px}.planning-reader>.planning-doc-tabs button{padding:8px 10px}}
-@media(min-width:951px){.planning-nav{position:static}}
+/* Both panes use the space remaining below the actual header and tabs. */
+.planning-reader>.planning-layout{flex:1;min-height:0;width:100%;max-width:none;margin:0;gap:0;align-items:stretch;grid-template-rows:minmax(0,1fr)}
+.planning-layout>.planning-scroll{height:auto;min-height:0;min-width:0}
+.planning-layout>.planning-nav{position:static;min-height:0;overflow:auto;overscroll-behavior:contain;align-content:start;padding:16px 8px 16px 14px;border-right:1px solid #444;scrollbar-gutter:stable}
+@media(max-width:950px){
+  .planning-reader>.planning-layout{grid-template-rows:auto minmax(0,1fr)}
+  .planning-layout>.planning-nav{padding:8px 12px;border-right:0;border-bottom:1px solid #444;scrollbar-gutter:auto}
+}
