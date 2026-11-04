@@ -1177,9 +1177,9 @@ const DEFAULT_DATA = {
       "title": "Golden Apple",
       "introducedIn": 6,
       "category": "2D",
-      "genre": "2D 턴제 RPG",
+      "genre": "2D 턴제 RPG · 미연시",
       "team": "6인 팀",
-      "platform": "",
+      "platform": "PC",
       "status": "졸업작품",
       "date": "2025",
       "period": "2025년",
@@ -1225,7 +1225,7 @@ const DEFAULT_DATA = {
             {
               "kind": "text",
               "title": "프로젝트 소개",
-              "text": "Golden Apple은 스토리 진행과 턴제 전투가 결합된 Unity 2D RPG 졸업작품입니다. 2025년 프로그래머 2명·그래픽 3명·기획 1명으로 구성된 6인 팀에서 제작했습니다. 저는 플레이어와 전투 씬 전반, 아이템 데이터·사용 로직을 담당했습니다."
+              "text": "Golden Apple은 미연시 스토리와 턴제 전투가 결합된 Unity 2D RPG 졸업작품입니다. 2025년 프로그래머 2명·그래픽 3명·기획 1명으로 구성된 6인 팀에서 제작했습니다. 저는 플레이어와 전투 씬 전반, 아이템 데이터·사용 로직을 담당했습니다."
             },
             {
               "kind": "text",
@@ -1256,8 +1256,8 @@ const DEFAULT_DATA = {
             {
               "kind": "media",
               "title": "공격 선택부터 적의 반격까지",
-              "media": "assets/project-golden-apple-basic-attack.webp",
-              "caption": "캐릭터와 공격 대상을 선택하고, 피해 표시와 전투 메시지가 이어지는 실제 플레이"
+              "media": "assets/project-golden-apple-basic-attack-trimmed.webp",
+              "caption": "첫 타격의 피해 표시부터 다음 행동 선택과 적의 반격까지 이어지는 실제 플레이"
             },
             {
               "kind": "text",
