@@ -27,3 +27,15 @@
 .planning-credit{display:inline-block;padding:2px 6px;border:1px solid #648090;border-radius:3px;background:#102b3b;color:#c7e2ef;font:600 .68rem/1.35 var(--ui-font);white-space:nowrap}
 .island-note .planning-credit{margin-inline-start:6px;vertical-align:middle;font-size:.62rem}
 .destination-badges{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+
+.world-node .island-note .planning-credit{
+  display:inline;
+  margin:0;
+  padding:0;
+  border:0;
+  background:none;
+  color:#f1d594;
+  font-size:.7rem;
+  vertical-align:baseline;
+}
+.world-node .island-note .planning-credit::before{content:" · ";color:#aac0d4;margin-inline:3px}
