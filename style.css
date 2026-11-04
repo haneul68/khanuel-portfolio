@@ -546,3 +546,10 @@ body { background:radial-gradient(ellipse at 76% 9%,#30244344,transparent 35%),v
 @media(max-width:360px){.hero-actions .btn{width:auto}.hero-actions{flex-direction:column;align-items:flex-start}.game-tabs button span{display:none}.game-tabs button>img{height:36px}.selected-kind{font-size:.55rem}.selected-heading h2{font-size:1.35rem}.game-enter{padding:8px}.hero-footnote>span{display:none}.philosophy-grid{grid-template-columns:1fr}.brand-caption{display:none}}
 @media(prefers-reduced-motion:reduce){.hero-signature>img,.selected-game{animation:none}.project-card,.btn,.game-tabs button{transition:none}}
 .reduce-motion .hero-signature>img,.reduce-motion .selected-game{animation:none}
+
+.contact-email-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; padding: 8px 0; border-bottom: 1px solid #636a7e; }
+.contact-email-row .contact-email { min-width: 0; padding: 8px 0; border-bottom: 0; }
+.contact-copy { flex: none; min-height: 40px; padding: 6px 12px; border: 1px solid #547995; border-radius: 4px; background: #12314b; color: #d6efff; font: inherit; font-size: .8rem; cursor: pointer; }
+.contact-copy:hover, .contact-copy:focus-visible { border-color: #9ce4ff; background: #1b4566; }
+.contact-copy-status { display: block; color: #b6d3f7; font-size: .8rem; }
+.contact-copy-status:not(:empty) { margin-top: 6px; }

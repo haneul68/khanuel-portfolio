@@ -248,7 +248,29 @@ function renderSite() {
   $('workStyle').innerHTML=(DATA.workStyle || []).map((line,i)=>`<p class="work-step"><span>0${i+1}</span>${escapeHTML(line)}</p>`).join('');
   $('aboutGoal').textContent=DATA.aboutGoal;
   renderEquipment();
-  $('contactCards').innerHTML=`${DATA.contact.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(DATA.contact.email)?`<a class="contact-email" href="mailto:${escapeHTML(DATA.contact.email)}">${escapeHTML(DATA.contact.email)} <span aria-hidden="true">↗</span></a>`:''}<div class="contact-links">${linkHTML({label:'GitHub',url:DATA.contact.github},'text-link')}${linkHTML({label:'Steam',url:DATA.contact.steam},'text-link')}</div>`;
+  const contactCards = $('contactCards');
+  const email = DATA.contact.email;
+  const hasEmail = typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  contactCards.innerHTML = `${hasEmail ? `
+    <div class="contact-email-row">
+      <a class="contact-email" href="mailto:${escapeHTML(email)}">${escapeHTML(email)} <span aria-hidden="true">↗</span></a>
+      <button class="contact-copy" type="button">이메일 복사</button>
+    </div>
+    <span class="contact-copy-status" role="status"></span>
+  ` : ''}<div class="contact-links">${linkHTML({label:'GitHub',url:DATA.contact.github},'text-link')}${linkHTML({label:'Steam',url:DATA.contact.steam},'text-link')}</div>`;
+  if (hasEmail) {
+    const copyButton = contactCards.querySelector('.contact-copy');
+    const copyStatus = contactCards.querySelector('.contact-copy-status');
+    copyButton.addEventListener('click', async () => {
+      copyStatus.textContent = '';
+      try {
+        await navigator.clipboard.writeText(email);
+        copyStatus.textContent = '이메일을 복사했어요.';
+      } catch {
+        copyStatus.textContent = '복사할 수 없어요. 이메일 주소를 선택해 복사해 주세요.';
+      }
+    });
+  }
   $('year').textContent=new Date().getFullYear();
   initCarousel();initMedia();initGameSystems();
 }
