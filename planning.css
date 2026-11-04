@@ -21,3 +21,5 @@
   .planning-reader>.planning-layout{grid-template-rows:auto minmax(0,1fr)}
   .planning-layout>.planning-nav{padding:8px 12px;border-right:0;border-bottom:1px solid #444;scrollbar-gutter:auto}
 }
+
+.planning-nav-group{margin:12px 0 3px;padding:0 10px;color:#fff;font-size:13px}.planning-group-title{margin:36px 0 8px;color:#222;font-size:24px}.planning-group-title+.planning-chapter{padding-top:12px}@media(max-width:950px){.planning-nav-group{flex:0 0 auto;align-self:center;margin:0;white-space:nowrap}}

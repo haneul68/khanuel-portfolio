@@ -28,8 +28,9 @@ function planningEntryHTML(project) {
     reader.querySelector('#planningDownload').setAttribute('download',`${d.title}.docx`);
     reader.querySelector('#planningDocTabs').hidden=currentDocs.length<2;
     reader.querySelector('#planningDocTabs').innerHTML=currentDocs.map(x=>`<button type="button" data-planning-doc="${e(x.key)}" aria-pressed="${x===d}">${x.key.endsWith('tutorial')?'튜토리얼 상세 기획서':'게임 및 시스템 기획서'}</button>`).join('');
-    reader.querySelector('.planning-nav').innerHTML=d.pages.map((pg,i)=>`<button type="button" data-planning-chapter="${i}"><span>${String(i+1).padStart(2,'0')}</span>${e(pg.title)}</button>`).join('');
-    reader.querySelector('#planningBody').innerHTML=d.pages.map((pg,i)=>`<section id="planning-chapter-${i}" class="planning-chapter"><h3 tabindex="-1"><span>${String(i+1).padStart(2,'0')}</span>${e(pg.title)}</h3>${blocksHTML(pg.blocks)}</section>`).join('');
+    const startsGroup = (page, index) => index === 0 || page.group !== d.pages[index - 1].group;
+    reader.querySelector('.planning-nav').innerHTML=d.pages.map((pg,i)=>`${startsGroup(pg,i) ? `<h4 class="planning-nav-group">${e(pg.group)}</h4>` : ''}<button type="button" data-planning-chapter="${i}"><span>${String(i+1).padStart(2,'0')}</span>${e(pg.title)}</button>`).join('');
+    reader.querySelector('#planningBody').innerHTML=d.pages.map((pg,i)=>`${startsGroup(pg,i) ? `<h3 class="planning-group-title">${e(pg.group)}</h3>` : ''}<section id="planning-chapter-${i}" class="planning-chapter"><h3 tabindex="-1"><span>${String(i+1).padStart(2,'0')}</span>${e(pg.title)}</h3>${blocksHTML(pg.blocks)}</section>`).join('');
     reader.querySelector('.planning-scroll').scrollTop=0;
     reader.querySelector('.planning-nav').scrollTo(0,0);
   }
