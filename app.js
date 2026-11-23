@@ -242,9 +242,6 @@ function renderSite() {
   $('aboutTitle').textContent=cleanTitle(DATA.aboutTitle);
   $('aboutText').textContent=DATA.aboutText;
   $('homeJournal').innerHTML=DATA.education.map((line,i)=>`<a class="journal-card game-panel" href="#profile/journey"><span class="save-icon">${uiIcon(i===0?'learn':i===1?'code':'network')}</span><span class="journal-copy"><small>RECORD / ${String(i+1).padStart(2,'0')}</small><b>${escapeHTML(line)}</b></span><span aria-hidden="true">↗</span></a>`).join('');
-  $('workStyle').innerHTML=(DATA.workStyle || []).map((line,i)=>`<p class="work-step"><span>0${i+1}</span>${escapeHTML(line)}</p>`).join('');
-  $('aboutGoal').textContent=DATA.aboutGoal;
-  renderEquipment();
   const contactCards = $('contactCards');
   const email = DATA.contact.email;
   const hasEmail = typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -593,6 +590,6 @@ function bindPlaybook() {
     const equipment=event.target.closest('[data-equipment]');if(equipment)selectEquipment(Number(equipment.dataset.equipment));
     const mascot=event.target.closest('[data-mascot]');if(mascot)greetMascot(mascot);
   });
-  $('skillsGrid').addEventListener('keydown',event=>{const b=event.target.closest('[data-equipment]');if(!b||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key))return;event.preventDefault();const max=DATA.skills.length,index=event.key==='Home'?0:event.key==='End'?max-1:(Number(b.dataset.equipment)+(event.key==='ArrowLeft'||event.key==='ArrowUp'?-1:1)+max)%max;selectEquipment(index);$('equipmentSlots').querySelectorAll('button')[index].focus();});
+  document.addEventListener('keydown',event=>{const b=event.target.closest('#skillsGrid [data-equipment]');if(!b||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key))return;event.preventDefault();const max=DATA.skills.length,index=event.key==='Home'?0:event.key==='End'?max-1:(Number(b.dataset.equipment)+(event.key==='ArrowLeft'||event.key==='ArrowUp'?-1:1)+max)%max;selectEquipment(index);$('equipmentSlots').querySelectorAll('button')[index].focus();});
   initReveals();
 }

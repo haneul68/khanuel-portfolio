@@ -2,6 +2,7 @@
 let activeView='home',activeProjectId=null,profileRendered=false,lastRouteHash=null;
 const pagePositions=new Map();
 function parsePageRoute(hash) {
+  if(hash==='#skills')return {view:'profile',section:'teamwork'};
   const project=String(hash).match(/^#project\/([a-z0-9-]+)(?:\/(section-\d+))?$/);
   if(project)return {view:'project',id:project[1],section:project[2] || ''};
   const profile=String(hash).match(/^#profile(?:\/([a-z-]+))?$/);
@@ -70,7 +71,7 @@ function renderProjectPage(project) {
   initMedia($('projectPage'));observeDetailContent();
 }
 function profileSectionHead(kicker,title,index) {
-  return `<header class="profile-section-head"><span class="section-code">${String(index).padStart(2,'0')}</span><div><span class="eyebrow">${kicker}</span><h2>${title}</h2></div></header>`;
+  return `<header class="profile-section-head"><span class="section-code">${uiIcon(['profile','bag','upgrade'][index-1] || 'profile')}</span><div><span class="eyebrow">${kicker}</span><h2>${title}</h2></div><span class="profile-panel-id">${String(index).padStart(2,'0')} / 03</span></header>`;
 }
 function knowledgeIcon(name) {
   return /멀티|Photon|Network/i.test(name)?'network':/전투|게임플레이/.test(name)?'game':/UI|UX|디자인/i.test(name)?'library':/최적화|성능/.test(name)?'loop':'code';
@@ -78,7 +79,7 @@ function knowledgeIcon(name) {
 function renderProfilePage() {
   const name=DATA.name==='KIM HANEUL'?'김하늘':DATA.name;
   const chapters=[['journey','소개와 경험'],['teamwork','개발과 협업'],['next','앞으로의 방향']];
-  $('profileMenu').innerHTML=chapters.map(([id,title],i)=>`<a href="#profile${i===0?'':'/'+id}" data-section="profile-${id}"><span>${String(i+1).padStart(2,'0')}</span>${title}</a>`).join('');
+  $('profileMenu').innerHTML=chapters.map(([id,title],i)=>`<a href="#profile${i===0?'':'/'+id}" data-section="profile-${id}"><span class="profile-tab-icon">${uiIcon(['profile','bag','upgrade'][i])}</span>${title}</a>`).join('');
   const knowledge=[...new Set([...DATA.interests,...DATA.learning].map(item=>item==='게임 최적화'?'최적화':item))];
   $('aboutDetailContent').innerHTML=`
     <header class="profile-hero">
@@ -86,8 +87,9 @@ function renderProfilePage() {
       <div class="profile-intro"><span class="eyebrow">MEET THE DEVELOPER / KIM HANEUL</span><h1 id="profileTitle" tabindex="-1">게임을 좋아하는 사람에서<br><em>함께할 게임을 만드는 사람으로</em></h1><h2>${sectionTitleHTML(DATA.aboutDetailTitle)}</h2><p>${escapeHTML(DATA.aboutDetailText)}</p><div class="strength-slots">${DATA.aboutStrengths.map((x,i)=>`<div><span>${uiIcon(['code','game','result','learn'][i%4])}</span><b>${escapeHTML(x)}</b></div>`).join('')}</div></div>
     </header>
     <section id="profile-journey" class="profile-section profile-experience">${profileSectionHead('EXPERIENCE','게임을 만들며 쌓은 경험',1)}<div class="profile-experience-grid"><div class="journey-log"><h3 class="panel-label">학력과 교육</h3><ol>${DATA.education.map((x,i)=>`<li><span class="log-index">${String(i+1).padStart(2,'0')}</span><div><p>${escapeHTML(x)}</p></div>${uiIcon('learn')}</li>`).join('')}</ol></div><div class="profile-activities"><h3 class="panel-label">함께한 활동</h3><ul>${DATA.activities.map(x=>`<li>${uiIcon('game')}<span>${escapeHTML(x)}</span></li>`).join('')}</ul></div></div><div class="profile-qualifications"><h3 class="panel-label">자격</h3><ul>${DATA.certificates.map(certificateDetail).map(x=>`<li><strong>${escapeHTML(x.name)}</strong><span>${escapeHTML(x.issuer)}</span><time>${escapeHTML(x.date)}</time></li>`).join('')}</ul></div>${DATA.awards?.length?`<div class="award-records"><h3>수상</h3>${DATA.awards.map(x=>`<p>${escapeHTML(x)}</p>`).join('')}</div>`:''}</section>
-    <section id="profile-teamwork" class="profile-section">${profileSectionHead('DEVELOPMENT & TEAMWORK','함께 개발하는 방식',2)}<div class="cooperation-track">${DATA.workStyle.map((x,i)=>`<article><span class="step-marker">${String(i+1).padStart(2,'0')}</span>${uiIcon(['code','learn','game','network'][i%4])}<h3>${escapeHTML(x)}</h3></article>`).join('')}</div><div class="profile-knowledge"><h3 class="panel-label">관심과 학습</h3><div class="knowledge-slots">${knowledge.map(x=>`<div>${uiIcon(knowledgeIcon(x))}<b>${escapeHTML(x)}</b></div>`).join('')}</div><a href="#skills" class="text-link inventory-link">프로젝트에서 사용한 기술 보기 <span aria-hidden="true">↗</span></a></div></section>
+    <section id="profile-teamwork" class="profile-section">${profileSectionHead('DEVELOPMENT & TEAMWORK','함께 개발하는 방식',2)}<div id="skills" class="profile-equipment" aria-labelledby="skillsTitle"><h3 id="skillsTitle" class="panel-label">개발 장비창</h3><p class="profile-equipment-help">장비를 선택하면 사용한 기술과 프로젝트를 확인할 수 있어요.</p><div id="skillsGrid"></div></div><h3 class="panel-label profile-work-heading">작업과 협업 방식</h3><div class="cooperation-track">${DATA.workStyle.map((x,i)=>`<article><span class="step-marker">${String(i+1).padStart(2,'0')}</span>${uiIcon(['code','learn','game','network'][i%4])}<h3>${escapeHTML(x)}</h3></article>`).join('')}</div><div class="profile-knowledge"><h3 class="panel-label">관심과 학습</h3><div class="knowledge-slots">${knowledge.map(x=>`<div>${uiIcon(knowledgeIcon(x))}<b>${escapeHTML(x)}</b></div>`).join('')}</div></div></section>
     <section id="profile-next" class="profile-section profile-next">${profileSectionHead('NEXT PROJECT','다음 프로젝트를 향해',3)}<p>${escapeHTML(DATA.aboutGoal)}</p><div class="profile-next-actions"><a class="btn primary" href="#projects">만들어 온 게임 보기 ↗</a><a class="text-link" href="#contact">함께할 이야기 나누기 ↗</a></div><div class="profile-companion" aria-hidden="true">${mascotHTML()}</div></section>`;
+  renderEquipment();
   initReveals($('aboutDetailContent'));
 }
 function updatePageNavigation() {
