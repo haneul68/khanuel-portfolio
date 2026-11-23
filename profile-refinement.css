@@ -109,3 +109,47 @@
 @media(max-width:900px){.profile-page .profile-hero{gap:24px}.profile-page .profile-intro{padding:23px}.profile-page .cooperation-track{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.profile-page .profile-intro{padding:22px 17px}.profile-page .profile-section{padding:20px 14px;margin:22px 0 28px}.profile-page .profile-section-head{gap:10px}.profile-page .profile-section-head h2{font-size:1.2rem}.profile-page .profile-panel-id{font-size:.55rem}.profile-page .section-code{width:32px;height:36px}.profile-page .profile-next>p{max-width:100%}.profile-page .cooperation-track{grid-template-columns:1fr}.profile-page .equipment-body{display:grid;grid-template-columns:100px minmax(0,1fr);grid-template-areas:'character slots' 'info info';padding:12px;gap:12px}.profile-page .equipment-info{min-width:0;padding:15px}.profile-page .equipment-slots button{min-width:0}.profile-page .slot-name{font-size:.65rem}.profile-equipment-help{font-size:.8rem}.profile-page .equipment-character .mascot-button{width:100px}.profile-page .equipment-character>.mascot-bubble{max-width:100px}.profile-page .strength-slots>div{padding:12px}.profile-page .profile-section-head .eyebrow{letter-spacing:.08em}}
 @media(max-width:480px){.profile-page .equipment-body{grid-template-columns:minmax(0,1fr);grid-template-areas:'character' 'slots' 'info'}.profile-page .equipment-character{min-height:180px}.profile-page .equipment-character .mascot-button{width:120px}.profile-page .equipment-character::before{left:25%;width:50%;bottom:12px}.profile-page .equipment-slots button{min-height:128px}.profile-page .equipment-slots .slot-name{font-size:.8125rem}.profile-page .equipment-character>.mascot-bubble{max-width:200px}}
+/* Keep icons anchored to their own label instead of floating above the text. */
+.profile-page .profile-section-head{gap:16px;align-items:center}
+.profile-page .profile-section-head>div{min-width:0}
+.profile-page .section-code{width:44px;height:44px;flex:0 0 44px}
+.profile-page .profile-panel-id{align-self:center;padding-left:12px}
+.profile-page #profileMenu a{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.profile-page #profileMenu .profile-tab-icon{flex:0 0 20px;width:20px;height:20px}
+.profile-page .strength-slots{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}
+.profile-page .strength-slots>div{flex-direction:row;align-items:center;gap:14px;padding:16px;min-height:76px}
+.profile-page .strength-slots>div>span{flex:0 0 38px;width:38px;height:38px}
+.profile-page .strength-slots svg{width:21px;height:21px;display:block}
+.profile-page .strength-slots b{font-size:.875rem;line-height:1.6;word-break:keep-all}
+.profile-page .profile-experience-grid{align-items:start;gap:24px}
+.profile-page .journey-log li{gap:15px;padding:18px;align-items:center}
+.profile-page .journey-log li>svg{display:none}
+.profile-page .log-index{flex:0 0 32px;width:32px;height:32px}
+.profile-page .profile-activities li{gap:13px;padding:17px;min-height:90px}
+.profile-page .profile-activities li>svg{flex:0 0 24px;width:24px;height:24px}
+.profile-page .profile-activities li>span{min-width:0}
+.profile-page .cooperation-track{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.profile-page .cooperation-track article{display:grid;grid-template-columns:36px minmax(0,1fr) 22px;align-items:center;gap:15px;padding:20px;min-height:94px}
+.profile-page .cooperation-track article>svg{grid-column:1;grid-row:1;width:26px;height:26px;margin:0;justify-self:center}
+#profilePage .cooperation-track h3{grid-column:2;grid-row:1;font-size:.9375rem;line-height:1.7;word-break:keep-all;margin:0}
+.profile-page .cooperation-track .step-marker{position:static;grid-column:3;grid-row:1;align-self:start;text-align:right}
+.profile-page .profile-knowledge .knowledge-slots>div{flex-direction:row;justify-content:flex-start;text-align:left;gap:13px;min-height:72px;padding:16px}
+.profile-page .profile-knowledge .knowledge-slots svg{display:block;flex:0 0 23px;width:23px;height:23px}
+.profile-page .profile-knowledge .knowledge-slots b{min-width:0}
+.profile-page .equipment-body{align-items:center}
+.profile-page .equipment-character{min-height:230px;align-self:center}
+.profile-page .equipment-name{display:flex;align-items:center;gap:13px}
+.profile-page .equipment-name>svg{flex:0 0 28px;width:28px;height:28px}
+#profilePage .equipment-name h3{margin:0;line-height:1.5}
+.profile-page .equipment-projects a{display:grid;grid-template-columns:52px minmax(0,1fr) 16px;align-items:center;gap:12px;padding:12px}
+.profile-page .equipment-projects img{width:52px;height:40px;object-fit:contain}
+.profile-page .equipment-projects a>span:last-child{text-align:center}
+.profile-page .equipment-top>span{display:inline-flex;align-items:center;gap:10px}
+.profile-page .equipment-hint{margin:0;padding:14px 22px;border-top:1px solid var(--inventory-line);text-align:left}
+.profile-page .profile-next>p{max-width:calc(100% - 175px);margin:0;line-height:1.9}
+.profile-page .profile-companion{width:110px;right:30px;bottom:32px;opacity:.6}
+.profile-page .profile-next-actions{gap:18px 24px;align-items:center}
+@media(min-width:1100px){.profile-page .equipment-slots button{flex-direction:column;justify-content:center;gap:10px;padding:22px 12px 16px;min-height:140px;text-align:center}.profile-page .equipment-slots button .slot-icon{width:52px;height:52px;flex-basis:52px}.profile-page .equipment-slots button .equipment-art{width:46px;height:46px}.profile-page .equipment-slots .slot-name{font-size:.875rem}}
+@media(max-width:900px){.profile-page .profile-knowledge .knowledge-slots{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-page .strength-slots>div{gap:10px;padding:13px}.profile-page .strength-slots>div>span{width:32px;height:32px;flex-basis:32px}}
+@media(max-width:600px){.profile-page .profile-section-head{gap:12px}.profile-page .section-code{width:36px;height:36px;flex-basis:36px}.profile-page .section-code svg{width:20px;height:20px}.profile-page .profile-panel-id{padding-left:0;font-size:.625rem}.profile-page .strength-slots{grid-template-columns:1fr;gap:10px}.profile-page .strength-slots>div{min-height:62px;padding:13px 15px;gap:13px}.profile-page .profile-activities ul{grid-template-columns:1fr}.profile-page .profile-activities li{min-height:70px;padding:15px}.profile-page .journey-log li{padding:15px;gap:12px}.profile-page .cooperation-track{grid-template-columns:1fr}.profile-page .cooperation-track article{grid-template-columns:30px minmax(0,1fr) 20px;min-height:78px;gap:12px;padding:16px}.profile-page .profile-knowledge .knowledge-slots>div{padding:13px 12px;gap:10px;min-height:70px}.profile-page .profile-knowledge .knowledge-slots svg{width:20px;height:20px;flex-basis:20px}.profile-page .equipment-name{gap:10px}.profile-page .equipment-name h3{font-size:1.4rem}.profile-page .equipment-projects a{grid-template-columns:40px minmax(0,1fr) 12px;gap:9px;padding:11px}.profile-page .equipment-projects img{width:40px;height:34px}.profile-page .equipment-hint{padding:13px 15px}.profile-page .profile-next>p{max-width:100%}.profile-page .profile-next-actions{align-items:flex-start;flex-direction:column;gap:18px}}
+@media(max-width:480px){.profile-page .equipment-character{min-height:180px}.profile-page .profile-knowledge .knowledge-slots{grid-template-columns:1fr}.profile-page .profile-knowledge .knowledge-slots>div{min-height:62px}}
