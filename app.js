@@ -1,6 +1,6 @@
 function planningCreditHTML(project) {
   return PLANNING_DOCS.some(doc => doc.id === projectId(project))
-    ? '<span class="planning-credit">기획 총괄</span>'
+    ? '<span class="planning-credit">기획/개발</span>'
     : '';
 }
 const STORAGE_KEY = 'khanuelPortfolioData';
