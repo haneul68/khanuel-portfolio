@@ -232,9 +232,9 @@ function renderSite() {
   $('heroTitle').innerHTML=headingHTML(DATA.heroTitle).split('\n').map((line,i)=>`<span${i===0?' class="together-word"':''}>${line}</span>`).join('');
   $('heroSubtitle').textContent=cleanTitle(DATA.heroSubtitle);
   $('heroDesc').textContent=DATA.desc;
-  $('profilePhoto').src=safeMedia(DATA.profileAvatar) || 'assets/profile-portrait.jpg';
-  $('aboutPhoto').src=$('profilePhoto').src;
-  $('heroProfilePhoto').src=$('profilePhoto').src;
+  const profilePhotoSrc=safeMedia(DATA.profileAvatar) || 'assets/profile-portrait.jpg';
+  $('aboutPhoto').src=profilePhotoSrc;
+  $('heroProfilePhoto').src=profilePhotoSrc;
   $('heroProfileName').textContent=DATA.name==='KIM HANEUL'?'김하늘':DATA.name;
   $('heroProfileRole').textContent=DATA.role;
   document.querySelectorAll('[data-ui-icon]').forEach(el=>el.innerHTML=uiIcon(el.dataset.uiIcon));
