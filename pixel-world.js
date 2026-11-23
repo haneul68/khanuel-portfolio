@@ -32,40 +32,9 @@ function selectTrait(console,index,focus=false) {
   pulseElement(panel,'trait-equipped');
   if(focus)tabs[index].focus({preventScroll:true});
 }
-let worldJourney=null,worldPosition=null,worldGeneration=0,worldSpacing=240;
-function worldPoint(index) { return {x:120+index*worldSpacing,y:index%2?183:146}; }
 function islandType(project,index=0) { return {'cops-catch':0,'chaos-arena':1,'gn-banc':2,'shadow-core-defense':3,'golden-apple':'golden-apple'}[projectId(project)] ?? index%4; }
-function renderWorldMap() {
-  worldSpacing=Math.max(205,($('gameTabs').clientWidth-240)/Math.max(1,carouselOrder.length-1));
-  const width=Math.max(370,(carouselOrder.length-1)*worldSpacing+240);
-  const points=carouselOrder.map((p,i)=>worldPoint(i));
-  const path=points.map((p,i)=>i?` Q ${p.x-worldSpacing/2} ${p.y} ${p.x} ${p.y}`:`M ${p.x} ${p.y}`).join('');
-  worldGeneration++;worldJourney?.cancel();worldJourney=null;worldPosition=null;
-  $('gameTabs').innerHTML=`<div class="world-map-inner" style="width:${width}px"><svg class="world-road" viewBox="0 0 ${width} 305" aria-hidden="true"><path class="road-shadow" d="${path}"/><path class="road-line" d="${path}"/></svg>${carouselOrder.map((p,i)=>{const pos=points[i];return `<button type="button" class="world-node" data-featured="${p===featuredProject()}" data-game-index="${i}" aria-label="${escapeHTML(p.title)} 선택" aria-pressed="${i===carouselIndex}" style="--node-x:${pos.x}px;--node-y:${pos.y}px;--float-delay:-${i*1.3}s"><span class="island-number">${p===featuredProject()?'★':String(i+1).padStart(2,'0')}</span><span class="island-art island-${islandType(p,i)}" aria-hidden="true"></span><span class="island-ripple" aria-hidden="true"></span><span class="island-title">${headingHTML(p.title)}</span><small class="island-note">${escapeHTML(p.team || p.genre || '')}${planningCreditHTML(p)}</small></button>`;}).join('')}<span class="world-traveler" id="worldTraveler" aria-hidden="true"><img src="assets/sky-cat.png" alt=""><i></i></span></div>`;
-}
-function travelToGame(index,onarrival) {
-  const map=$('gameTabs'),traveler=$('worldTraveler'),end=worldPoint(index),generation=++worldGeneration;
-  if(worldJourney&&traveler){const matrix=new DOMMatrixReadOnly(getComputedStyle(traveler).transform);worldPosition={x:matrix.m41+22,y:matrix.m42+51};}
-  worldJourney?.cancel();worldJourney=null;
-  const start=worldPosition || end;
-  const selected=map.querySelectorAll('[data-game-index]')[index];
-  if(selected)map.scrollTo({left:Math.max(0,end.x-map.clientWidth/2),behavior:motionPaused?'instant':'smooth'});
-  const pose=p=>`translate3d(${p.x-22}px,${p.y-51}px,0)`;
-  function arrive() {
-    if(generation!==worldGeneration)return;
-    worldPosition=end;traveler.style.transform=pose(end);traveler.classList.remove('is-traveling');
-    $('gameSelector').classList.remove('is-traveling');
-    onarrival();pulseElement(selected,'is-arriving');
-  }
-  if(!traveler){onarrival();return;}
-  if(!worldPosition || motionPaused || (start.x===end.x&&start.y===end.y)){arrive();return;}
-  traveler.classList.add('is-traveling');$('gameSelector').classList.add('is-traveling');
-  // A curved path and a slight hop communicate travel, rather than teleporting between thumbnails.
-  const frames=Array.from({length:25},(_,i)=>{const t=i/24;return {transform:pose({x:start.x+(end.x-start.x)*t,y:start.y+(end.y-start.y)*t-Math.sin(Math.PI*t)*34}),offset:t};});
-  worldPosition=end;
-  const animation=traveler.animate(frames,{duration:620,easing:'cubic-bezier(.3,0,.2,1)',fill:'forwards'});
-  worldJourney=animation;
-  animation.finished.then(()=>{arrive();animation.cancel();if(worldJourney===animation)worldJourney=null;}).catch(()=>{});
+function renderProjectRoster() {
+  $('gameTabs').innerHTML=carouselOrder.map((p,i)=>`<button type="button" class="project-tile" data-game-index="${i}" data-featured="${p===featuredProject()}" aria-label="${escapeHTML(p.title)} 선택" aria-pressed="${i===carouselIndex}">${p===featuredProject()?'<span class="tile-featured">★ 대표 게임</span>':''}${projectIslandHTML(p)}<span class="project-tile-title">${headingHTML(p.title)}</span><span class="project-tile-meta">${uiIcon('network')} ${escapeHTML(p.team || '')}</span></button>`).join('');
 }
 // Keep routes immediate; the illustrated world does not fade away when opening a record.
 function enterBaseDoor(source,finish) { finish(); }
@@ -74,10 +43,6 @@ function initGameSystems() {
   if(gameSystemsBound)return;gameSystemsBound=true;
   const scene=document.querySelector('.scene-motes');
   if(scene)scene.innerHTML=Array.from({length:12},(_,i)=>`<i style="--mote-x:${15+(i*17)%78}%;--mote-y:${12+(i*11)%60}%;--mote-delay:-${i*.8}s;--mote-duration:${4+i%4}s"></i>`).join('');
-  if(typeof ResizeObserver!=='undefined'){
-    let width=$('gameTabs').clientWidth,pending=0;
-    new ResizeObserver(()=>{const next=$('gameTabs').clientWidth;if(!next||Math.abs(next-width)<2)return;width=next;cancelAnimationFrame(pending);pending=requestAnimationFrame(()=>{renderWorldMap();if(carouselOrder.length)travelToGame(carouselIndex,()=>{const project=carouselOrder[carouselIndex];if($('featuredGame').dataset.project!==projectId(project))renderSelectedGame(project);});});}).observe($('gameTabs'));
-  }
   document.addEventListener('click',event=>{const tab=event.target.closest('[data-trait]');if(tab)selectTrait(tab.closest('[data-trait-console]'),Number(tab.dataset.trait));});
   document.addEventListener('keydown',event=>{
     const tab=event.target.closest('[data-trait]');if(!tab || !['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key))return;
@@ -91,6 +56,6 @@ function initGameSystems() {
   document.addEventListener('visibilitychange',()=>document.documentElement.classList.toggle('scene-asleep',document.hidden));
 }
 function stopGameMotion() {
-  if(worldJourney)worldJourney.finish();
+
   const hero=$('featured');if(hero){hero.style.setProperty('--scene-x',0);hero.style.setProperty('--scene-y',0);}
 }

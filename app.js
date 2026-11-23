@@ -210,11 +210,7 @@ function openDrivePlayer(button) {
   player.insertBefore(frame, player.querySelector('.drive-open'));
   button.hidden = true;
   player.classList.add('is-loaded');
-  if (player.closest('#featuredGame')) {
-    carouselPaused = true;
-    $('carouselToggle').textContent = '▶ 자동 전환 켜기';
-    $('carouselToggle').setAttribute('aria-pressed', 'true');
-    scheduleCarousel();
+  if (player.closest('#featuredGame')) {    scheduleCarousel();
   }
   frame.focus();
 }
@@ -274,48 +270,61 @@ function renderSite() {
   $('year').textContent=new Date().getFullYear();
   initCarousel();initMedia();initGameSystems();
 }
-let carouselOrder=[],carouselIndex=0,carouselTimer=null,carouselPaused=false,carouselHovered=false,carouselFocused=false,carouselVisible=false;
-function carouselBlocked() {return !carouselVisible || carouselPaused || motionPaused || carouselHovered || carouselFocused || document.hidden || document.body.dataset.view!=='home';}
-function scheduleCarousel() {
-  clearTimeout(carouselTimer);
-  const stopped=carouselBlocked();
-  const bar=$('carouselProgress');if(bar){bar.style.animation='none';void bar.offsetWidth;bar.style.animation='carousel-countdown 8s linear both';bar.style.animationPlayState=stopped?'paused':'running';}
-  $('gameSelector')?.classList.toggle('is-holding',Boolean(stopped));
-  if(carouselOrder.length>1 && !stopped)carouselTimer=setTimeout(()=>selectGame(carouselIndex+1),8000);
+let carouselOrder=[],carouselIndex=0,carouselTimer=null;
+// Project browsing is manual. Existing motion controls can still cancel timers safely.
+function scheduleCarousel() { clearTimeout(carouselTimer); }
+function projectIslandHTML(project) {
+  return `<span class="project-island project-island-${islandType(project)}" aria-hidden="true"></span>`;
+}
+function renderProjectNeighbors() {
+  const host=$('projectNeighbors'),count=carouselOrder.length;
+  host.hidden=count<2;
+  host.innerHTML=count<2?'':[-1,1].map(step=>{
+    const p=carouselOrder[(carouselIndex+step+count)%count];
+    return `<button type="button" class="project-neighbor ${step<0?'neighbor-prev':'neighbor-next'}" data-project-step="${step}" aria-label="${step<0?'이전':'다음'} 프로젝트 ${escapeHTML(p.title)} 선택">${projectIslandHTML(p)}<span class="neighbor-title">${headingHTML(p.title)}</span><small>${escapeHTML(p.team || '')}</small></button>`;
+  }).join('');
 }
 function renderSelectedGame(p) {
-  const host=$('featuredGame');host.hidden=false;host.dataset.ready='true';host.dataset.project=projectId(p);
+  const host=$('featuredGame');host.hidden=false;host.dataset.project=projectId(p);
   const featured=p===featuredProject(),number=String(carouselIndex+1).padStart(2,'0');
-  host.innerHTML=`<article class="selected-game expedition-preview" data-game="${projectId(p)}" data-featured="${featured}" role="group" aria-roledescription="슬라이드" aria-label="${carouselIndex+1} / ${carouselOrder.length} ${escapeHTML(p.title)}"><header class="destination-bar"><span class="destination-marker">${uiIcon('game')}</span><div><span class="eyebrow">${featured?'FEATURED PROJECT':'SELECTED PROJECT'} / ${number}</span><h3>도착했으니, 한 판 구경할까요?</h3></div><a href="#projects" class="back-to-map">지도에서 다시 고르기 <span aria-hidden="true">↑</span></a></header><div class="destination-content"><div class="playback-bay"><div class="playback-panel-head"><span><i class="live-mark" aria-hidden="true"></i> ${previewMeta(p).label}</span><span>${p.platform?escapeHTML(p.platform)+' / ':''}${previewMeta(p).code}</span></div><div class="game-screen">${projectPreviewHTML(p)}</div><div class="playback-caption"><span>${uiIcon('game')} ${escapeHTML(p.genre || '')}</span><span>${previewMeta(p).code}</span></div></div><div class="selected-info"><div class="destination-badges"><span class="destination-stamp">${featured?'★ 대표 게임':'GAME / '+number}</span>${planningCreditHTML(p)}</div><h2>${headingHTML(p.title)}</h2><p class="selected-lead">${headingHTML(p.lead || p.teaser || p.summary).replace(/\n/g,' ')}</p><div class="destination-facts"><span>${uiIcon('network')} ${escapeHTML(p.team || '')}</span><span>${uiIcon('game')} ${escapeHTML(p.platform || p.genre || '')}</span></div><div class="role-loadout"><span class="role-emblem" aria-hidden="true">${uiIcon('code')}</span><div><span class="eyebrow">이 게임에서 맡은 일</span><p>${escapeHTML(p.cardRole || p.contribution || '')}</p></div></div><div class="destination-tech">${tagsHTML(p.tags)}</div>${p.summary?`<p class="destination-summary">${escapeHTML(p.summary)}</p>`:''}<a class="game-enter" href="${projectHref(p)}" aria-label="${escapeHTML(p.title)} 개발 이야기 보기"><span class="enter-icon" aria-hidden="true">${uiIcon('learn')}</span><span>이 게임의 개발 이야기<small>구현 · 문제 해결 · 배운 점</small></span><b aria-hidden="true">↗</b></a></div></div></article>`;
-  initMedia(host);pulseElement(host,'preview-ready');
+  host.innerHTML=`<article class="project-slide" data-featured="${featured}" role="group" aria-roledescription="슬라이드" aria-label="${carouselIndex+1} / ${carouselOrder.length} ${escapeHTML(p.title)}"><div class="project-playback"><div class="project-media-caption"><span><i class="live-mark" aria-hidden="true"></i> ${previewMeta(p).label}</span><span>${escapeHTML(p.platform || '')} / ${previewMeta(p).code}</span></div><div class="project-screen">${projectPreviewHTML(p)}</div><p class="project-genre">${uiIcon('game')} ${escapeHTML(p.genre || '')}</p></div><div class="project-dossier"><span class="project-stamp${featured?' is-featured':''}">${featured?'★ 대표 게임':'PROJECT / '+number}</span><h3>${headingHTML(p.title)}</h3><p class="project-lead">${escapeHTML(p.lead || p.teaser || '').replace(/\n/g,' ')}</p><div class="project-facts"><span>${uiIcon('network')} ${escapeHTML(p.team || '')}</span><span>${uiIcon('game')} ${escapeHTML(p.platform || '')}</span></div><div class="project-tech">${tagsHTML((p.tags || []).slice(0,3))}<span class="project-role">${uiIcon('code')} ${planningCreditHTML(p)?'기획/개발':'개발'}</span></div><div class="project-work"><span>이 게임에서 맡은 일</span><p>${escapeHTML(p.cardRole || p.contribution || '')}</p></div><a class="project-open" href="${projectHref(p)}" aria-label="${escapeHTML(p.title)} 프로젝트 자세히 보기"><span>프로젝트 자세히</span><b aria-hidden="true">↗</b></a></div></article>`;
+  renderProjectNeighbors();initMedia(host);pulseElement(host,'project-slide-enter');
 }
 function selectGame(index,manual=false) {
   if(!carouselOrder.length)return;
+  const next=(index+carouselOrder.length)%carouselOrder.length;
+  if(manual && next===carouselIndex)return;
   $('gameSelector').style.setProperty('--slide-direction',index<carouselIndex?-1:1);
-  carouselIndex=(index+carouselOrder.length)%carouselOrder.length;
+  carouselIndex=next;
   const p=carouselOrder[carouselIndex];
   $('gameSelector').dataset.game=projectId(p);
-  travelToGame(carouselIndex,()=>renderSelectedGame(p));
-  $('carouselCount').textContent=`${String(carouselIndex+1).padStart(2,'0')} / ${String(carouselOrder.length).padStart(2,'0')}`;
-  $('gameTabs').querySelectorAll('button').forEach((button,i)=>{button.setAttribute('aria-pressed',String(i===carouselIndex));});
+  renderSelectedGame(p);
+  $('carouselCount').innerHTML=`<strong>${String(carouselIndex+1).padStart(2,'0')}</strong><span>/ ${String(carouselOrder.length).padStart(2,'0')}</span>`;
+  $('gameTabs').querySelectorAll('[data-game-index]').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===carouselIndex)));
   if(manual)$('carouselAnnouncement').textContent=`${p.title} 선택됨`;
-  initMedia($('featuredGame'));scheduleCarousel();
 }
 function initCarousel() { renderLibrary(); }
 function bindCarousel() {
   $('prevGame').addEventListener('click',()=>selectGame(carouselIndex-1,true));
   $('nextGame').addEventListener('click',()=>selectGame(carouselIndex+1,true));
-  $('gameTabs').addEventListener('keydown',event=>{const b=event.target.closest('[data-game-index]');if(!b||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const n=carouselOrder.length;const i=event.key==='Home'?0:event.key==='End'?n-1:(Number(b.dataset.gameIndex)+(event.key==='ArrowLeft'?-1:1)+n)%n;selectGame(i,true);$('gameTabs').querySelectorAll('button')[i].focus({preventScroll:true});});
-  $('gameTabs').addEventListener('click',event=>{const button=event.target.closest('[data-game-index]');if(button)selectGame(Number(button.dataset.gameIndex),true);});
-  $('carouselToggle').addEventListener('click',()=>{carouselPaused=!carouselPaused;$('carouselToggle').textContent=carouselPaused?'▶ 자동 전환 켜기':'Ⅱ 자동 전환 끄기';$('carouselToggle').setAttribute('aria-pressed',String(carouselPaused));scheduleCarousel();});
-  const selector=$('gameSelector');
-  if(typeof IntersectionObserver!=='undefined')new IntersectionObserver(entries=>{const visible=entries.some(entry=>entry.isIntersecting);if(visible!==carouselVisible){carouselVisible=visible;scheduleCarousel();}},{threshold:0}).observe(selector);
-  else carouselVisible=true;
-  selector.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'){carouselHovered=true;scheduleCarousel();}});
-  selector.addEventListener('pointerleave',()=>{carouselHovered=false;scheduleCarousel();});
-  selector.addEventListener('focusin',()=>{carouselFocused=true;scheduleCarousel();});
-  selector.addEventListener('focusout',event=>{if(!selector.contains(event.relatedTarget)){carouselFocused=false;scheduleCarousel();}});
-  document.addEventListener('visibilitychange',scheduleCarousel);
+  $('projectNeighbors').addEventListener('click',event=>{const button=event.target.closest('[data-project-step]');if(button)selectGame(carouselIndex+Number(button.dataset.projectStep),true);});
+  $('gameTabs').addEventListener('keydown',event=>{
+    const button=event.target.closest('[data-game-index]');
+    if(!button||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+    event.preventDefault();const n=carouselOrder.length;
+    const i=event.key==='Home'?0:event.key==='End'?n-1:(Number(button.dataset.gameIndex)+(event.key==='ArrowLeft'?-1:1)+n)%n;
+    selectGame(i,true);$('gameTabs').querySelectorAll('[data-game-index]')[i].focus({preventScroll:true});
+  });
+  $('gameTabs').addEventListener('click',event=>{
+    const button=event.target.closest('[data-game-index]');if(!button)return;
+    selectGame(Number(button.dataset.gameIndex),true);
+    if(matchMedia('(max-width:600px)').matches)$('projectStage').scrollIntoView({block:'start',behavior:motionPaused?'instant':'smooth'});
+  });
+  $('projectStage').addEventListener('keydown',event=>{
+    if(!event.target.closest('.project-arrow,.project-neighbor')||!['ArrowLeft','ArrowRight'].includes(event.key))return;
+    event.preventDefault();selectGame(carouselIndex+(event.key==='ArrowLeft'?-1:1),true);
+    $(event.key==='ArrowLeft'?'prevGame':'nextGame').focus({preventScroll:true});
+  });
 }
 
 function renderShowcaseSection(section) {
@@ -395,11 +404,7 @@ function bindSiteEvents() {
   document.addEventListener('play', event => {
     if (!event.target.matches?.('video[data-gameplay-video]')) return;
     document.querySelectorAll('video[data-gameplay-video]').forEach(video => { if (video !== event.target) video.pause(); });
-    if (event.target.closest('#featuredGame')) {
-      carouselPaused = true;
-      $('carouselToggle').textContent = '▶ 자동 전환 켜기';
-      $('carouselToggle').setAttribute('aria-pressed', 'true');
-      scheduleCarousel();
+    if (event.target.closest('#featuredGame')) {      scheduleCarousel();
     }
   }, true);
   document.addEventListener('click',event=>{
@@ -493,12 +498,13 @@ function renderLibrary() {
   carouselIndex=Math.max(0,carouselOrder.findIndex(p=>projectId(p)===previousId));
   $('projectCount').textContent=`${results.length} / ${DATA.projects.length} GAMES`;
   $('libraryEmpty').hidden=!!results.length;
-  document.querySelector('.map-canvas').hidden=!results.length;
-  document.querySelector('.chart-footer').hidden=!results.length;
+  $('projectStage').hidden=!results.length;
+  $('gameTabs').hidden=!results.length;
+  $('projectPosition').hidden=!results.length;
   $('featuredGame').hidden=!results.length;
-  for(const id of ['carouselToggle','prevGame','nextGame'])$(id).disabled=results.length<2;
+  for(const id of ['prevGame','nextGame'])$(id).disabled=results.length<2;
   document.querySelectorAll('[data-library-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.libraryFilter===libraryFilter)));
-  renderWorldMap();
+  renderProjectRoster();
   if(results.length)selectGame(carouselIndex);
   else {
     $('featuredGame').innerHTML='';delete $('featuredGame').dataset.project;
