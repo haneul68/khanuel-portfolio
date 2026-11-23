@@ -153,3 +153,41 @@
 @media(max-width:900px){.profile-page .profile-knowledge .knowledge-slots{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-page .strength-slots>div{gap:10px;padding:13px}.profile-page .strength-slots>div>span{width:32px;height:32px;flex-basis:32px}}
 @media(max-width:600px){.profile-page .profile-section-head{gap:12px}.profile-page .section-code{width:36px;height:36px;flex-basis:36px}.profile-page .section-code svg{width:20px;height:20px}.profile-page .profile-panel-id{padding-left:0;font-size:.625rem}.profile-page .strength-slots{grid-template-columns:1fr;gap:10px}.profile-page .strength-slots>div{min-height:62px;padding:13px 15px;gap:13px}.profile-page .profile-activities ul{grid-template-columns:1fr}.profile-page .profile-activities li{min-height:70px;padding:15px}.profile-page .journey-log li{padding:15px;gap:12px}.profile-page .cooperation-track{grid-template-columns:1fr}.profile-page .cooperation-track article{grid-template-columns:30px minmax(0,1fr) 20px;min-height:78px;gap:12px;padding:16px}.profile-page .profile-knowledge .knowledge-slots>div{padding:13px 12px;gap:10px;min-height:70px}.profile-page .profile-knowledge .knowledge-slots svg{width:20px;height:20px;flex-basis:20px}.profile-page .equipment-name{gap:10px}.profile-page .equipment-name h3{font-size:1.4rem}.profile-page .equipment-projects a{grid-template-columns:40px minmax(0,1fr) 12px;gap:9px;padding:11px}.profile-page .equipment-projects img{width:40px;height:34px}.profile-page .equipment-hint{padding:13px 15px}.profile-page .profile-next>p{max-width:100%}.profile-page .profile-next-actions{align-items:flex-start;flex-direction:column;gap:18px}}
 @media(max-width:480px){.profile-page .equipment-character{min-height:180px}.profile-page .profile-knowledge .knowledge-slots{grid-template-columns:1fr}.profile-page .profile-knowledge .knowledge-slots>div{min-height:62px}}
+/* A single introduction on the home screen, with two clear destinations. */
+#featured.party-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center;gap:28px;min-height:500px;padding:42px 48px 65px}
+#featured .hero-copy{width:100%;max-width:680px;grid-column:1;grid-row:1;position:relative;z-index:3}
+#featured .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+#featured .hero-actions .btn{min-height:52px;padding:14px 18px;justify-content:center;gap:12px;font-size:.9375rem;white-space:normal}
+#featured .hero-actions .project-button{background:linear-gradient(#ffe5a1,#e6bc66);border:1px solid #ffe7af;color:#302719;box-shadow:inset 0 2px #fff1ce,0 4px #6b522e,0 0 22px #dfb65926}
+#featured .hero-actions .profile-button{background:linear-gradient(110deg,#24465c,#102b40);border:1px solid #89a9bc;color:#d7e5ef;box-shadow:inset 0 0 0 3px #0b2032,0 4px #061321}
+#featured .scene-characters{position:relative;inset:auto;grid-column:2;grid-row:1;width:100%;height:365px;z-index:2;align-self:end}
+#featured .scene-haneul{width:265px;max-width:75%;left:5%;bottom:0}
+#featured .scene-robot.mascot-button{width:125px;max-width:30%;right:3%;bottom:6px}
+#featured .scene-whisper{left:5%;top:2px}
+#featured .scene-sign{display:none}
+#about.unified-profile{display:grid;grid-template-columns:280px minmax(0,1fr);gap:0 32px;align-items:center;margin:28px 0 16px;padding:0 28px 28px;overflow:hidden;background:linear-gradient(135deg,#17364b,#091e30);border:1px solid #a68e5f;box-shadow:0 0 0 3px #071525,0 0 0 4px #52697a,inset 0 1px #dbe9ef30,0 12px 28px #0004}
+#about .meet-panel-head{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 -28px 26px;padding:16px 24px;background:linear-gradient(100deg,#28465d,#102a41);border-bottom:1px solid #718a9f5c;color:#cfdfeb;font-size:.875rem}
+#about .meet-panel-head>span{display:flex;align-items:center;gap:10px}
+#about .meet-panel-head svg{width:22px;height:22px;color:#e0c18b}
+#about .meet-panel-head b{font-size:.75rem;font-weight:500;color:#99b7cb}
+#about .meet-avatar{gap:22px;align-items:center;min-width:0}
+#about .meet-avatar img{width:106px;height:140px;transform:none;rotate:0;object-fit:contain;padding:9px;background:#fff;border:1px solid #9db5c3;border-radius:3px;box-shadow:0 0 0 3px #071525,0 0 0 4px #627b91}
+#about .meet-avatar h3{margin:0;font-size:2.8rem;line-height:1.4;min-width:0}
+#about .meet-avatar h3 span{display:block;margin-top:10px;max-width:150px;font:500 .875rem/1.7 var(--ui-font);color:#a8c1d4}
+#about .meet-copy{min-width:0}
+#about .meet-copy h2{font-size:1.55rem;line-height:1.6;margin:0 0 12px;word-break:keep-all;text-wrap:balance;color:#d6e6ef}
+#about .meet-copy>p{font-size:.9375rem;line-height:1.85;max-width:780px;margin:0 0 15px;color:#b4cbdc}
+#about #profileChips .tags{display:flex;justify-content:flex-start;flex-wrap:wrap;gap:7px;margin:0}
+#about #profileChips .tags span{background:#0a2135;border:1px solid #43657c;color:#b8d3e4;padding:5px 10px}
+#about .text-button{display:inline-flex;align-items:center;gap:25px;min-height:46px;margin-top:19px;padding:10px 16px;color:#f1d79d;background:linear-gradient(115deg,#254257,#102b40);border:1px solid #a28a5e;box-shadow:inset 0 0 0 3px #102334;text-align:left;white-space:normal}
+#profilePage .profile-hero{grid-template-columns:245px minmax(0,1fr);gap:26px;align-items:start}
+#profilePage .profile-intro h1{font-size:clamp(1.75rem,2.7vw,2.6rem);line-height:1.5;margin:0 0 20px;word-break:keep-all}
+#profilePage .profile-intro h2{font-size:1.15rem;line-height:1.7;margin:0 0 14px;color:#d5c398}
+#profilePage .profile-intro>p{margin:0;max-width:760px;font-size:.9375rem;line-height:1.9}
+#profilePage .profile-intro .strength-slots{margin-top:22px}
+#profilePage .dossier-name{padding:13px 17px 19px}
+#profilePage .dossier-photo img{transform:none;rotate:0}
+.route-page .page-commandbar{gap:18px}
+.route-page .page-back,.route-page .command-link{white-space:nowrap}
+@media(max-width:1100px){#featured.party-hero{padding:36px 32px 58px;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:20px}#featured .hero-actions .btn{font-size:.8125rem;padding:12px 14px}#featured .scene-characters{height:325px}#featured .scene-haneul{width:230px}#about.unified-profile{grid-template-columns:245px minmax(0,1fr);gap:0 25px}#about .meet-avatar{gap:17px}#about .meet-avatar img{width:95px;height:128px}#about .meet-copy h2{font-size:1.35rem}}
+@media(max-width:760px){#featured.party-hero{grid-template-columns:1fr;gap:18px;min-height:0;padding:30px 24px 45px}#featured .hero-copy{grid-column:1;grid-row:1}#featured .scene-characters{grid-column:1;grid-row:2;justify-self:center;width:min(390px,100%);height:240px}#featured .scene-haneul{width:190px;max-width:65%;left:13%}#featured .scene-robot.mascot-button{width:100px;right:8%;max-width:28%}#featured .scene-whisper{left:7%;top:0}#featured .hero-actions .btn{min-height:50px;font-size:.8125rem;flex:1 1 190px}#about.unified-profile{grid-template-columns:1fr;padding:0 22px 24px;gap:22px;margin-top:22px}#about .meet-panel-head{margin:0 -22px;padding:14px 18px;gap:9px;font-size:.8125rem}#about .meet-panel-head b{display:none}#about .meet-avatar{gap:22px}#about .meet-avatar img{width:92px;height:122px}#about .meet-avatar h3 span{max-width:none}#about .meet-copy h2{font-size:1.25rem}#about .meet-copy>p{font-size:.875rem}#about .text-button{display:flex;justify-content:space-between}#profilePage .profile-hero{grid-template-columns:1fr;gap:24px}#profilePage .identity-dossier{width:min(300px,100%)}#profilePage .profile-intro h1{font-size:1.8rem}#profilePage .profile-intro h2{font-size:1.05rem}.route-page .page-commandbar{gap:12px}.route-page .page-commandbar>.eyebrow{font-size:.75rem!important}}

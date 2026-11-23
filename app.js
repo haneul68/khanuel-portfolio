@@ -232,11 +232,8 @@ function renderSite() {
   $('heroDesc').textContent=DATA.desc;
   const profilePhotoSrc=safeMedia(DATA.profileAvatar) || 'assets/profile-portrait.jpg';
   $('aboutPhoto').src=profilePhotoSrc;
-  $('heroProfilePhoto').src=profilePhotoSrc;
-  $('heroProfileName').textContent=DATA.name==='KIM HANEUL'?'김하늘':DATA.name;
-  $('heroProfileRole').textContent=DATA.role;
   document.querySelectorAll('[data-ui-icon]').forEach(el=>el.innerHTML=uiIcon(el.dataset.uiIcon));
-  $('heroMascot').innerHTML=mascotHTML();$('profileMascot').innerHTML=mascotHTML();
+  $('heroMascot').innerHTML=mascotHTML();
   $('introTitle').innerHTML=`${headingHTML(DATA.name==='KIM HANEUL'?'김하늘':DATA.name)}<span>${headingHTML(DATA.role)}</span>`;
   $('profileChips').innerHTML=tagsHTML(DATA.chips);
   $('aboutTitle').textContent=cleanTitle(DATA.aboutTitle);
