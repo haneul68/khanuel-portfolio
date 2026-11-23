@@ -1,0 +1,25 @@
+/* Pull the portrait back inside its existing frame without changing the photo. */
+.hero-profile .hero-identity>img{object-fit:contain;object-position:center;padding:7px;background:#fff;filter:none;box-sizing:border-box}
+.meet-avatar img{object-fit:contain;object-position:center;padding:9px;background:#fff;filter:none;box-sizing:border-box}
+.dossier-photo img{object-fit:contain;object-position:center;padding:16px;background:#fff;filter:none;box-sizing:border-box}
+.profile-experience-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;margin-bottom:28px}
+.profile-experience .journey-log li{min-height:82px}
+.profile-experience .journey-log p{margin:0;font-size:.9375rem;line-height:1.75;word-break:keep-all}
+.profile-activities ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;list-style:none;margin:0;padding:0}
+.profile-activities li{display:flex;align-items:center;gap:12px;min-height:82px;padding:16px;background:#10253a;border:1px solid #41628066;color:#c6d8e8;font-size:.875rem;line-height:1.7;word-break:keep-all}
+.profile-activities svg{width:22px;height:22px;flex:0 0 22px;color:#9bc9e0}
+.profile-qualifications{padding-top:22px;border-top:1px solid #3b5c794d}
+.profile-qualifications ul{list-style:none;margin:0;padding:0;border:1px solid #3b5c795e;background:#081a2b88}
+.profile-qualifications li{display:grid;grid-template-columns:minmax(0,1fr) 100px 100px;gap:20px;align-items:center;padding:13px 18px;border-bottom:1px solid #38577540;font-size:.8125rem;line-height:1.65}
+.profile-qualifications li:last-child{border-bottom:0}
+.profile-qualifications strong{font-weight:500;color:#dce7f1;overflow-wrap:anywhere}
+.profile-qualifications li>span,.profile-qualifications time{color:#97b1c7;white-space:nowrap}
+.profile-qualifications time{text-align:right;font-variant-numeric:tabular-nums}
+.profile-knowledge{margin-top:30px;padding-top:24px;border-top:1px solid #3b5c794d}
+.profile-knowledge .knowledge-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.profile-knowledge .knowledge-slots>div{display:flex;justify-content:flex-start;align-items:center;gap:12px;min-height:64px;padding:14px;background:#10253a;border:1px solid #41628066}
+.profile-knowledge .knowledge-slots svg{width:22px;height:22px;flex:0 0 22px;color:#9bc9e0}
+.profile-knowledge .knowledge-slots b{font:500 .875rem/1.5 var(--ui-font);word-break:keep-all}
+.profile-knowledge .inventory-link{display:inline-flex;margin-top:18px}
+@media(max-width:900px){.profile-experience-grid{grid-template-columns:1fr;gap:22px}.profile-knowledge .knowledge-slots{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-qualifications li{grid-template-columns:minmax(0,1fr) 85px 90px;gap:12px}}
+@media(max-width:600px){.hero-profile .hero-identity>img{padding:6px}.meet-avatar img{padding:8px}.dossier-photo img{padding:18px}.profile-experience .journey-log li{min-height:78px}.profile-experience .journey-log p{font-size:.875rem}.profile-activities li{padding:13px;min-height:80px;font-size:.8125rem;gap:9px}.profile-qualifications li{grid-template-columns:1fr auto;padding:13px;gap:6px 12px}.profile-qualifications li strong{grid-column:1/-1}.profile-qualifications time{text-align:right}.profile-knowledge .knowledge-slots{gap:9px}.profile-knowledge .knowledge-slots>div{gap:9px;padding:12px;min-height:64px}.profile-knowledge .knowledge-slots b{font-size:.8125rem}}

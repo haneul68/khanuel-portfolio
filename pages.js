@@ -5,7 +5,7 @@ function parsePageRoute(hash) {
   const project=String(hash).match(/^#project\/([a-z0-9-]+)(?:\/(section-\d+))?$/);
   if(project)return {view:'project',id:project[1],section:project[2] || ''};
   const profile=String(hash).match(/^#profile(?:\/([a-z-]+))?$/);
-  if(profile)return {view:'profile',section:profile[1] || ''};
+  if(profile)return {view:'profile',section:({values:'teamwork',inventory:'teamwork',credentials:'journey'})[profile[1]] || profile[1] || ''};
   return {view:'home',section:String(hash || '#featured').slice(1)};
 }
 function rememberPagePosition() {
@@ -77,20 +77,17 @@ function knowledgeIcon(name) {
 }
 function renderProfilePage() {
   const name=DATA.name==='KIM HANEUL'?'김하늘':DATA.name;
-  const chapters=[['','플레이어 정보'],['values','개발관'],['journey','성장 기록'],['inventory','관심과 학습'],['teamwork','협업 방식'],['credentials','자격 기록'],['next','다음 목표']];
-  $('profileMenu').innerHTML=chapters.map(([id,title],i)=>`<a href="#profile${id?'/'+id:''}" data-section="${id?'profile-'+id:''}"><span>${String(i).padStart(2,'0')}</span>${title}</a>`).join('');
-  const icons=['network','loop','game','result'];
+  const chapters=[['journey','소개와 경험'],['teamwork','개발과 협업'],['next','앞으로의 방향']];
+  $('profileMenu').innerHTML=chapters.map(([id,title],i)=>`<a href="#profile${i===0?'':'/'+id}" data-section="profile-${id}"><span>${String(i+1).padStart(2,'0')}</span>${title}</a>`).join('');
+  const knowledge=[...new Set([...DATA.interests,...DATA.learning].map(item=>item==='게임 최적화'?'최적화':item))];
   $('aboutDetailContent').innerHTML=`
     <header class="profile-hero">
       <div class="identity-dossier"><div class="dossier-top"><span>PLAYER FILE</span><span>KHN</span></div><div class="dossier-photo">${mediaHTML(DATA.profileAvatar,name+' 프로필',true)}<span>UNITY CLIENT DEVELOPER</span></div><div class="dossier-name"><strong>${headingHTML(name)}</strong><span>${escapeHTML(DATA.profileLocation || '')}</span></div><div class="dossier-bottom">${(DATA.profileLanguages || []).map(x=>`<span>${escapeHTML(x)}</span>`).join('')}</div></div>
       <div class="profile-intro"><span class="eyebrow">MEET THE DEVELOPER / KIM HANEUL</span><h1 id="profileTitle" tabindex="-1">게임을 좋아하는 사람에서<br><em>함께할 게임을 만드는 사람으로</em></h1><h2>${sectionTitleHTML(DATA.aboutDetailTitle)}</h2><p>${escapeHTML(DATA.aboutDetailText)}</p><div class="strength-slots">${DATA.aboutStrengths.map((x,i)=>`<div><span>${uiIcon(['code','game','result','learn'][i%4])}</span><b>${escapeHTML(x)}</b></div>`).join('')}</div></div>
     </header>
-    <section id="profile-values" class="profile-section">${profileSectionHead('PLAY STYLE','재미도 특성이 있어야죠',1)}<p class="section-instruction">만들고 싶은 재미를 선택하면 연결된 프로젝트를 볼 수 있어요</p>${traitDeckHTML('profile')}</section>
-    <section id="profile-journey" class="profile-section">${profileSectionHead('EXPERIENCE LOG','퀘스트는 하나씩, 경험치는 차곡차곡',2)}<div class="journey-layout"><div class="journey-log"><h3 class="panel-label">지나온 체크포인트</h3><ol>${DATA.education.map((x,i)=>`<li><span class="log-index">${String(i+1).padStart(2,'0')}</span><div><span class="eyebrow">RECORD</span><p>${escapeHTML(x)}</p></div>${uiIcon('learn')}</li>`).join('')}</ol></div><div class="activity-log"><h3 class="panel-label">직접 뛰어 본 퀘스트</h3><div class="activity-grid">${DATA.activities.map((x,i)=>`<article>${uiIcon(['game','code','network','loop'][i%4])}<span class="eyebrow">ACTIVITY / ${String(i+1).padStart(2,'0')}</span><h4>${escapeHTML(x)}</h4></article>`).join('')}</div></div></div></section>
-    <section id="profile-inventory" class="profile-section">${profileSectionHead('KNOWLEDGE INVENTORY','새 기술은 일단 관심 목록에',3)}<div class="knowledge-grid">${[['관심 있는 분야',DATA.interests,'game'],['계속 공부하는 것',DATA.learning,'learn']].map(([title,items,icon])=>`<article class="knowledge-case"><header>${uiIcon(icon)}<h3>${title}</h3><span>${String(items.length).padStart(2,'0')} ITEMS</span></header><div class="knowledge-slots">${items.map((x,i)=>`<div><span class="slot-serial">${String(i+1).padStart(2,'0')}</span>${uiIcon(knowledgeIcon(x))}<b>${escapeHTML(x)}</b></div>`).join('')}</div></article>`).join('')}</div><a href="#skills" class="text-link inventory-link">프로젝트에 사용한 개발 장비 보기 <span aria-hidden="true">↗</span></a></section>
-    <section id="profile-teamwork" class="profile-section">${profileSectionHead('CO-OP PLAYBOOK','협업은 파티 플레이니까',4)}<div class="cooperation-track">${DATA.workStyle.map((x,i)=>`<article><span class="step-marker">${String(i+1).padStart(2,'0')}</span>${uiIcon(['code','learn','game','network'][i%4])}<h3>${escapeHTML(x)}</h3></article>`).join('')}</div></section>
-    <section id="profile-credentials" class="profile-section">${profileSectionHead('CREDENTIAL COLLECTION','배운 김에 자격도 챙겼어요',5)}<div class="credential-grid">${DATA.certificates.map(certificateDetail).map((x,i)=>`<article class="credential-card"><div class="credential-seal">${uiIcon('result')}<span>${String(i+1).padStart(2,'0')}</span></div><div class="credential-copy"><span class="eyebrow">${escapeHTML(x.issuer)}</span><h3>${headingHTML(x.name)}</h3><p>${escapeHTML(x.desc)}</p><time>${escapeHTML(x.date)}</time></div></article>`).join('')}</div>${DATA.awards?.length?`<div class="award-records"><h3>수상 기록</h3>${DATA.awards.map(x=>`<p>${escapeHTML(x)}</p>`).join('')}</div>`:''}</section>
-    <section id="profile-next" class="profile-section profile-next">${profileSectionHead('NEXT CHAPTER','다음 스테이지도 같이 가요',6)}<p>${escapeHTML(DATA.aboutGoal)}</p><div class="profile-next-actions"><a class="btn primary" href="#projects">만들어 온 게임 보기 ↗</a><a class="text-link" href="#contact">함께할 이야기 나누기 ↗</a></div><div class="profile-companion" aria-hidden="true">${mascotHTML()}</div></section>`;
+    <section id="profile-journey" class="profile-section profile-experience">${profileSectionHead('EXPERIENCE','게임을 만들며 쌓은 경험',1)}<div class="profile-experience-grid"><div class="journey-log"><h3 class="panel-label">학력과 교육</h3><ol>${DATA.education.map((x,i)=>`<li><span class="log-index">${String(i+1).padStart(2,'0')}</span><div><p>${escapeHTML(x)}</p></div>${uiIcon('learn')}</li>`).join('')}</ol></div><div class="profile-activities"><h3 class="panel-label">함께한 활동</h3><ul>${DATA.activities.map(x=>`<li>${uiIcon('game')}<span>${escapeHTML(x)}</span></li>`).join('')}</ul></div></div><div class="profile-qualifications"><h3 class="panel-label">자격</h3><ul>${DATA.certificates.map(certificateDetail).map(x=>`<li><strong>${escapeHTML(x.name)}</strong><span>${escapeHTML(x.issuer)}</span><time>${escapeHTML(x.date)}</time></li>`).join('')}</ul></div>${DATA.awards?.length?`<div class="award-records"><h3>수상</h3>${DATA.awards.map(x=>`<p>${escapeHTML(x)}</p>`).join('')}</div>`:''}</section>
+    <section id="profile-teamwork" class="profile-section">${profileSectionHead('DEVELOPMENT & TEAMWORK','함께 개발하는 방식',2)}<div class="cooperation-track">${DATA.workStyle.map((x,i)=>`<article><span class="step-marker">${String(i+1).padStart(2,'0')}</span>${uiIcon(['code','learn','game','network'][i%4])}<h3>${escapeHTML(x)}</h3></article>`).join('')}</div><div class="profile-knowledge"><h3 class="panel-label">관심과 학습</h3><div class="knowledge-slots">${knowledge.map(x=>`<div>${uiIcon(knowledgeIcon(x))}<b>${escapeHTML(x)}</b></div>`).join('')}</div><a href="#skills" class="text-link inventory-link">프로젝트에서 사용한 기술 보기 <span aria-hidden="true">↗</span></a></div></section>
+    <section id="profile-next" class="profile-section profile-next">${profileSectionHead('NEXT PROJECT','다음 프로젝트를 향해',3)}<p>${escapeHTML(DATA.aboutGoal)}</p><div class="profile-next-actions"><a class="btn primary" href="#projects">만들어 온 게임 보기 ↗</a><a class="text-link" href="#contact">함께할 이야기 나누기 ↗</a></div><div class="profile-companion" aria-hidden="true">${mascotHTML()}</div></section>`;
   initReveals($('aboutDetailContent'));
 }
 function updatePageNavigation() {
@@ -106,7 +103,7 @@ function updatePageNavigation() {
   const project=activeView==='project',content=$(project?'detailContent':'aboutDetailContent'),menu=$(project?'detailMenu':'profileMenu');
   const sections=[...content.querySelectorAll(project?'.detail-section':'.profile-section')];
   const positions=sections.map(el=>({id:el.id,top:el.getBoundingClientRect().top+scrollY-pageTopInset()+30}));
-  const active=sectionAtPosition(positions,scrollY,innerHeight,document.documentElement.scrollHeight);
+  const active=sectionAtPosition(positions,scrollY,innerHeight,document.documentElement.scrollHeight) || (!project?sections[0]?.id || '':'');
   const links=[...menu.querySelectorAll('a')];
   const old=menu.querySelector('[aria-current]');
   links.forEach(a=>{if((a.dataset.section || '')===active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
