@@ -92,8 +92,10 @@ function mergeData(base, saved) {
   return merged;
 }
 function loadData() {
-  try { return mergeData(cloneDefaultData(), JSON.parse(localStorage.getItem(STORAGE_KEY))); }
-  catch { return cloneDefaultData(); }
+  // Public pages use the published content. Old editor drafts must not hide
+  // updated chapters or point returning visitors at retired media files.
+  // Leave saved drafts untouched so they can still be recovered separately.
+  return cloneDefaultData();
 }
 function saveData(data) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); return true; }
@@ -273,8 +275,8 @@ let carouselOrder=[],carouselIndex=0,carouselTimer=null;
 // Project browsing is manual. Existing motion controls can still cancel timers safely.
 function scheduleCarousel() { clearTimeout(carouselTimer); }
 function projectCoverHTML(project, className='project-cover-image') {
-  const cover=projectId(project)==='cops-catch' && project.thumb==='assets/project-cops-catch.png'?'assets/project-cops-catch-card.webp':project.thumb || project.heroImage;
-  return `<img class="${className}" src="${escapeHTML(safeMedia(cover))}" alt="" loading="lazy" decoding="async">`;
+  const cover=project.thumb || project.heroImage;
+  return `<img class="${className}" src="${escapeHTML(safeMedia(cover))}" alt="" loading="eager" decoding="async">`;
 }
 function renderProjectNeighbors() {
   const host=$('projectNeighbors'),count=carouselOrder.length;

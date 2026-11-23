@@ -150,6 +150,12 @@
 .project-showcase .tile-featured{inset:6px 6px auto auto;padding:3px 5px;font-size:.625rem}
 .project-showcase .project-playback{padding:16px}
 .project-showcase .project-dossier{padding:22px}
+.project-showcase .tile-cover .project-cover-image{object-fit:contain}
+.project-tile-shell[data-featured=true]{border-color:#ecc779;box-shadow:0 0 0 1px #c6a15c55,0 0 18px #e5b94f22}
+.project-tile-shell[data-featured=true] .tile-window{background:linear-gradient(110deg,#634d29,#182a38);border-bottom-color:#d9b56d77}
+.project-showcase .project-tile-shell[data-featured=true] .tile-featured{background:linear-gradient(#ffe4a2,#e7b85b);border:1px solid #fff0c2;color:#30230e;font-weight:800;box-shadow:0 2px 8px #020a1766,0 0 12px #e9bd5d44}
+.project-showcase .project-stamp.is-featured{background:linear-gradient(115deg,#ffe6aa,#dbae59);border-color:#ffecc0;color:#30240f;font-weight:800;box-shadow:0 0 15px #e4bc5e30;letter-spacing:.015em}
+@media(min-width:851px){.project-showcase .project-tile-shell[data-featured=true] .tile-featured{padding:4px 8px;font-size:.75rem}}
 @media(min-width:1101px){.project-showcase .project-screen{max-height:calc(100svh - 635px);min-height:300px}}
 @media(min-width:1101px) and (max-height:950px){
   .project-showcase{padding:8px 0 18px}
