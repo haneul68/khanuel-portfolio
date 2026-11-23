@@ -239,7 +239,6 @@ function renderSite() {
   $('profileChips').innerHTML=tagsHTML(DATA.chips);
   $('aboutTitle').textContent=cleanTitle(DATA.aboutTitle);
   $('aboutText').textContent=DATA.aboutText;
-  $('philosophyGrid').innerHTML=traitDeckHTML('home');
   $('homeJournal').innerHTML=DATA.education.map((line,i)=>`<a class="journal-card game-panel" href="#profile/journey"><span class="save-icon">${uiIcon(i===0?'learn':i===1?'code':'network')}</span><span class="journal-copy"><small>RECORD / ${String(i+1).padStart(2,'0')}</small><b>${escapeHTML(line)}</b></span><span aria-hidden="true">↗</span></a>`).join('');
   $('workStyle').innerHTML=(DATA.workStyle || []).map((line,i)=>`<p class="work-step"><span>0${i+1}</span>${escapeHTML(line)}</p>`).join('');
   $('aboutGoal').textContent=DATA.aboutGoal;
@@ -273,32 +272,61 @@ function renderSite() {
 let carouselOrder=[],carouselIndex=0,carouselTimer=null;
 // Project browsing is manual. Existing motion controls can still cancel timers safely.
 function scheduleCarousel() { clearTimeout(carouselTimer); }
-function projectIslandHTML(project) {
-  return `<span class="project-island project-island-${islandType(project)}" aria-hidden="true"></span>`;
+function projectCoverHTML(project, className='project-cover-image') {
+  const cover=projectId(project)==='cops-catch' && project.thumb==='assets/project-cops-catch.png'?'assets/project-cops-catch-card.webp':project.thumb || project.heroImage;
+  return `<img class="${className}" src="${escapeHTML(safeMedia(cover))}" alt="" loading="lazy" decoding="async">`;
 }
 function renderProjectNeighbors() {
   const host=$('projectNeighbors'),count=carouselOrder.length;
   host.hidden=count<2;
   host.innerHTML=count<2?'':[-1,1].map(step=>{
     const p=carouselOrder[(carouselIndex+step+count)%count];
-    return `<button type="button" class="project-neighbor ${step<0?'neighbor-prev':'neighbor-next'}" data-project-step="${step}" aria-label="${step<0?'이전':'다음'} 프로젝트 ${escapeHTML(p.title)} 선택">${projectIslandHTML(p)}<span class="neighbor-title">${headingHTML(p.title)}</span><small>${escapeHTML(p.team || '')}</small></button>`;
+    return `<button type="button" class="project-neighbor ${step<0?'neighbor-prev':'neighbor-next'}" data-project-step="${step}" aria-label="${step<0?'이전':'다음'} 프로젝트 ${escapeHTML(p.title)} 선택"><span class="neighbor-window" aria-hidden="true"><i></i><i></i><i></i></span>${projectCoverHTML(p,'neighbor-cover')}<span class="neighbor-title">${headingHTML(p.title)}</span><small>${escapeHTML(p.team || '')}</small></button>`;
   }).join('');
 }
-function renderSelectedGame(p) {
+let projectAnimations=[],projectTransitionVersion=0;
+function renderSelectedGame(p,direction=0) {
   const host=$('featuredGame');host.hidden=false;host.dataset.project=projectId(p);
+  const previous=host.querySelector('.project-slide:not(.project-slide-outgoing)');
+  const previousHeight=host.offsetHeight;
+  const previousTransform=previous?getComputedStyle(previous).transform:'none';
+  const previousOpacity=previous?getComputedStyle(previous).opacity:'1';
+  const version=++projectTransitionVersion;
+  projectAnimations.forEach(animation=>animation.cancel());projectAnimations=[];
   const featured=p===featuredProject(),number=String(carouselIndex+1).padStart(2,'0');
   host.innerHTML=`<article class="project-slide" data-featured="${featured}" role="group" aria-roledescription="슬라이드" aria-label="${carouselIndex+1} / ${carouselOrder.length} ${escapeHTML(p.title)}"><div class="project-playback"><div class="project-media-caption"><span><i class="live-mark" aria-hidden="true"></i> ${previewMeta(p).label}</span><span>${escapeHTML(p.platform || '')} / ${previewMeta(p).code}</span></div><div class="project-screen">${projectPreviewHTML(p)}</div><p class="project-genre">${uiIcon('game')} ${escapeHTML(p.genre || '')}</p></div><div class="project-dossier"><span class="project-stamp${featured?' is-featured':''}">${featured?'★ 대표 게임':'PROJECT / '+number}</span><h3>${headingHTML(p.title)}</h3><p class="project-lead">${escapeHTML(p.lead || p.teaser || '').replace(/\n/g,' ')}</p><div class="project-facts"><span>${uiIcon('network')} ${escapeHTML(p.team || '')}</span><span>${uiIcon('game')} ${escapeHTML(p.platform || '')}</span></div><div class="project-tech">${tagsHTML((p.tags || []).slice(0,3))}<span class="project-role">${uiIcon('code')} ${planningCreditHTML(p)?'기획/개발':'개발'}</span></div><div class="project-work"><span>이 게임에서 맡은 일</span><p>${escapeHTML(p.cardRole || p.contribution || '')}</p></div><a class="project-open" href="${projectHref(p)}" aria-label="${escapeHTML(p.title)} 프로젝트 자세히 보기"><span>프로젝트 자세히</span><b aria-hidden="true">↗</b></a></div></article>`;
-  renderProjectNeighbors();initMedia(host);pulseElement(host,'project-slide-enter');
+  renderProjectNeighbors();initMedia(host);
+  if(previous && direction && !motionPaused) {
+    const current=host.firstElementChild,nextHeight=host.offsetHeight;
+    previous.querySelectorAll('video').forEach(video=>video.pause());
+    resetDrivePlayers(previous);
+    previous.classList.add('project-slide-outgoing');previous.setAttribute('aria-hidden','true');previous.inert=true;
+    Object.assign(previous.style,{position:'absolute',inset:'0 auto auto 0',width:'100%',height:`${previousHeight}px`,pointerEvents:'none',zIndex:'1'});
+    host.append(previous);
+    const timing={duration:480,easing:'cubic-bezier(.22,.72,.18,1)',fill:'both'};
+    projectAnimations=[
+      previous.animate([{transform:previousTransform,opacity:previousOpacity},{transform:`translateX(${-direction*105}%) scale(.97)`,opacity:0}],timing),
+      current.animate([{transform:`translateX(${direction*105}%) scale(.97)`,opacity:.2},{transform:'translateX(0) scale(1)',opacity:1}],timing),
+      host.animate([{height:`${previousHeight}px`},{height:`${nextHeight}px`}],timing)
+    ];
+    host.classList.add('is-sliding');
+    Promise.all(projectAnimations.map(animation=>animation.finished.catch(()=>{}))).then(()=>{
+      if(version!==projectTransitionVersion)return;
+      previous.remove();host.classList.remove('is-sliding');
+      projectAnimations.forEach(animation=>animation.cancel());projectAnimations=[];
+    });
+    $('projectNeighbors').querySelectorAll('button').forEach(button=>button.animate([{opacity:.15},{opacity:1}],{duration:480,easing:'ease-out'}));
+  } else host.classList.remove('is-sliding');
 }
 function selectGame(index,manual=false) {
   if(!carouselOrder.length)return;
   const next=(index+carouselOrder.length)%carouselOrder.length;
   if(manual && next===carouselIndex)return;
-  $('gameSelector').style.setProperty('--slide-direction',index<carouselIndex?-1:1);
+  const direction=index<carouselIndex?-1:1;
   carouselIndex=next;
   const p=carouselOrder[carouselIndex];
   $('gameSelector').dataset.game=projectId(p);
-  renderSelectedGame(p);
+  renderSelectedGame(p,manual?direction:0);
   $('carouselCount').innerHTML=`<strong>${String(carouselIndex+1).padStart(2,'0')}</strong><span>/ ${String(carouselOrder.length).padStart(2,'0')}</span>`;
   $('gameTabs').querySelectorAll('[data-game-index]').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===carouselIndex)));
   if(manual)$('carouselAnnouncement').textContent=`${p.title} 선택됨`;
@@ -318,7 +346,8 @@ function bindCarousel() {
   $('gameTabs').addEventListener('click',event=>{
     const button=event.target.closest('[data-game-index]');if(!button)return;
     selectGame(Number(button.dataset.gameIndex),true);
-    if(matchMedia('(max-width:600px)').matches)$('projectStage').scrollIntoView({block:'start',behavior:motionPaused?'instant':'smooth'});
+    const stage=$('projectStage');
+    if(stage.getBoundingClientRect().top<85 || matchMedia('(max-width:600px)').matches)stage.scrollIntoView({block:'start',behavior:motionPaused?'instant':'smooth'});
   });
   $('projectStage').addEventListener('keydown',event=>{
     if(!event.target.closest('.project-arrow,.project-neighbor')||!['ArrowLeft','ArrowRight'].includes(event.key))return;
